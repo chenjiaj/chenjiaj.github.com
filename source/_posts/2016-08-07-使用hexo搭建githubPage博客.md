@@ -35,7 +35,7 @@ tags:
 	$ hexo generate
 	$ hexo deploy
 
-5.访问你的githubpage，便可以查看效果 ,例如：http://chenjiaj.github.io/
+5.访问你的githubpage，便可以查看效果 ,例如：https://chenjiaj.github.io/
 
 ## 三、更换主题
 

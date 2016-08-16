@@ -1,5 +1,7 @@
 {
     "new": {
-        "selector": [".menu-search"]
+        "selector": [
+            ".menu-search"
+        ]
     }
 }

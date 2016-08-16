@@ -1,33 +1,33 @@
 # 菜单配置（若不需要某项可直接删除）
 menu:
   # 首页
-  - id: 首页
+  - id: home
     link: /
     icon: home
     class: menu-home
   # 归档
-  - id: 归档
+  - id: archives
     link: /archives
     icon: archive
     class: menu-archive
   # 目录
-  - id: 目录
+  - id: category
     link: javascript:;
     category: true
     icon: bookmark
     class: menu-category
   # 读书
-  - id: 读书
+  - id: reading
     link: /reading
     icon: book
     class: menu-reading
   # 关于
-  - id: 关于
+  - id: about
     link: /about
     icon: user
     class: menu-about
   # 搜索
-  - id: 搜索
+  - id: search
     link: "#search"
     icon: search
     class: menu-search modal-trigger
@@ -37,9 +37,9 @@ color:
   header: light-blue accent-4
   footer: light-blue accent-4
   page_nav: light-blue accent-4
-  side_nav: light-blue accent-4
+  side_nav: light-blue darken-1
   tag: pink lighten-1
-  article_title_link: blue
+  article_title_link: light-blue
   link: pink
   pagination: pink
   tab: pink
@@ -48,8 +48,8 @@ color:
   fab_2: green
   fab_3: yellow darken-1
   new: pink
-  about_header: light-blue accent-4
-  about_title: light-blue accent-4
+  about_header: light-blue 
+  about_title: light-blue 
 
 excerpt_link: Read More
 archive_yearly: true

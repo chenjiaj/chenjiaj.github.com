@@ -20,7 +20,7 @@
             <li class="no-padding">
                 <a class="waves-effect <%= theme.menu[i].class %> <%= theme.menu[i].category ? 'category-menu' : '' %>" href="<%= theme.menu[i].link %>" <% if (theme.menu[i].category) { %>data-activates="category-menu" <% } %>>
                     <i class="fa fa-<%= theme.menu[i].icon %> "></i>
-                    <% var menuTextKey = theme.menu[i].id; %>
+                    <% var menuTextKey = 'menu.' + theme.menu[i].id; %>
                     <%= __(menuTextKey) %>
                 </a>
             </li>

@@ -1,11 +1,10 @@
 {
     "social": {
-        "weibo": "http://weibo.com/1956184117",
-        "github": "https://github.com/raytaylorlin",
-		"rss": "/atom.xml"
+        "github": "https://github.com/chenjiaj",
+		"book": "http://www.jianshu.com/users/b16dec48b1fe/latest_articles"
     },
     "extern": {
-	    "raytaylorism主题作者的技术博客": "http://raytaylorlin.com/",
-		"Github地址（测试友情链接）": "https://github.com/raytaylorlin"
+	    "我的简书": "http://www.jianshu.com/users/b16dec48b1fe/latest_articles",
+		"我的Github": "https://github.com/chenjiaj"
     }
 }
