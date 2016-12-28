@@ -28,14 +28,16 @@ tags:
   		type: git
  		repo: git@github.com:chenjiaj/chenjiaj.github.com.git
   		branch: master
-  
+4.创建新博文
 
-4.生成静态文件，并上传部署
+    $ hexo new [layout] <title>
+
+5.生成静态文件，并上传部署
 	
 	$ hexo generate
 	$ hexo deploy
 
-5.访问你的githubpage，便可以查看效果 ,例如：https://chenjiaj.github.io/
+6.访问你的githubpage，便可以查看效果 ,例如：http://chenjiaj.github.io/
 
 ## 三、更换主题
 
@@ -52,10 +54,3 @@ tags:
 1.hexo用 node.js，jekyll 用 Ruby。根据个人喜好选择，个人觉得hexo搭建本地环境更方便，特别是对于前端开发来说。并且hexo生成速度更快
 
 2.jekyll可以把原文上传到 github， 可以直接生成博客，也可以用在编辑器处理。相比而言，hexo这一点稍微麻烦一点，需要先生成html静态文件再上传，因为有现成的hexo generate，hexo deploy命令，所以操作起来也不麻烦。hexo需要把原文件传到另一个分支或者项目，便于对原文件的版本管理。
-
-
-
-
-
-
-
