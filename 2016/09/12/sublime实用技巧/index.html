@@ -1,0 +1,610 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>sublime实用技巧 | </title>
+    <meta name="author" content="chenjiajun">
+    
+    <meta name="description" content="sublime是一款具有漂亮的用户界面和强大的功能且小巧高速的代码编辑器。它最大的特点就是可以根据自己的需求下载需要的插件，自定义一款适合自己编码习惯的编辑器。
+一、安装Package Control安装插件之前需要先安装Package Control。按Ctrl+`调出console（或点击菜单栏">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="sublime实用技巧">
+    <meta property="og:site_name" content="chenjiajun">
+
+    
+    <meta property="og:image" content="undefined">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="chenjiajun" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="light-blue accent-4">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">chenjiajun</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav light-blue darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://upload.jianshu.io/users/upload_avatars/1210894/9f3436e83320?imageMogr/thumbnail/90x90/quality/100" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">chenjiajun</p>
+                        <p class="desc">Web前端</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav light-blue darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/插件/">
+                    插件 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/canvas/">
+                    canvas <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/hexo/">
+                    hexo <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/js/">
+                    js <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/sublime/">
+                    sublime <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/vue/">
+                    vue <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/总结/">
+                    总结 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/微信/">
+                    微信 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper light-blue accent-4">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/sublime/">sublime</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>sublime实用技巧</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2016-09-12T02:39:33.000Z"><a href="/2016/09/12/sublime实用技巧/">2016-09-12</a></time>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/sublime/" class="chip pink lighten-1">sublime</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一、安装Package-Control"><span class="section table-of-contents-text">一、安装Package Control</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#二、用Package-Control安装其他插件"><span class="section table-of-contents-text">二、用Package Control安装其他插件</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-Emmet"><span class="section table-of-contents-text">1.Emmet</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-JS-Format"><span class="section table-of-contents-text">2.JS Format</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#3-sublimelinter-sublimelinter-jshint-npw-install-g-jshint"><span class="section table-of-contents-text">3.sublimelinter+sublimelinter-jshint+npw install -g jshint</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#4-docblockr"><span class="section table-of-contents-text">4.docblockr</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#5-nettus-fetch2"><span class="section table-of-contents-text">5.nettus fetch2</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#6-advanceNewfile"><span class="section table-of-contents-text">6.advanceNewfile</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#7-snippets"><span class="section table-of-contents-text">7.snippets</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#8-主题"><span class="section table-of-contents-text">8.主题</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#三、常用快捷键及使用技巧"><span class="section table-of-contents-text">三、常用快捷键及使用技巧</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>sublime是一款具有漂亮的用户界面和强大的功能且小巧高速的代码编辑器。它最大的特点就是可以根据自己的需求下载需要的插件，自定义一款适合自己编码习惯的编辑器。</p>
+<h3 id="一、安装Package-Control"><a href="#一、安装Package-Control" class="headerlink" title="一、安装Package Control"></a>一、安装Package Control</h3><p>安装插件之前需要先安装Package Control。按Ctrl+`调出console（或点击菜单栏view-&gt;showConsole），粘贴安装代码（见<a href="https://packagecontrol.io/installation#st3）到底部命令行并回车：重启Sublime" target="_blank" rel="noopener">https://packagecontrol.io/installation#st3）到底部命令行并回车：重启Sublime</a> Text 2。如果在Perferences-&gt;package settings中看到package control这一项，则安装成功。</p>
+<h3 id="二、用Package-Control安装其他插件"><a href="#二、用Package-Control安装其他插件" class="headerlink" title="二、用Package Control安装其他插件"></a>二、用Package Control安装其他插件</h3><p>按下Ctrl+Shift+P调出命令面板，输入install 调出 Install Package 选项并回车，然后在列表中选中要安装的插件。可以在<a href="https://packagecontrol.io/browse查阅想要下载的插件。" target="_blank" rel="noopener">https://packagecontrol.io/browse查阅想要下载的插件。</a></p>
+<p>常用插件如下：</p>
+<h5 id="1-Emmet"><a href="#1-Emmet" class="headerlink" title="1.Emmet"></a>1.Emmet</h5><p>emmet是一种快速的html、css编写方式。默认用tab键、’ctrl+E’。直接在html代码中或者通过ctrl+alt+enter弹出代码框，写入类似以下格式的代码（ul&gt;.item{content}$*10）（&gt; 号生成子元素 ，$ 产生序号，{ }产生内容）,点击’ctrl+E’或tab键会自动生成html代码。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-32d01baf9fefd549.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-7d00aa418ca3ce7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<h5 id="2-JS-Format"><a href="#2-JS-Format" class="headerlink" title="2.JS Format"></a>2.JS Format</h5><p>一个JS代码格式化插件。默认ctrl+alt+f</p>
+<h5 id="3-sublimelinter-sublimelinter-jshint-npw-install-g-jshint"><a href="#3-sublimelinter-sublimelinter-jshint-npw-install-g-jshint" class="headerlink" title="3.sublimelinter+sublimelinter-jshint+npw install -g jshint"></a>3.sublimelinter+sublimelinter-jshint+npw install -g jshint</h5><p>使用lint进行语法及风格校验jshint可以统一编码风格。</p>
+<p>安装jshint的步骤：<br>ctrl+shift+p打开命令模式—&gt;输入pcip回车—&gt;输入sublimelinter回车（是总体框架，如果需要对js进行校验的话，还需要安装针对js的校验插件，其中有两套js校验插件，分别是jslint,jshint,其中jshint是最流行的，此处也是安装jshint为主）—&gt;ctrl+shift+p—&gt;输入sublimelinter-jshint回车进行安装—&gt;下载node.js进行安装（因为用命令方式安装jshint插件用到npw install(node版本库），到node.js官网下载node-v6.2.0-x64.msi并且点击安装，安装完成之后—&gt;需要在命令行安装jshint,命令代码时：npw install -g jshint。如果没有安装node的话，那么npw命令就是无效的。注意：在sublime text使用sublimelinter jshint，那么jshint版本必须大于2.4。</p>
+<p>jshint文档网址：jshint.com/docs/options/</p>
+<p>如何在js中使用校验呢？</p>
+<p>步骤如下：ctrl+alt+n打开一个新文件—&gt;切换到js语法模式—&gt;如果用户在js文件上写上var x=123后面却没有分号的话，那么该行的左边就会有个黄色的圆点进行提示用户，这里需要加上分号。如果在js中定义一个数值，一个字符串，虽然这两个值相同，但是类型不同，一个数值型，另一个是字符串类型，所以要判断这两个变量是否相等就需要用到三等于了，但是如果我们不小心写少了一个等号的话，就很难察觉了，为了避免这种情况的发生，我们需要自定义校验，自定义校验的步骤如下：定义一个名称为.jshintrc的配置文件，该文件里面的内容是json格式的，内容如下：{“eqeqeq”:true,//校验三等的情况”curly”:true//校验if，for语法没有写花括号的情况}</p>
+<h5 id="4-docblockr"><a href="#4-docblockr" class="headerlink" title="4.docblockr"></a>4.docblockr</h5><p>安装之后输入/*按回车，补充注释。输入/<strong>按回车，补充多行注释。在写好的函数上方输入/</strong>按tab键，自动补充函数说明</p>
+<h5 id="5-nettus-fetch2"><a href="#5-nettus-fetch2" class="headerlink" title="5.nettus fetch2"></a>5.nettus fetch2</h5><p>命令行：管理 fetch:Manage(可配置需要的）<br>如何用fetch 快速下载JQuery1）Ctrl+Alt+N 在public/js/jquery.js 创建文件2)在文件中，Ctrl+Shift+P fetch File JQuery下载安装Nettuts+ Fetch (<a href="https://packagecontrol.io/packages/Nettuts%2B%20Fetch)通过这个插件能方便的更新前端开发所需的一些组件类库。" target="_blank" rel="noopener">https://packagecontrol.io/packages/Nettuts%2B%20Fetch)通过这个插件能方便的更新前端开发所需的一些组件类库。</a><br>命令模式下，打开Fetch:Manager，看到现有的组件类库配置信息.alt+command+N 创建 public/js/jquery.js文件，Tools-&gt;Command Palette… (shift+command+P) 打开命令模式, 打开Fetch:File，看到Jquery回车就能下载最新版本的Jquery类库.</p>
+<h5 id="6-advanceNewfile"><a href="#6-advanceNewfile" class="headerlink" title="6.advanceNewfile"></a>6.advanceNewfile</h5><p>安装advanceNewfile插件，快捷键Ctrl+Alt+N，可以直接创建路径及里面的文件</p>
+<h5 id="7-snippets"><a href="#7-snippets" class="headerlink" title="7.snippets"></a>7.snippets</h5><p>snippets有很多，根据需要选择自己常用的<br>javaScript snippets<br>（1）.[ctrl+shift+P]+输入’pci’+输入’JavaScript Completions’<br>（2）.输入’gi’，自动产生 getElementById<br>JQuery snippets<br>（1）[ctrl+shift+P]+输入’pci’+输入’JQuery’<br>（2）输入’get’，自动产生 get请求<br>（3）输入’post’，自动产生 post请求<br>Insert Callback<br>（1）[ctrl+shift+P]+输入’pci’+输入’Insert Callback’<br>（2）[alt+C]，自动产生 callBack function</p>
+<h5 id="8-主题"><a href="#8-主题" class="headerlink" title="8.主题"></a>8.主题</h5><p>主题插件有很多，可以在<a href="https://packagecontrol.io/browse/labels/theme中查阅下载" target="_blank" rel="noopener">https://packagecontrol.io/browse/labels/theme中查阅下载</a></p>
+<h3 id="三、常用快捷键及使用技巧"><a href="#三、常用快捷键及使用技巧" class="headerlink" title="三、常用快捷键及使用技巧"></a>三、常用快捷键及使用技巧</h3><blockquote>
+<p><code>ctrl+shift+v</code> ： 粘贴时保持缩进<br><code>Ctrl+H</code> ：查找替换<br><code>Ctrl+D</code> ：选择游标所在单词，连续Ctrl+D 实现多行选择（选择与第一次选择相同的单词）<br><code>Ctrl+K</code> <code>Ctrl+D</code> 跳过当前选择，选择下一个<br><code>Ctrl+shirt+D</code>：复制游标所在行<br><code>Alt+F3</code>：选择所有与游标所在单词相同的单词<br>按住shift键，然后按住鼠标右键向下拖动，也可产生多行游标<br><code>ctrl+shift+P</code>(1)输入：js 选set:syntax<br>快速设置文本语法(2)输入：minimap，选择view:toggle minimap可以切换缩略图的显示。<br><code>ctrl+p</code>输入：goto anything ;如：@body 可快速找到css选择器、直接模糊查找文件<br><code>ctrl+shirt+enter</code>： 在当前上方添加一行<br><code>ctrl+enter</code>： 在当前下方添加一行<br><code>Ctrl+]</code>：增加缩进<br><code>Ctrl+[</code>：减小缩进<br><code>Alt+Shift+1~9</code>：（非小键盘）屏幕显示相等数字的小窗口<br><code>Alt+数字</code>：切换打开第N个文件<br><code>Ctrl+Tab</code>：按文件浏览过的顺序，切换当前窗口的标签页。</p>
+</blockquote>
+<p>附录：<br>Package Control：<a href="https://packagecontrol.io/installation#st3" target="_blank" rel="noopener">https://packagecontrol.io/installation#st3</a><br>学习视频：<a href="http://www.imooc.com/learn/40" target="_blank" rel="noopener">http://www.imooc.com/learn/40</a><br>Sublime Text 3 快捷键精华版：<a href="http://www.jianshu.com/p/de9746bf3e15" target="_blank" rel="noopener">http://www.jianshu.com/p/de9746bf3e15</a></p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer light-blue accent-4 darken-1">
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="social-group col m3 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">
+                        <i class="fa fa-2x fa-book"></i>
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="col m9 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">我的简书</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">我的Github</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-search').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>express4构建单页应用一 | </title>
+    <meta name="author" content="chenjiajun">
+    
+    <meta name="description" content="想要构建一个vue2的单页应用，发现vue-cli生成的项目虽然可以直接用，但是生成的项目是用的vue1，而且直接使用也不能完全掌握和了解项目用了哪些插件和打包工具，为了自己更好的了解和学习开发vue2需要用到的打包工具和相关插件，自己看了许多博客，总结了以下一个构建基本vue2单页项目的流程，对于">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="express4构建单页应用一">
+    <meta property="og:site_name" content="chenjiajun">
+
+    
+    <meta property="og:image" content="undefined">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="chenjiajun" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="light-blue accent-4">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">chenjiajun</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav light-blue darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://upload.jianshu.io/users/upload_avatars/1210894/9f3436e83320?imageMogr/thumbnail/90x90/quality/100" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">chenjiajun</p>
+                        <p class="desc">Web前端</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav light-blue darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/插件/">
+                    插件 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/canvas/">
+                    canvas <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/hexo/">
+                    hexo <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/js/">
+                    js <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/sublime/">
+                    sublime <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/vue/">
+                    vue <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/总结/">
+                    总结 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/微信/">
+                    微信 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper light-blue accent-4">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/vue/">vue</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>express4构建单页应用一</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2016-12-28T08:45:31.000Z"><a href="/2016/12/28/express4构建单页应用一/">2016-12-28</a></time>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/vue/" class="chip pink lighten-1">vue</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#一、环境"><span class="section table-of-contents-text">一、环境</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#二、创建基本项目"><span class="section table-of-contents-text">二、创建基本项目</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#三、添加热加载"><span class="section table-of-contents-text">三、添加热加载</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#四、将开发的webpack配置提取出来"><span class="section table-of-contents-text">四、将开发的webpack配置提取出来</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#五、生成环境打包"><span class="section table-of-contents-text">五、生成环境打包</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>想要构建一个vue2的单页应用，发现vue-cli生成的项目虽然可以直接用，但是生成的项目是用的vue1，而且直接使用也不能完全掌握和了解项目用了哪些插件和打包工具，为了自己更好的了解和学习开发vue2需要用到的打包工具和相关插件，自己看了许多博客，总结了以下一个构建基本vue2单页项目的流程，对于vue2和webpack小白可以跟着步骤试着自己构建一个小项目，如有大神请多指教。</p>
+<p>完整源码链接：<a href="https://github.com/chenjiaj/vue2-express4-webpack" target="_blank" rel="noopener">https://github.com/chenjiaj/vue2-express4-webpack</a></p>
+<h2 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h2><p>需要安装node v4.4.4及以上</p>
+<h2 id="二、创建基本项目"><a href="#二、创建基本项目" class="headerlink" title="二、创建基本项目"></a>二、创建基本项目</h2><p>1.打开cmd,运行 npm install express-generator -g （express-generator是express的应用生成器,相关介绍:<a href="http://www.expressjs.com.cn/starter/generator.html）" target="_blank" rel="noopener">http://www.expressjs.com.cn/starter/generator.html）</a><br>用生成器生成主要是为了使用bin文件夹下的www文件，为了少写一点打印的日志而已，对应不需要的，可以不用生成器生成，自己创建server就行，可以用http模块或者直接调用app.listen都可以</p>
+<p>2.切换到你要生成项目的目录，然后运行 express myapp，生成新的express项目，目录如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-bd7539f2841c5745.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>3.删除public、routes、views文件夹，现在项目目录如下</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-2a8d74b4ff18d214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>4.在根目录下创建index.html，内容如下：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;   
+     &lt;meta charset=&quot;UTF-8&quot;&gt; &lt;title&gt;Title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;  
+     &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+ &lt;/html&gt;
+</code></pre><p>5.在根目录下添加src文件，然后创建app.vue和main.js</p>
+<p>app.vue的内容如下：</p>
+<pre><code>&lt;template&gt;
+   &lt;div&gt;hello , this app vue !&lt;/div&gt;
+&lt;/template&gt;
+&lt;style&gt;  
+     body{color:red;}
+&lt;/style&gt;
+</code></pre><p>main.js的内容如下：</p>
+<pre><code>import Vue from &quot;vue&quot;;
+import App from &quot;./app&quot;;
+new Vue({
+    el:&apos;#app&apos;, 
+    render:h=&gt; h(App)
+})
+</code></pre><p>如果是用的webStorm,请将language设置为ECMAScript6,这样才不会报错误提示<br><img src="http://upload-images.jianshu.io/upload_images/1210894-19e2dc588efa8c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>6.需要安装以下依赖，将package.json文件替换如下：</p>
+<pre><code>{  &quot;name&quot;: &quot;myapp&quot;,  
+    &quot;version&quot;: &quot;0.0.0&quot;, 
+    &quot;private&quot;: true,  
+    &quot;scripts&quot;: {    &quot;start&quot;: &quot;node ./bin/www&quot;  },     
+    &quot;devDependencies&quot;: {
+      &quot;babel-core&quot;: &quot;^6.20.0&quot;,    
+      &quot;babel-loader&quot;: &quot;^6.2.9&quot;,    
+      &quot;babel-plugin-transform-runtime&quot;: &quot;^6.15.0&quot;,    
+      &quot;babel-preset-es2015&quot;: &quot;^6.18.0&quot;,   
+      &quot;babel-runtime&quot;: &quot;^5.8.38&quot;,    
+      &quot;babel-preset-stage-2&quot;: &quot;^6.18.0&quot;,
+      &quot;html-webpack-plugin&quot;: &quot;^2.24.1&quot;,   
+      &quot;vue-html-loader&quot;: &quot;^1.2.3&quot;,   
+      &quot;css-loader&quot;: &quot;^0.26.1&quot;,
+      &quot;vue-loader&quot;: &quot;^10.0.2&quot;,    
+      &quot;vue-template-compiler&quot;: &quot;^2.1.6&quot;,    
+      &quot;webpack&quot;: &quot;^1.14.0&quot;,   
+      &quot;webpack-dev-middleware&quot;: &quot;^1.6.1&quot; 
+     }, 
+     &quot;dependencies&quot;: {    
+        &quot;express&quot;: &quot;^4.14.0&quot;,   
+        &quot;vue&quot;: &quot;^2.1.6&quot;,   
+        &quot;vue-router&quot;: &quot;^2.1.1&quot; 
+     }
+}
+</code></pre><p><strong>以babel-开头</strong>：都是用于兼容es6写法，将es6的代码转换成es5的代码<br>参考：<a href="http://babeljs.io/docs/setup/#installation" target="_blank" rel="noopener">http://babeljs.io/docs/setup/#installation</a></p>
+<p><strong>webpack</strong> ：webpack打包需要引入的核心包</p>
+<p><strong>html-webpack-plugin</strong>：是webpack的插件，这个插件用来简化创建服务于 webpack bundle 的 HTML 文件，尤其是对于在文件名中包含了 hash 值，而这个值在每次编译的时候都发生变化的情况。你既可以让这个插件来帮助你自动生成 HTML 文件，也可以使用 lodash 模板加载生成的 bundles，或者自己加载这些 bundles。</p>
+<p><strong>vue-loader</strong>：是webpack的loader,能够将.vue文件转换成js文件</p>
+<p><strong>vue-html-loader</strong>、<strong>vue-template-compiler</strong>、<strong>css-loader</strong>：这三个都是webpack的loader,都是将.vue文件转换成js文件的依赖</p>
+<p><strong>webpack-dev-middleware</strong> ：需要webpack打包的项目，开发时使用的中间件，主要作用是不需要将打包生成的文件放在硬盘中，而是放在内存中，这样可以提高开发效率，而且配合webpack-hot-middleware中间件使用可以实现热加载（热加载插件后面会介绍）</p>
+<p>7.在根目录下添加build文件夹，在文件夹内创建webpack.base.conf.js，内容如下：</p>
+<pre><code>// nodejs 中的path模块
+var path = require(&apos;path&apos;);
+var webpack = require(&apos;webpack&apos;);
+var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+module.exports = {
+    // 入口文件，path.resolve()方法，可以结合我们给定的两个参数最后生成绝对路径，最终指向的就是我们的index.js文件 
+    entry: {  index: [   path.resolve(__dirname, &apos;../src/main.js&apos;)  ] },
+    // 输出配置 
+    output: {  // 输出路径是 myProject/output/static  
+        path: path.resolve(__dirname, &apos;../output&apos;), 
+        publicPath:&apos;/&apos;,  filename: &apos;[name].[hash].js&apos; 
+    },
+     resolve: {  
+        extensions: [&apos;&apos;, &apos;.js&apos;, &apos;.vue&apos;], 
+        alias: {   &apos;vue&apos;: &apos;vue/dist/vue.js&apos;  } // 设置别名vue1不需要设置，vue2必须设置 否则会报错 
+    },
+    module: {  
+        loaders: [   
+        // 使用vue-loader 加载 .vue 结尾的文件   
+            {    test: /\.vue$/,    loader: &apos;vue&apos;   },  
+             {    test: /\.js$/,    loader: &apos;babel&apos;,    exclude: /node_modules/   }  ]
+    }, 
+    vue: {  loaders: {   js: &apos;babel&apos;  } }, 
+    plugins:[  
+        new HtmlWebpackPlugin({   
+              filename: &apos;index.html&apos;,  
+              template: path.resolve(__dirname, &apos;../index.html&apos;),  
+              inject: true  
+          }) ]
+ }
+</code></pre><p>8.将根目录下app.js内容替换如下：</p>
+<pre><code>var express = require(&apos;express&apos;);
+var path = require(&apos;path&apos;);
+var webpack = require(&apos;webpack&apos;);
+var webpackConfig = require(&apos;./build/webpack.base.conf&apos;);
+var app = express();// 创建一个express实例
+var compiler = webpack(webpackConfig);// 调用webpack并把配置传递过去
+// 使用 webpack-dev-middleware 中间件
+var devMiddleware = require(&apos;webpack-dev-middleware&apos;)(compiler, { 
+   publicPath: &apos;/&apos;, 
+   stats: {   
+     colors: true,    
+    chunks: false  
+  }});
+app.use(devMiddleware);
+module.exports = app;
+</code></pre><p>10.在根目录下添加.babelrc文件，内容如下：</p>
+<pre><code>{  &quot;presets&quot;: [&quot;es2015&quot;,&quot;stage-2&quot;],  &quot;plugins&quot;: [&quot;transform-runtime&quot;],  &quot;comments&quot;: false}
+</code></pre><p>9.在根目录下运行 npm install ,然后运行npm start,webpack编译完之后如下图所示，就可以通过<a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a> 访问了，效果如图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-d9e25c9616f979a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-aa6a53d0798ab337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>这样就生成了一个简单的应用。</p>
+<h2 id="三、添加热加载"><a href="#三、添加热加载" class="headerlink" title="三、添加热加载"></a>三、添加热加载</h2><p>开发是需要热加载，即修改完代码后重新编译并更新浏览器，提高开发效率<br>热加载需要webpack-hot-middleware中间件（<a href="https://www.npmjs.com/package/webpack-hot-middleware）" target="_blank" rel="noopener">https://www.npmjs.com/package/webpack-hot-middleware）</a><br>1.在项目根目录下运行npm install –save-dev  webpack-hot-middleware<br>2.打开app.js,添加app.use(require(“webpack-hot-middleware”)(compiler));<br>3.在webpack.base.js中的plugins中添加</p>
+<pre><code>// Webpack 1.0
+new webpack.optimize.OccurenceOrderPlugin(),
+// Webpack 2.0 fixed this mispelling
+// new webpack.optimize.OccurrenceOrderPlugin(),
+new webpack.HotModuleReplacementPlugin(),
+new webpack.NoErrorsPlugin()
+</code></pre><p><strong>方法一:只完成以下步骤4</strong></p>
+<p>4.在webpack.base.conf.js中添加以下代码：</p>
+<pre><code>Object.keys(webpackConf.entry).forEach(function (name) { 
+    var extras = [&apos;webpack-hot-middleware/client?reload=1&apos;];
+     webpackConf.entry[name] = extras.concat(webpackConf.entry[name]);
+});
+</code></pre><p><strong>方法二:以下步骤4-6</strong></p>
+<p>4.在build文件夹中新建hot-client.js文件，内容如下：</p>
+<pre><code>// 动态向入口配置中注入 webpack-hot-middleware/client
+var hotClient = require(&apos;webpack-hot-middleware/client&apos;)
+// 订阅事件，当 event.action === &apos;reload&apos; 时执行页面刷新
+hotClient.subscribe(function (event) {
+     if (event.action === &apos;reload&apos;) {  window.location.reload() }
+})
+</code></pre><ol start="5">
+<li>修改webpack.base.conf.js中的enter,改为以下代码：</li>
+</ol>
+<pre><code>entry: { 
+  index: [ 
+      &apos;webpack-hot-middleware/client&apos;,  
+      path.resolve(__dirname, &apos;../src/main.js&apos;) ]
+}
+</code></pre><p>6.在webpack.base.conf.js中添加以下代码：</p>
+<pre><code>var hotClient = &apos;./build/hot-client&apos;;
+Object.keys(webpackConf.entry).forEach(function (name) { 
+    var extras = [hotClient];
+     webpackConf.entry[name] = extras.concat(webpackConf.entry[name]);
+});
+</code></pre><p>重新启动服务，修改vue或者js可以看到浏览器自动更新了</p>
+<p><strong> 注意如果编辑器是webstorm的要将settings=&gt;appearance=&gt;system settings中synchronization中的最后一个选项不勾选，否则没有效果 </strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-4700764dda1c0065.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<h2 id="四、将开发的webpack配置提取出来"><a href="#四、将开发的webpack配置提取出来" class="headerlink" title="四、将开发的webpack配置提取出来"></a>四、将开发的webpack配置提取出来</h2><p>因为开发时需要webpack-dev-middleware、webpack-hot-middleware这两个中间件，但是正真发布的时候并不需要，因此需要将这两个的配置提取出来。</p>
+<p>webpack-dev-middleware 这个中间件的作用是 开发的时候不生成代码，编译后的代码放在内存中，不会写入硬盘，因此不用每次编译都生成新的文件，提高开发效率</p>
+<p>webpack-hot-middleware用于热加载，修改代码后立即更新</p>
+<p>1.首先运行npm install –save-dev webpack-merge 下载 webpack-merge 工具，用于合并webpack配置使用</p>
+<p>2.运行 npm install –save-dev cross-env 下载cross-env工具，用户在命令中设置环境变量</p>
+<p>3.在build文件夹中新建webpack.dev.conf.js，写入以下代码：</p>
+<pre><code>var path = require(&apos;path&apos;);
+var webpack = require(&apos;webpack&apos;);
+var webPackBaseConf = require(&apos;./webpack.base.conf&apos;);
+var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+var merge = require(&apos;webpack-merge&apos;);
+var hotClient = &apos;./build/hot-client&apos;;
+
+var webpackDevConf = merge(webPackBaseConf,{ 
+    entry: { index: [  hotClient,  path.resolve(__dirname, &apos;../src/main.js&apos;) ]},
+    plugins:[  
+    // Webpack 1.0  new webpack.optimize.OccurenceOrderPlugin(), 
+    // Webpack 2.0 fixed this mispelling  
+    // new webpack.optimize.OccurrenceOrderPlugin(),  
+    new webpack.HotModuleReplacementPlugin(),  
+    new webpack.NoErrorsPlugin()
+    ]});
+
+Object.keys(webpackDevConf.entry).forEach(function (name) { 
+    var extras = [hotClient]; 
+    webpackDevConf.entry[name] = extras.concat(webpackDevConf.entry[name]);
+});
+module.exports = webpackDevConf;
+</code></pre><p>然后删除webpack.base.conf.js中对应的代码</p>
+<p>注意删除的时候小心，不要将webpack.base.conf.js中的下面代码删掉了</p>
+<pre><code>plugins:[new HtmlWebpackPlugin({   
+    filename: &apos;index.html&apos;,   
+    template: path.resolve(__dirname, &apos;../index.html&apos;),   
+    inject: true  }) 
+]})]
+</code></pre><p>4.修改package.json中script中start改为如下：</p>
+<pre><code>&quot;start&quot;: &quot;cross-env NODE_ENV=development node bin/www&quot;
+</code></pre><p>运行这个命令会将环境变量设置为development（默认也是development ，但为了避免环境配置被修改的情况下可以手动设置一次）</p>
+<p>5.修改app.js,添加环境变量判断，将开发使用的中间件添加到条件成立时执行，改为如下：</p>
+<pre><code>var express = require(&apos;express&apos;);
+var path = require(&apos;path&apos;);
+// 创建一个express实例
+var app = express();
+if(app.get(&apos;env&apos;) == &apos;development&apos;){  
+      var webpack = require(&apos;webpack&apos;);
+      var webpackConfig = require(&apos;./build/webpack.dev.conf&apos;);
+     // 调用webpack并把配置传递过去 
+     var compiler = webpack(webpackConfig);  
+    // 使用 webpack-dev-middleware 中间件  
+    var devMiddleware = require(&apos;webpack-dev-middleware&apos;)(compiler, {   
+       publicPath: &apos;/&apos;,   
+       stats: {      colors: true,      chunks: false    }  
+    });    
+    app.use(devMiddleware);  
+    app.use(require(&quot;webpack-hot-middleware&quot;)(compiler));  
+
+}
+module.exports = app;
+</code></pre><p>重新启动服务查看效果</p>
+<p>五、添加路由实现单页应用</p>
+<p>1.按照下图添加文件夹和文件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-9a2df2adbeda9a4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>说明：<br>components文件夹中放公用组件<br>router放置路由相关配置的js<br>views下放置单页的vue，按照模块放置</p>
+<p>现在模拟一个场景：<br>有两个页面首页和用户页</p>
+<p>1.修改main.js</p>
+<pre><code>import Vue from &quot;vue&quot;;
+import router from &apos;./router/index&apos;;//引入路由配置
+import App from &quot;./app&quot;;
+import VueRouter from &quot;vue-router&quot;;
+
+Vue.config.debug = true;//开启错误提示
+
+Vue.use(VueRouter);
+
+const app = new Vue({ 
+    el:&apos;#app&apos;, 
+    router:router,//添加路由配置
+    render: h =&gt; h(App)
+});
+</code></pre><p>2.修改app.vue</p>
+<p>添加<router-view></router-view>（路由更新的地方）<br><strong>注意<template></template>中的代码必须有一个包裹元素</strong></p>
+<p>3.在/src/router/index.js中添加：</p>
+<pre><code>import VueRouter from &quot;vue-router&quot;;
+import Index from &quot;../views/Index/index&quot;;
+import User from &quot;../views/User/user&quot;;
+const routes = [
+{
+     path:&apos;/&apos;, component:Index
+},
+{ 
+    path:&apos;/user&apos;, component:User
+}];
+const router = new VueRouter({ mode: &apos;history&apos;, routes});
+module.exports = router;
+</code></pre><p>4.在index.vue和user.vue中分别加上<template><div>this index page</div></template>和<template><div>this user page</div></template></p>
+<p>5.运行npm install –save connect-history-api-fallback，然后在app.js中加入<br>var history = require(‘connect-history-api-fallback’);<br>app.use(history());//放在app.use(devMiddleware);之前才有效(放在    if(app.get(‘env’) == ‘development’){  之前)</p>
+<p>单页请求，需要加上connect-history-api-fallback中间件否则会报404</p>
+<p><strong> 注意:一定要放在app.use(devMiddleware);之前才有效 </strong></p>
+<p>参考：<a href="https://github.com/bripkens/connect-history-api-fallback" target="_blank" rel="noopener">https://github.com/bripkens/connect-history-api-fallback</a></p>
+<p>重启服务，就可以访问<a href="http://localhost:3000看到如下" target="_blank" rel="noopener">http://localhost:3000看到如下</a></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-5dc0b0cb9b911758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>访问<a href="http://localhost:3000/user" target="_blank" rel="noopener">http://localhost:3000/user</a> 效果如下</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-6cb39695bc7aeb8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>完成以上步骤就可以开发用vue开发一个简单的单页应用了</p>
+<h2 id="五、生成环境打包"><a href="#五、生成环境打包" class="headerlink" title="五、生成环境打包"></a>五、生成环境打包</h2><p>1.运行 npm instal shelljs  ora –save-dev</p>
+<p>2.在build文件下创建一个webpack.prod.conf.js.内容如下：</p>
+<pre><code>var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;;
+var path = require(&apos;path&apos;);
+var webpack = require(&apos;webpack&apos;);
+var merge = require(&apos;webpack-merge&apos;);
+// 引入基本配置
+var webpackConf = require(&apos;./webpack.base.conf&apos;);
+var prodWebpackConf = merge(webpackConf,{ 
+    output:{  publicPath:&apos;/&apos;,  filename: &apos;static/js/[name].[hash].js&apos; },
+    plugins:[ 
+         new webpack.optimize.UglifyJsPlugin({  
+            compress: {    warnings: false   } 
+        })
+    ]});
+module.exports = prodWebpackConf;
+</code></pre><p>3.在build文件下创建一个build.js文件，内容如下：</p>
+<pre><code>// https://github.com/shelljs/shelljs
+require(&apos;shelljs/global&apos;);
+var path = require(&apos;path&apos;);
+var ora = require(&apos;ora&apos;);
+var webpack = require(&apos;webpack&apos;);
+var webpackConf = require(&apos;./webpack.prod.conf&apos;);
+console.log( &apos;  Tip:\n&apos; + &apos;  Built files are meant to be served over an HTTP server.\n&apos; + &apos;  Opening index.html over file:// won\&apos;t work.\n&apos;);
+var spinner = ora(&apos;building for production...&apos;);
+spinner.start();
+var assetsPath = path.join(&apos;/&apos;, &apos;static&apos;);
+rm(&apos;-rf&apos;, assetsPath);
+mkdir(&apos;-p&apos;, assetsPath);
+cp(&apos;-R&apos;, &apos;static/&apos;, assetsPath);
+webpack(webpackConf, function (err, stats) { 
+    spinner.stop();
+    if (err) throw err 
+    process.stdout.write(stats.toString({   
+        colors: true,   
+        modules: false,   
+        children: false,   
+        chunks: false,   
+        chunkModules: false  
+    }) + &apos;\n&apos;)
+ });
+</code></pre><p>4.在package.json的script中添加 “build”: “node build/build.js”</p>
+<p>5.运行npm run build 之后会生成一下文件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1210894-1ab5b23a0894bbab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>6.修改app.js,在if(app.get(‘env’) == ‘development’){……}条件后添加<br>    else{<br>        app.use(express.static(‘output’));<br>    }</p>
+<p>7.在package.json的script中添加 “prod”:”cross-env NODE_ENV=production node bin/www”</p>
+<p>8.运行npm run prod 就可以查看成产环境了</p>
+<p>9.一般生成环境用pm2来起服务，于是在根目录下创建pm2.json 内容如下：</p>
+<pre><code>{  &quot;apps&quot;: [    {      &quot;script&quot;: &quot;bin/www&quot;    }  ]}
+</code></pre><p>connect-history-api-fallback中间件注册一定要在app.use(express.static(path.join(__dirname, ‘output’)));之前<br>10.在package.json的script中添加 “pm2_start”:”cross-env NODE_ENV=production pm2 start pm2.json”</p>
+<p>运行 npm run pm2_start就可用pm2启动服务 （运行前需要安装过全局的pm2 ，   npm install -g pm2）</p>
+<p>完成以上步骤就可以基本完成一个简单的vue单页应用了</p>
+<p><strong>注意</strong></p>
+<p>1.connect-history-api-fallback中间件注册一定要在webpack-dev-middleware中间件注册之前<br>2.connect-history-api-fallback中间件注册一定要在app.use(express.static(path.join(__dirname, ‘output’)));之前</p>
+<p>参考链接：</p>
+<p>1.vue2官网：<a href="http://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">http://cn.vuejs.org/v2/guide/</a><br>2.vue-loader文档：<a href="https://vue-loader.vuejs.org/en/" target="_blank" rel="noopener">https://vue-loader.vuejs.org/en/</a><br>3.vue-cli创建项目介绍：<a href="https://vuejs-templates.github.io/webpack/" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack/</a></p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer light-blue accent-4 darken-1">
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="social-group col m3 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">
+                        <i class="fa fa-2x fa-book"></i>
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="col m9 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">我的简书</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">我的Github</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-search').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
