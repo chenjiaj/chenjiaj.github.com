@@ -1,0 +1,719 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>express4构建单页应用二 | </title>
+    <meta name="author" content="chenjiajun">
+    
+    <meta name="description" content="根据Vue2 + webpack + express4构建单页应用(一)已经构建了一个基本的小应用，但是还没有解决jquery的ajax请求、style模块中使用less等问题
+一、实现异步请求及转发1.客户端发起请求一直实现异步请求都是用ajax（XMLHttpRequest）来实现的  ,最近兴">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="express4构建单页应用二">
+    <meta property="og:site_name" content="chenjiajun">
+
+    
+    <meta property="og:image" content="undefined">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="chenjiajun" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="light-blue accent-4">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">chenjiajun</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav light-blue darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://upload.jianshu.io/users/upload_avatars/1210894/9f3436e83320?imageMogr/thumbnail/90x90/quality/100" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">chenjiajun</p>
+                        <p class="desc">Web前端</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav light-blue darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/插件/">
+                    插件 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/vue/">
+                    vue <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/js/">
+                    js <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/mysql/">
+                    mysql <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/node/">
+                    node <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/css/">
+                    css <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/sublime/">
+                    sublime <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/hexo/">
+                    hexo <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/微信/">
+                    微信 <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/canvas/">
+                    canvas <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/工具/">
+                    工具 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/总结/">
+                    总结 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/感悟/">
+                    感悟 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper light-blue accent-4">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/vue/">vue</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>express4构建单页应用二</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2016-12-28T08:46:20.000Z"><a href="/2016/12/28/Vue2-+-webpack-+-express4构建单页应用(二)/">2016-12-28</a></time>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/vue/" class="chip pink lighten-1">vue</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#一、实现异步请求及转发"><span class="section table-of-contents-text">一、实现异步请求及转发</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#1-客户端发起请求"><span class="section table-of-contents-text">1.客户端发起请求</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#2-node端转发异步请求"><span class="section table-of-contents-text">2.node端转发异步请求</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#二、使用less预编译语言"><span class="section table-of-contents-text">二、使用less预编译语言</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>根据<a href="http://www.jianshu.com/p/2e65ac138df6" target="_blank" rel="noopener">Vue2 + webpack + express4构建单页应用(一)</a>已经构建了一个基本的小应用，但是还没有解决jquery的ajax请求、style模块中使用less等问题</p>
+<h2 id="一、实现异步请求及转发"><a href="#一、实现异步请求及转发" class="headerlink" title="一、实现异步请求及转发"></a>一、实现异步请求及转发</h2><h3 id="1-客户端发起请求"><a href="#1-客户端发起请求" class="headerlink" title="1.客户端发起请求"></a>1.客户端发起请求</h3><p>一直实现异步请求都是用ajax（XMLHttpRequest）来实现的  ,最近兴起了ajax的替代技术fetch,XMLHttpRequest 是一个设计粗糙的 API，不符合关注分离（Separation of Concerns）的原则，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。</p>
+<p>Fetch 的出现就是为了解决 XHR 的问题。</p>
+<p>我在github上选择了一个支持前后端同构的fetch插件：<a href="https://github.com/matthew-andrews/isomorphic-fetch" target="_blank" rel="noopener">https://github.com/matthew-andrews/isomorphic-fetch</a></p>
+<p>在项目中执行 npm install –save isomorphic-fetch es6-promise 下载插件，可以在需要的地方按照下面方式使用：</p>
+<pre><code>import es6Promise from &apos;es6-promise&apos;;
+import fetch from &apos;isomorphic-fetch&apos;;
+es6Promise.polyfill();
+
+fetch(&apos;//offline-news-api.herokuapp.com/stories&apos;)
+    .then(function(response) {
+        if (response.status &gt;= 400) {
+            throw new Error(&quot;Bad response from server&quot;); } return response.json(); }
+     )
+    .then(function(stories) { console.log(stories); });
+</code></pre><p>一般在项目中会将以上代码抽离出来写成一个方法单独抽离出成一个文件，使用时引入文件调用该方法</p>
+<h3 id="2-node端转发异步请求"><a href="#2-node端转发异步请求" class="headerlink" title="2.node端转发异步请求"></a>2.node端转发异步请求</h3><p>node有一个http转发的中间件http-proxy-middleware</p>
+<p>npm install http-proxy-middleware –save 下载中间件</p>
+<p>然后在app.js中引入中间件并注册</p>
+<pre><code>var proxy = require(&apos;http-proxy-middleware&apos;);
+app.use(&apos;/api&apos;, proxy({target: &apos;http://www.example.org&apos;, changeOrigin: true}));
+</code></pre><p>详细使用，参考 <a href="https://github.com/chimurai/http-proxy-middleware#options" target="_blank" rel="noopener">https://github.com/chimurai/http-proxy-middleware#options</a></p>
+<h2 id="二、使用less预编译语言"><a href="#二、使用less预编译语言" class="headerlink" title="二、使用less预编译语言"></a>二、使用less预编译语言</h2><p>现在写样式一般可以使用预编译语言less或者sass</p>
+<p>根据个人习惯我选用的less，使用less需要有一下配置：</p>
+<p>1.在.vue文件中的<style>需要加上lang=”less”属性，如：</p>
+<pre><code>&lt;style lang=&quot;less&quot;&gt;
+</code></pre><p>2.下载less-loader、less插件，npm install –save-dev less-loader less</p>
+<p>3.在webpack.base.conf.js中加上postcss: [require(‘autoprefixer’)()]，如下：</p>
+<pre><code>vue: {
+    loaders: {  js: &apos;babel&apos; },
+    postcss: [require(&apos;autoprefixer&apos;)()]
+}
+</code></pre><p>这样就可以在.vue中的style里边写less语法了</p>
+<h2 id="三、将-vue中的css单独提出来成一个css文件"><a href="#三、将-vue中的css单独提出来成一个css文件" class="headerlink" title="三、将.vue中的css单独提出来成一个css文件"></a>三、将.vue中的css单独提出来成一个css文件</h2><p>需要使用webpack的extract-text-webpack-plugin插件</p>
+<p>参考文档：<a href="https://vue-loader.vuejs.org/en/configurations/extract-css.html">https://vue-loader.vuejs.org/en/configurations/extract-css.html</a></p>
+<p>npm install extract-text-webpack-plugin –save-dev</p>
+<p>一般只需要在生成环境提取出来，于是在webpack.prod.conf.js中添加</p>
+<pre><code>vue: {
+    loaders: {
+        css: ExtractTextPlugin.extract(&apos;vue-style-loader&apos;, &apos;css&apos;),
+        // you can also include &lt;style lang=&quot;less&quot;&gt; or other langauges
+        less: ExtractTextPlugin.extract(&apos;vue-style-loader&apos;, &apos;css!less&apos;)
+    }
+}
+</code></pre><p>在plugins中加入new ExtractTextPlugin(“static/css/style.css”)，这样css就是在output/static/css中生成style.css文件</p>
+<h2 id="四、引用图片"><a href="#四、引用图片" class="headerlink" title="四、引用图片"></a>四、引用图片</h2><p>如果template中或style中引用了图片，需要添加file-loader</p>
+<p>参考：<a href="https://vue-loader.vuejs.org/en/configurations/asset-url.html">https://vue-loader.vuejs.org/en/configurations/asset-url.html</a></p>
+<p>1.下载file-loader    npm install –save-dev file-loader<br>2.在webpack.base.conf.js中的loaders里边添加</p>
+<pre><code> {
+    test: /\.png$|\.jpg$|\.gif$|\.ico$/,
+    loader: &quot;file?name=static/img/[name].[hash].[ext]&quot;,
+    exclude: /node_modules/
+}
+</code></pre><h2 id="五、实现懒加载（按需加载）"><a href="#五、实现懒加载（按需加载）" class="headerlink" title="五、实现懒加载（按需加载）"></a>五、实现懒加载（按需加载）</h2><p>在页面比较多的时，单页应用按照之前的方式打包成一个js会导致首页加载时很慢，为了解决这个问题，可以修改打包，让首页只加载通用代码和首页要用到的代码，跳转到其他页面再加载对应页面的js，这样可以解决项目较大首页加载缓慢的问题。</p>
+<p><a href="http://router.vuejs.org/zh-cn/advanced/lazy-loading.html">官方文档地址</a></p>
+<h3 id="1-修改路由"><a href="#1-修改路由" class="headerlink" title="1.修改路由"></a>1.修改路由</h3><p>将要通过懒加载的路由的compenent改写成</p>
+<pre><code>const Plugin = r =&gt; require.ensure([], () =&gt; r(require(&apos;../views/Plugins/plugin&apos;)), &apos;Plugin&apos;);
+</code></pre><p>具体路由页面如下：</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/1.png" alt="Paste_Image.png"></p>
+<h3 id="2-修改webpack配置"><a href="#2-修改webpack配置" class="headerlink" title="2.修改webpack配置"></a>2.修改webpack配置</h3><p>在webpack.prod.conf.js中的output中添加</p>
+<pre><code>chunkFilename: &apos;static/js/[id].[name]_[chunkhash:7].js&apos;
+</code></pre><p>运行 npm run build 这个时候就可以看到每一个require.ensure引入的模块都单独生成了一个js</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/2.png" alt="Paste_Image.png"></p>
+<p>运行npm run prod启动生产环节，访问页面<a href="http://localhost:3001/">http://localhost:3001/</a><br>因为我没有定义首页路由，所以会跳转到下面模块中：</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/3.png" alt="Paste_Image.png"></p>
+<p>查看请求，只请求了index.js和notFoundComponent.js。</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/4.png" alt="Paste_Image.png"></p>
+<p>访问我定义的路由的<a href="http://localhost:3001/plugin（根据你自己定义的路由查看），可以看到除了公用的index.js以为，其他js并没有加载，如果通过路由跳转的话也不用重新加载index.js">http://localhost:3001/plugin（根据你自己定义的路由查看），可以看到除了公用的index.js以为，其他js并没有加载，如果通过路由跳转的话也不用重新加载index.js</a></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/5.png" alt="Paste_Image.png"></p>
+<p>细心的你如果仔细看的话会发现一个问题，除了app.vue里边的css打包到style.css外，其他vue里的js并没有打包进去</p>
+<p>于是还需要在webpack.prod.conf.js的plugins中将</p>
+<pre><code>new ExtractTextPlugin(&quot;static/css/style.css&quot;)
+</code></pre><p>修改为</p>
+<pre><code>//实现css分块，讲所有vue文件中的css打包到一个一个入口css中
+new ExtractTextPlugin(&apos;static/css/[id].[name]_[chunkhash:7].css&apos;, {
+    allChunks: true
+})
+
+//加上这个插件，可以将通用的css和js单独打包成一个vendors.css和vendors.js
+new webpack.optimize.CommonsChunkPlugin({
+    name:&apos;vendors&apos;,
+    filename:&apos;static/js/[id].[name].[hash].js&apos;,
+    minChunks: function () {  return true }
+})
+</code></pre><p>minChunks:num 表示require了num此才放在CommonChunk里边</p>
+<p>再次执行npm run build会生成一下目录</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/6.png" alt="Paste_Image.png"></p>
+<p>会发现app.vue里边的css被打包到了vendor.css中了，app.vue里的js和vue/vue-router被打包到了vendor.js中。</p>
+<p>这样就基本完成了懒加载。</p>
+<p>但是还没有实现如何将css安装vue文件打包成单独的文件，请大神多多指教！</p>
+<p>备忘：生命周期（<a href="https://segmentfault.com/a/1190000008010666">参考</a>）<br><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/7.png" alt="Paste_Image.png"></p>
+</style></p>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer light-blue accent-4 darken-1">
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="social-group col m3 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">
+                        <i class="fa fa-2x fa-book"></i>
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="col m9 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">我的简书</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">我的Github</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-search').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

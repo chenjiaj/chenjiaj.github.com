@@ -1,0 +1,756 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>微信开发常用功能总结 | </title>
+    <meta name="author" content="chenjiajun">
+    
+    <meta name="description" content="一、获取access_token参考文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;amp;id=mp1421140183
+1.用途调用公众号的各个接口都需要用到access_token
+备注：占用大小至少512个字符空间、有效期目前为2个小">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="微信开发常用功能总结">
+    <meta property="og:site_name" content="chenjiajun">
+
+    
+    <meta property="og:image" content="undefined">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="chenjiajun" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="light-blue accent-4">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">chenjiajun</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav light-blue darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://upload.jianshu.io/users/upload_avatars/1210894/9f3436e83320?imageMogr/thumbnail/90x90/quality/100" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">chenjiajun</p>
+                        <p class="desc">Web前端</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav light-blue darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/插件/">
+                    插件 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/vue/">
+                    vue <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/js/">
+                    js <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/mysql/">
+                    mysql <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/node/">
+                    node <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/css/">
+                    css <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/sublime/">
+                    sublime <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/hexo/">
+                    hexo <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/微信/">
+                    微信 <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/canvas/">
+                    canvas <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/工具/">
+                    工具 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/总结/">
+                    总结 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/感悟/">
+                    感悟 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper light-blue accent-4">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/微信/">微信</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>微信开发常用功能总结</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2018-08-02T09:11:00.000Z"><a href="/2018/08/02/微信开发常用功能总结/">2018-08-02</a></time>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/微信/" class="chip pink lighten-1">微信</a>
+        
+            <a href="/tags/总结/" class="chip pink lighten-1">总结</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#一、获取access-token"><span class="section table-of-contents-text">一、获取access_token</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-用途"><span class="section table-of-contents-text">1.用途</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-获取方式"><span class="section table-of-contents-text">2.获取方式</span></a></li></ol></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#二、接口配置信息（验证服务器有效性）"><span class="section table-of-contents-text">二、接口配置信息（验证服务器有效性）</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#三、被动回复用户消息"><span class="section table-of-contents-text">三、被动回复用户消息</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-接收post请求"><span class="section table-of-contents-text">1.接收post请求</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-处理请求返回信息"><span class="section table-of-contents-text">2.处理请求返回信息</span></a></li></ol></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#四、JS-SDK"><span class="section table-of-contents-text">四、JS-SDK</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-基本步骤："><span class="section table-of-contents-text">1.基本步骤：</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-签名算法"><span class="section table-of-contents-text">2.签名算法</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#五、网页授权、获取用户信息"><span class="section table-of-contents-text">五、网页授权、获取用户信息</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-类别"><span class="section table-of-contents-text">1.类别</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-基本流程"><span class="section table-of-contents-text">2.基本流程</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h2 id="一、获取access-token"><a href="#一、获取access-token" class="headerlink" title="一、获取access_token"></a>一、获取access_token</h2><p>参考文档：<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140183" target="_blank" rel="noopener">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140183</a></p>
+<h5 id="1-用途"><a href="#1-用途" class="headerlink" title="1.用途"></a>1.用途</h5><p><strong>调用公众号的各个接口都需要用到access_token</strong></p>
+<p>备注：占用大小至少512个字符空间、有效期目前为2个小时，需要定时刷新，重复刷新获取惠导致上一次获取的access_token失效</p>
+<h5 id="2-获取方式"><a href="#2-获取方式" class="headerlink" title="2.获取方式"></a>2.获取方式</h5><pre><code>https请求方式: GET
+https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APPID&amp;secret=APPSECRET
+</code></pre><p>备注：调用接口时，请登录“微信公众平台-开发-基本配置”提前将服务器IP地址添加到IP白名单中，点击查看设置方法，否则将无法调用成功。小程序无需配置IP白名单。</p>
+<p>注意获取到access_token后需要存在数据库中，并且设置一个时间（2小时过期），最好在过期之前重新获取一次，更新数据库中的值。</p>
+<h2 id="二、接口配置信息（验证服务器有效性）"><a href="#二、接口配置信息（验证服务器有效性）" class="headerlink" title="二、接口配置信息（验证服务器有效性）"></a>二、接口配置信息（验证服务器有效性）</h2><p>配置服务器地址需要一个外网地址，开发过程中可以使用内网穿透工具，将一个外网地址指向你的本地服务，方便调试。</p>
+<p>常用的内网穿透工具：<br>mac:  ngrok<br>windows:  花生壳、nat123</p>
+<p><img src="/images/微信开发常用功能总结-img/1.png" alt="image.png"></p>
+<p>url:服务器接口地址<br>token:信息需要与服务器定义的token一直</p>
+<p>点击提交按钮时，微信会向服务器发送一个get请求，请求地址就是配置的url，这个请求会携带<strong>signature</strong>（微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数）、<strong>timestamp</strong>（时间戳）、<strong>nonce</strong>（随机数）、<strong>echostr</strong>（随机字符串）四个字符串过来</p>
+<p>服务器拿到这些字符串之后进行校验：<br>1）将token、timestamp、nonce三个参数进行字典序排序<br>2）将三个参数字符串拼接成一个字符串进行sha1加密<br>3）开发者获得加密后的字符串可与signature对比，标识该请求来源于微信</p>
+<p>代码可参考：<br><img src="/images/微信开发常用功能总结-img/2.png" alt="image.png"></p>
+<h2 id="三、被动回复用户消息"><a href="#三、被动回复用户消息" class="headerlink" title="三、被动回复用户消息"></a>三、被动回复用户消息</h2><h5 id="1-接收post请求"><a href="#1-接收post请求" class="headerlink" title="1.接收post请求"></a>1.接收post请求</h5><p>当用户向微信公众号发送消息的时候，微信会向我们认证（即之前配置的服务器地址）发送请求，配置服务器地址的时候向服务器发送的get请求，此时发送的post请求，请求地址相同。</p>
+<h5 id="2-处理请求返回信息"><a href="#2-处理请求返回信息" class="headerlink" title="2.处理请求返回信息"></a>2.处理请求返回信息</h5><p>当服务器端接收到请求时，需要验证一下请求来源，即也需要配置服务器地址时的判断，判断成功，可以获取用户发送来的消息，并且返回给用户信息</p>
+<pre><code>const token = opts.token
+const {
+  signature,
+  nonce,
+  timestamp,
+  echostr
+} = ctx.query
+
+const str = [token, timestamp, nonce].sort().join(&apos;&apos;)
+const sha = sha1(str)
+if (sha !== signature) {
+  ctx.body = &apos;Failed&apos;
+  return false
+}
+
+const data = await getRawBody(ctx.req, {
+  length: ctx.length,
+  limit: &apos;1mb&apos;,
+  encoding: ctx.charset
+})
+
+const content = await util.parseXML(data)
+console.log(content) //用户向微信公众号发送的消息
+const replyBody = `哈哈哈，欢迎来的v家族.点击&lt;a href=&quot;http://coding.imooc.com&quot;&gt;viho viho&lt;/a&gt;`//定义用户返回的信息
+
+//注意这一段模版&lt;与！之间不能有空格，如果有空格，向微信公众号发送消息时会返回“该公众号提供的服务出现故障，请稍后再试”
+const xml = `&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[${content.xml.FromUserName}]]&gt;&lt;/ToUserName&gt;&lt;FromUserName&gt;&lt;![CDATA[${content.xml.ToUserName}]]&gt;&lt;/FromUserName&gt;&lt;CreateTime&gt;12345678&lt;/CreateTime&gt;&lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;&lt;Content&gt;&lt;![CDATA[${replyBody}]]&gt;&lt;/Content&gt;&lt;/xml&gt;`
+console.log(&apos;--replyBody&apos;, replyBody)
+ctx.status = 200
+ctx.type = &apos;application/xml&apos;
+ctx.body = xml
+</code></pre><p>注意：<br>接收消息的格式和回复的格式不一样，所以在判断的时候会有区别。可以通过判断接收到的消息格式或内容作出处理，返回对应的回复消息格式或内容。<br>参考文档如下：<br><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140453" target="_blank" rel="noopener">接收消息</a><br><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140543" target="_blank" rel="noopener">回复消息</a></p>
+<h2 id="四、JS-SDK"><a href="#四、JS-SDK" class="headerlink" title="四、JS-SDK"></a>四、JS-SDK</h2><h5 id="1-基本步骤："><a href="#1-基本步骤：" class="headerlink" title="1.基本步骤："></a>1.基本步骤：</h5><p><strong>步骤一：绑定域名</strong><br>登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”</p>
+<p><strong>步骤二：引入JS文件</strong><br>在需要调用JS接口的页面引入如下JS文件，（支持https）：<a href="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" target="_blank" rel="noopener">http://res.wx.qq.com/open/js/jweixin-1.2.0.js</a></p>
+<p><strong>步骤三：通过config接口注入权限验证配置</strong></p>
+<pre><code>wx.config({
+  debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+  appId: &apos;&apos;, // 必填，公众号的唯一标识
+  timestamp: , // 必填，生成签名的时间戳
+  nonceStr: &apos;&apos;, // 必填，生成签名的随机串
+  signature: &apos;&apos;,// 必填，签名
+  jsApiList: [] // 必填，需要使用的JS接口列表
+});
+</code></pre><p><strong>步骤四：通过ready接口处理成功验证</strong></p>
+<p><strong>步骤五：通过error接口处理失败验证</strong></p>
+<h5 id="2-签名算法"><a href="#2-签名算法" class="headerlink" title="2.签名算法"></a>2.签名算法</h5><p>备注：此部分若想使用现成的代码测试，可以参考 <a href="https://www.jianshu.com/p/2b1e0be70250" target="_blank" rel="noopener">微信开发总结</a></p>
+<p>步骤三中涉及的appId、timestamp、nonceStr、signature 这四个参数是需要发送请求到后端服务器获取的。<br>后端服务器需要做一个签名才能生成signature。</p>
+<p>具体实现：</p>
+<p><strong>步骤一：获取access_token</strong><br>参考获取access_token部分</p>
+<p><strong>步骤二：获取jsapi_ticket</strong><br>access_token 采用http GET方式请求获得jsapi_ticket（有效期7200秒，开发者必须在自己的服务全局缓存jsapi_ticket）：<a href="https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&amp;type=jsapi" target="_blank" rel="noopener">https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&amp;type=jsapi</a></p>
+<p><strong>步骤三：签名算法</strong><br>参与签名的字段包括noncestr（随机字符串）, 有效的jsapi_ticket, timestamp（时间戳）, url（当前网页的URL，不包含#及其后面部分） 。对所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）后，使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串string1。这里需要注意的是所有参数名均为小写字符。对string1作sha1加密，字段名和字段值都采用原始值，不进行URL 转义。</p>
+<p>参考代码：</p>
+<pre><code>/**
+ * 创建随机数
+ */
+function createNoncestr() {
+  return Math.random().toString(35).substring(2, 15)
+}
+
+/**
+ * 生成时间戳
+ */
+function createTimestamp() {
+  return parseInt((+new Date()) / 1000)
+}
+
+/**
+ * 签名算法
+ */
+function signIt(args) {
+  const keys = Object.keys(args)
+  keys.sort()
+  let str = &apos;&apos;
+
+  keys.forEach(key =&gt; {
+    str += &apos;&amp;&apos; + key.toLowerCase() + &apos;=&apos; + args[key]
+  })
+
+  str = str.substring(1)
+  console.log(&apos;str--&apos;, str)
+  const sha = sha1(str) //需要引入外部sha1依赖包
+  return sha
+}
+
+/**
+ * 签名函数
+ * @param ticket
+ * @param url
+ * @returns {{noncestr: *, timestamp: *, signature: *}}
+ */
+function sign(ticket, url) {
+  const nonceStr = createNoncestr()
+  const timestamp = createTimestamp()
+  const signature = signIt({nonceStr, timestamp, jsapi_ticket: ticket, url})
+
+  return {
+    nonceStr,
+    timestamp,
+    signature
+  }
+}
+</code></pre><h3 id="五、网页授权、获取用户信息"><a href="#五、网页授权、获取用户信息" class="headerlink" title="五、网页授权、获取用户信息"></a>五、网页授权、获取用户信息</h3><h5 id="1-类别"><a href="#1-类别" class="headerlink" title="1.类别"></a>1.类别</h5><p> （1）以snsapi_base为scope发起的网页授权，用户无感知，静默授权，但只能获取到openid<br> （2）以snsapi_userinfo为scope发起的网页授权，弹出授权确认页面，用户点击确认授权后才能获取到用户信息<br>注意：对于已关注公众号的用户，如果用户从公众号的会话或者自定义菜单进入本公众号的网页授权页，即使是scope为snsapi_userinfo，也是静默授权，用户无感知。</p>
+<h5 id="2-基本流程"><a href="#2-基本流程" class="headerlink" title="2.基本流程"></a>2.基本流程</h5><p>（1）在公众中先设置授权回调域名<br><img src="/images/微信开发常用功能总结-img/3.png" alt="image.png"></p>
+<p>（2）用户同意授权，获取code<br>可以让用户直接访问下面的url地址，但是这个url过长，而且可以修改url中的参数，因此最好向服务器端发起一个get请求，由服务器端重定向到下面地址。<br><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect</a></p>
+<p>用户访问上面这个地址，如果合法会跳转redirect_uri参数值的地址，并在这个地址上加上code和state参数。</p>
+<p>（3）通过code换取网页授权access_token<br>注意：这里的access_token是专门用来获取授权用户信息使用的，与其他微信接口，需要通过基础支持中的“获取access_token”接口来获取到的普通access_token是两个不一样的参数，只是名字相同。<br>每个code只能使用一次。</p>
+<p><a href="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&amp;secret=SECRET&amp;code=CODE&amp;grant_type=authorization_code" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&amp;secret=SECRET&amp;code=CODE&amp;grant_type=authorization_code</a></p>
+<p>（4）刷新access_token（如果需要）<br><a href="https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&amp;grant_type=refresh_token&amp;refresh_token=REFRESH_TOKEN" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&amp;grant_type=refresh_token&amp;refresh_token=REFRESH_TOKEN</a></p>
+<p>（5）拉取用户信息(需scope为 snsapi_userinfo)<br><a href="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN</a></p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer light-blue accent-4 darken-1">
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="social-group col m3 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">
+                        <i class="fa fa-2x fa-book"></i>
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="col m9 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">我的简书</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">我的Github</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-search').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

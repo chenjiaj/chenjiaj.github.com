@@ -4,17 +4,1645 @@
   
     
     <entry>
-      <title><![CDATA[test]]></title>
-      <url>https://chenjiaj.github.io/2019/11/04/test/</url>
-      <content type="html"></content>
+      <title><![CDATA[日历插件——选择性标记日期]]></title>
+      <url>https://chenjiaj.github.io/2019/11/07/RgCalender/</url>
+      <content type="html"><![CDATA[<p>本插件件可以用来简单的展示一个活动时间段，将这个活动时间段的日记全部列出；也可以在日历上标记一些特殊日期，例如：用于展示一个活动的签到<br><a href="https://chenjiaj.github.io/RgCalender/">参考示例</a></p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>1.在<a href="https://github.com/chenjiaj/RgCalender" target="_blank" rel="noopener">github</a>下载代码</p>
+<p>2.在使用的页面引入zepto.min.js或jquery、rgcalendar.js、rgcalendar.css</p>
+<p>3.可以再rgcalendar.css中修改插件样式</p>
+<p>4.实例化插件对象，如下：</p>
+<pre><code>var calendar = new RgCalendar({
+        startTime:null,
+        endTime:null,
+        showSTAll:false,
+        isfocus:true,
+        focusTime:endTime,
+        eventsDate:[time1,time2,time3],
+        parentNode:$(&apos;.rg-calendar-wrapper1&apos;),
+        startMonthDay:1,
+        eventClass:&apos;event&apos;,
+        isExtended:false,
+        prevText:&apos;&apos;,
+        nextText:&apos;&apos;
+    });
+</code></pre><p>可以传入一下参数，改变默认日历样子：</p>
+<p>1.<code>startTime</code>：默认为null;<br>活动开始时间，当isExtended为true时，必须同时传入endTime才生效，传入后按活动时间段展示，当isExtended为false时，只显示一个月，通过切换按钮切换显示月份，传入startTime后，点击上一个月，当上一个月小于startTime后将按钮置为disabled，可以设置.ym .disabled的样式,可以通过.startDay给活动开始的日期设置样式,开始日期当月在开始日期前的日期可以通过.calendar .beforStartDay 设置样式</p>
+<p>接收格式：可以为2016-02-1、毫秒数等其它可以传入new Date()的参数</p>
+<p>2.<code>endTime</code>：默认为null;<br>活动结束时间，当isExtended为true时，必须同时传入endTime才生效，传入后按活动时间段展示，当isExtended为false时，只显示一个月，通过切换按钮切换显示月份，传入endTime后，点击下一个月，当下一个月大于于endTime后将按钮置为disabled，可以设置.ym .disabled的样式，可以通过.endDay给活动结束的日期设置样式，结束日期当月在结束日期后的日期可以通过.afterEndDay 设置样式</p>
+<p>接收格式：可以为2016-02-1、毫秒数等其它可以传入new Date()的参数</p>
+<p>3.<code>showSTAll</code>：默认为false;<br>当传入startTime、endTime参数设置为才生效(按活动时间段展示,只从开始日期显示到结束日期),设置为false，开始、结束时间当月其他日期不显示，设置为ture则显示开始、结束时间当月的其他日期</p>
+<p>4.<code>isfocus</code>:默认为true;当值为true时，标记初始化聚焦日期，设置初始化聚焦日期的class为current-day,设置为false，则不标记聚焦日期，传入focusTime也不生效</p>
+<p>5.<code>focusTime</code>:默认值null,当isfocus值为true时才生效，不传此值，默认为当天</p>
+<p>接收格式：可以为2016-02-1、毫秒数等其它可以传入new Date()的参数</p>
+<p>6.<code>eventsDate</code>:默认为[]，此参数表示要标记的日期,将会个标记的日期加上class,默认为event,可以通过参数eventClass改变</p>
+<p>接收格式：接收一个数组，数组的每一个值可以为2016-02-1、毫秒数等其它可以传入new Date()的参数</p>
+<p>7.<code>parentNode</code>:默认为$(‘body’),此参数为日历的父容器</p>
+<p>8.<code>startMonthDay</code>:默认为1,表示日历从星期一开始从左往右展示</p>
+<p>接收格式：可以为1,2,3,4,5,6,7</p>
+<p>9.<code>eventClass</code>:默认为event，此参数表示标记的日记的class的名字</p>
+<p>10.<code>isExtended</code>:默认为false，此参数表示是按照时间段显示还是按照传统日历插件的样式显示（只显示一个月，通过切换按钮切换显示月份）,当值为true时，必须同时传入startTime和endTime才生效</p>
+<p>接收格式：true 或 false</p>
+<p>11.<code>prevText</code>:默认’’，此参数表示上一月按钮文字</p>
+<p>12.<code>nextText</code>:默认’’，此参数表示下一月按钮文字</p>
+<p>13.支持给空白表格设置样式，通过.blank</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>此插件基于插件 <a href="https://github.com/philipehsing/jQuery.Simple-Event-Calendar" target="_blank" rel="noopener">jquery.simple-event-calendar</a>修改，jquery.simple-event-calendar插件可以显示标记的日历事件</p>
+]]></content>
       
+        <categories>
+            
+            <category> 插件 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[前端开发-fidder应用场景]]></title>
+      <url>https://chenjiaj.github.io/2019/05/14/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-fidder%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/</url>
+      <content type="html"><![CDATA[<p>在开发中，我们有时候会遇到一些前后端没有完全分离的老项目，前端代码放在后端项目的服务中，没有自己独立的服务，或者是以前一些老的jsp项目。遇到需要修改以前的页面或者增加需求会感到非常的痛苦，如果要在自己的电脑上搭环境需要装一大堆后端的软件，而且修改的文件之后可能还要重启才能看效果，如果后端代码哪里出了问题报错了，可能也不知道如何解决，这样的开发显得十分的低效。</p>
+<p>在这样的情况下，想到了一种解决方式：在开发环境上部署好一台服务，在本地访问，并且用本地的文件，替换线上的文件，这样可以实现修改之后立马可以看到效果，等改好之后，再把修改的代码替换项目中的代码。</p>
+<h4 id="一、安装fidder"><a href="#一、安装fidder" class="headerlink" title="一、安装fidder"></a>一、安装fidder</h4><p>安装好之后，如果想要抓谷歌浏览器访问的文件，需要翻墙安装Proxy SwitchyOmega插件，并且需要配置一下，具体配置网上有许多教程，就不细讲了</p>
+<h4 id="二、实例"><a href="#二、实例" class="headerlink" title="二、实例"></a>二、实例</h4><p>以百度页面为例，修改这个页面的背景色</p>
+<h5 id="1-保存文件"><a href="#1-保存文件" class="headerlink" title="1.保存文件"></a>1.保存文件</h5><p>在页面中右击，然后点击另存为，弹出下图，将html文件保存到想要保存的路径<br><img src="/images/前端开发-fidder应用场景-img/1.png" alt="保存html文件.png"></p>
+<p>如果想要保存js或css文件如下图，找到想要修改的js,点击右键选择save as…<br><img src="/images/前端开发-fidder应用场景-img/2.png" alt="下载静态资源"></p>
+<h5 id="2-配置fiddler"><a href="#2-配置fiddler" class="headerlink" title="2. 配置fiddler"></a>2. 配置fiddler</h5><p><img src="/images/前端开发-fidder应用场景-img/3.png" alt="image.png"></p>
+<p><img src="/images/前端开发-fidder应用场景-img/4.png" alt="image.png"></p>
+<p><img src="/images/前端开发-fidder应用场景-img/5.png" alt="image.png"></p>
+<p><img src="/images/前端开发-fidder应用场景-img/6.png" alt="image.png"></p>
+<p>完成以上配置后，修改下载下来的文件，就可以看到效果了</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 工具 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+            <tag> fidder </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[mysql实现主从复制（docker环境）]]></title>
+      <url>https://chenjiaj.github.io/2019/01/18/mysql%E5%AE%9E%E7%8E%B0%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%EF%BC%88docker%E7%8E%AF%E5%A2%83%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>原文链接：<a href="https://blog.csdn.net/fyihdg/article/details/78951357" target="_blank" rel="noopener">https://blog.csdn.net/fyihdg/article/details/78951357</a> </p>
+<p>本文是学习了以上链接文章之后，自己总结了一遍，便于以后查看。</p>
+<h3 id="一、拉取镜像、创建2个容器"><a href="#一、拉取镜像、创建2个容器" class="headerlink" title="一、拉取镜像、创建2个容器"></a>一、拉取镜像、创建2个容器</h3><h5 id="1-拉取镜像centos7，作为安装运行mysql的环境。"><a href="#1-拉取镜像centos7，作为安装运行mysql的环境。" class="headerlink" title="1.拉取镜像centos7，作为安装运行mysql的环境。"></a>1.拉取镜像centos7，作为安装运行mysql的环境。</h5><pre><code>docker pull registry.cn-hangzhou.aliyuncs.com/moensun/centos7
+</code></pre><h5 id="2-查询镜像ID"><a href="#2-查询镜像ID" class="headerlink" title="2.查询镜像ID"></a>2.查询镜像ID</h5><pre><code>docker images
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/1.png" alt="查询镜像ID"></p>
+<h5 id="3-创建两个空容器"><a href="#3-创建两个空容器" class="headerlink" title="3.创建两个空容器"></a>3.创建两个空容器</h5><p>如果是centos7需要加上–privileged 和 /usr/sbin/init，解决systemctl报错不能使用的问题</p>
+<pre><code>docker run --privileged -itd --name 容器名称 镜像ID /usr/sbin/init
+</code></pre><p>非centos7，使用命令如下</p>
+<pre><code>docker run -tid 镜像ID /bin/bash
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/2.png" alt="a.png"></p>
+<h3 id="二、在容器中安装mysql"><a href="#二、在容器中安装mysql" class="headerlink" title="二、在容器中安装mysql"></a>二、在容器中安装mysql</h3><p>两个容器分别执行以下操作</p>
+<h5 id="1-进入容器"><a href="#1-进入容器" class="headerlink" title="1.进入容器"></a>1.进入容器</h5><pre><code>docker ps //查询容器信息
+docker exec -it 容器ID或容器名称 /bin/bash  //进入容器命令
+</code></pre><h5 id="2-安装mysql"><a href="#2-安装mysql" class="headerlink" title="2.安装mysql"></a>2.安装mysql</h5><p>依此执行以下命令</p>
+<pre><code>yum -y install wget
+wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum install mysql-community-server
+</code></pre><p>如遇到以下提示，输入y<br><img src="/images/mysql实现主从复制（docker环境）-img/3.png" alt="b.png"></p>
+<h3 id="三、搭建主从复制"><a href="#三、搭建主从复制" class="headerlink" title="三、搭建主从复制"></a>三、搭建主从复制</h3><p><img src="/images/mysql实现主从复制（docker环境）-img/4.png" alt="架构图"></p>
+<h5 id="1-启动mysql、登录设置mysql"><a href="#1-启动mysql、登录设置mysql" class="headerlink" title="1.启动mysql、登录设置mysql"></a>1.启动mysql、登录设置mysql</h5><p>这一个步骤，两个容器都需要执行</p>
+<p>启动mysql、登录</p>
+<pre><code>systemctl start mysql
+mysql -uroot
+</code></pre><p>设置mysql密码，不想设置可以跳过这一步</p>
+<pre><code>mysql&gt; set password = password(‘你的密码’)
+</code></pre><p>远程登陆授权</p>
+<pre><code>mysql&gt; grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;root&apos; with grant option;
+mysql&gt; flush privileges;
+</code></pre><h5 id="2-修改配置，实现主从复制"><a href="#2-修改配置，实现主从复制" class="headerlink" title="2. 修改配置，实现主从复制"></a>2. 修改配置，实现主从复制</h5><h6 id="1）修改配置文件"><a href="#1）修改配置文件" class="headerlink" title="1）修改配置文件"></a>1）修改配置文件</h6><p>两个容器都需要修改，但<strong><code>server-id两个容器不能设置相同数字</code></strong></p>
+<pre><code>vi  /etc/my.cnf
+</code></pre><p>添加以下配置</p>
+<pre><code>server-id=1
+port=3306
+log-bin=mysql-bin
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/5.png" alt="/etc/my.cnf文件配置"></p>
+<p>重启mysql</p>
+<pre><code>systemctl restart mysql
+</code></pre><h6 id="2-查询两个容器ip"><a href="#2-查询两个容器ip" class="headerlink" title="2)查询两个容器ip"></a>2)查询两个容器ip</h6><p><img src="/images/mysql实现主从复制（docker环境）-img/6.png" alt="g.png"></p>
+<h6 id="3-主机配置"><a href="#3-主机配置" class="headerlink" title="3) 主机配置"></a>3) 主机配置</h6><p>主从复制过程（在主机上操作）：</p>
+<p>本例子中以容器名为mysql-master作为主机</p>
+<pre><code>docker exec -it mysql-master /bin/bash //进入主机容器
+mysql //登录mysql
+</code></pre><ol>
+<li><p>创建同步复制的用户</p>
+<p>  mysql&gt; create user ‘hdg‘@’172.17.0.%’ identified by ‘root’;</p>
+</li>
+<li><p>给同步复制用户赋权</p>
+<p>  mysql&gt; grant replication slave on <em>.</em> to ‘hdg‘@’172.17.0.%’ identified by ‘root’;</p>
+</li>
+<li><p>开启binlog</p>
+<p>  mysql&gt; flush privileges;</p>
+<p>配置时候注意几个坑：<br>Replication-do-db的坑，如果多个库则使用多行Replication-do-db进行配置<br>Replication-ignore-db的坑，如果忽略多个库则使用多行Replication-ignore-db进行配置</p>
+</li>
+<li><p>重启mysql</p>
+<p>  systemctl restart mysql</p>
+</li>
+</ol>
+<p><img src="/images/mysql实现主从复制（docker环境）-img/7.png" alt="e.png"></p>
+<p>登陆主机mysql<br>这个时候就产生binlog了，离成功不远了！<br><img src="/images/mysql实现主从复制（docker环境）-img/8.png" alt="f.png"></p>
+<h6 id="4-从机配置"><a href="#4-从机配置" class="headerlink" title="4)从机配置"></a>4)从机配置</h6><p>本例子中以容器名为mysql-slave作为主机</p>
+<pre><code>docker exec -it mysql-slave /bin/bash //进入主机容器
+mysql //登录mysql
+</code></pre><p>从机操作<br>主从复制的最关键语句:</p>
+<pre><code>Stop slave；
+Change master to
+     Master_host=&apos;172.17.0.13&apos;,    //主机的IP地址
+     Master_user=&apos;hdg&apos;,
+     Master_password=&apos;root&apos;,
+     Master_log_file=&apos;mysql-bin.000001&apos;,
+     Master_log_pos=120;
+Start slave;
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/9.png" alt="查询主机状态"></p>
+<p>在主机中查看主机状态：</p>
+<pre><code>show master status;
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/10.png" alt="i.png"></p>
+<p>在从机中查看从机状态</p>
+<pre><code>show slave status\G;
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/11.png" alt="查看从机状态"></p>
+<h5 id="3-检测主从复制"><a href="#3-检测主从复制" class="headerlink" title="3.检测主从复制"></a>3.检测主从复制</h5><p>验证：如果在从机上创建库，进行增删改操作，会同步到从机</p>
+<p>在主机上创建新库hdg,可以看到从机上也自动创建了库hdg<br><img src="/images/mysql实现主从复制（docker环境）-img/12.png" alt="验证主从查询"></p>
+<p>在主机库hdg中添加表hdg,同时添加一条数据，可以看到从机上也自动更新<br><img src="/images/mysql实现主从复制（docker环境）-img/13.png" alt="验证主从复制"></p>
+<h3 id="四、搭建主主复制"><a href="#四、搭建主主复制" class="headerlink" title="四、搭建主主复制"></a>四、搭建主主复制</h3><h5 id="1-在之前的从机上进行主机操作"><a href="#1-在之前的从机上进行主机操作" class="headerlink" title="1.在之前的从机上进行主机操作"></a>1.在之前的从机上进行主机操作</h5><p><img src="/images/mysql实现主从复制（docker环境）-img/14.png" alt="在从机上进行主机操作"></p>
+<p><img src="/images/mysql实现主从复制（docker环境）-img/15.png" alt="查询新主机信息"></p>
+<h5 id="2-在之前的主机上进行从机操作"><a href="#2-在之前的主机上进行从机操作" class="headerlink" title="2.在之前的主机上进行从机操作"></a>2.在之前的主机上进行从机操作</h5><p><img src="/images/mysql实现主从复制（docker环境）-img/16.png" alt="在之前的主机上进行从机操作"></p>
+<h5 id="3-检测如主从检测"><a href="#3-检测如主从检测" class="headerlink" title="3.检测如主从检测"></a>3.检测如主从检测</h5><h3 id="五、-排错"><a href="#五、-排错" class="headerlink" title="五、 排错"></a>五、 排错</h3><p>   可能有些小伙伴没有成功。这里写个检查错误的方法：</p>
+<p>在主库，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ed434a1db697 mysql]# netstat -natp</span><br></pre></td></tr></table></figure>
+<p><img src="/images/mysql实现主从复制（docker环境）-img/17.png" alt="p.png"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[docker中mysql备份]]></title>
+      <url>https://chenjiaj.github.io/2019/01/18/docker-%E4%B8%ADmysql%E5%A4%87%E4%BB%BD/</url>
+      <content type="html"><![CDATA[<p>以下示例均在镜像mysql:5.7.22基础上应用</p>
+<h2 id="一、备份mysql"><a href="#一、备份mysql" class="headerlink" title="一、备份mysql"></a>一、备份mysql</h2><h4 id="1-创建容器testmysql"><a href="#1-创建容器testmysql" class="headerlink" title="1.创建容器testmysql"></a>1.创建容器testmysql</h4><pre><code>docker run -p 3307:3306 --name testmysql -e MYSQL_ROOT_PASSWORD=12345 -d mysql:5.7.22
+</code></pre><h4 id="2-创建数据库test、数据表test1"><a href="#2-创建数据库test、数据表test1" class="headerlink" title="2.创建数据库test、数据表test1"></a>2.创建数据库test、数据表test1</h4><pre><code>docker exec -it testmysql /bin/bash //进入容器
+
+mysql -uroot -p //进入数据库
+
+show databases; //查询数据库
+create database test; // 创建名为test数据库
+use test;//切换到数据库 test
+create table test (id int);//创建名为test的数据表
+insert into test (id) values (1); //插入一条数据
+</code></pre><p><img src="/images/docker-中mysql备份-img/1.png" alt="添加数据"></p>
+<h4 id="2-mysqldump-备份"><a href="#2-mysqldump-备份" class="headerlink" title="2.mysqldump 备份"></a>2.mysqldump 备份</h4><p>导出命令1（建议使用此命令）</p>
+<p>docker exec -it mysql_server【docker容器名称/ID】 mysqldump –defaults-extra-file=/etc/mysql/my.cnf  test_db【数据库名称】 &gt; /opt/sql_bak/test_db.sql【导出表格路径】</p>
+<p>（1）修改/etc/mysql/my.cnf文件</p>
+<pre><code>vim /etc/mysql/my.cnf
+
+[mysqldump]
+user=your_backup_user_name
+password=your_backup_password
+</code></pre><p><img src="/images/docker-中mysql备份-img/2.png" alt="image.png"></p>
+<p>进入容器后执行vim /etc/mysql/my.cnf，如果报bash: vim: command not found<br>在容器内执行以下代码下载vim即可</p>
+<pre><code>apt-get update
+apt-get install vim
+</code></pre><p>修改后，exit退出容器，重启以下容器 docker restart testmysql【容器名称/id】</p>
+<p>执行导出命令</p>
+<pre><code>docker exec -it testmysql mysqldump --defaults-extra-file=/etc/mysql/my.cnf test &gt; /home/iotdev/cjj/test.sql
+</code></pre><p>导出命令2<br>docker exec -it  mysql_server【docker容器名称/ID】 mysqldump -uroot -p12345【数据库密码】 test_db【数据库名称】 &gt; /opt/sql_bak/test_db.sql【导出表格路径】</p>
+<pre><code>docker exec -it testmysql mysqldump -p12345 test &gt; /home/iotdev/cjj/test.sql
+</code></pre><p>如果使用这个命令，导出的文件会有警告 ，在导入的时候报这个错误,需要把警告删除再导入<br><img src="/images/docker-中mysql备份-img/3.png" alt="导入"></p>
+<h2 id="二、导入备份"><a href="#二、导入备份" class="headerlink" title="二、导入备份"></a>二、导入备份</h2><h4 id="1-创建容器testmysql1"><a href="#1-创建容器testmysql1" class="headerlink" title="1.创建容器testmysql1"></a>1.创建容器testmysql1</h4><pre><code>docker run -p 3308:3306 --name testmysql1 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:5.7.22
+</code></pre><h4 id="2-导入命令"><a href="#2-导入命令" class="headerlink" title="2.导入命令"></a>2.导入命令</h4><p>(1)先将文件导入到容器</p>
+<pre><code>docker cp **.sql 【容器名】:/root/
+</code></pre><p>(2)进入容器</p>
+<pre><code>docker exec -ti 【容器名/ID】/bin/bash
+</code></pre><p>(3)创建数据库</p>
+<pre><code>mysql -uroot -p
+create database test
+</code></pre><p>(4)将文件导入数据库</p>
+<pre><code>mysql -uroot -p 【数据库名】 &lt; ***.sql
+</code></pre><p>三、加入定时任务<br>用crontab添加定时器，参考详情 <a href="https://www.cnblogs.com/peida/archive/2013/01/08/2850483.html" target="_blank" rel="noopener">https://www.cnblogs.com/peida/archive/2013/01/08/2850483.html</a></p>
+<h4 id="1-添加myql-test-sh文件"><a href="#1-添加myql-test-sh文件" class="headerlink" title="1.添加myql_test.sh文件"></a>1.添加myql_test.sh文件</h4><pre><code>#!/bin/bash
+</code></pre><p>data_name=”rap2-mysql-new”<br>data_dir=”/mysql_data/rap2-new”<br>database=”RAP2_DELOS_APP”<br>time=”<code>date +%H:%M</code>“<br>docker exec $data_name sh -c “rm -rf /$database”<br>docker exec $data_name sh -c “mkdir $database”<br>docker exec $data_name sh -c “mysqldump -uroot -pfewsdkjk13_ –databases $database &gt; /$database/data_<code>date +%Y%m%d_%H:%M</code>.txt”<br>docker cp $data_name:$database/ $data_dir</p>
+<h1 id="mv-data-dir-database-data-date-Y-m-d-H-M-sql-data-dir-database-data-date-Y-m-d-H-M-txt"><a href="#mv-data-dir-database-data-date-Y-m-d-H-M-sql-data-dir-database-data-date-Y-m-d-H-M-txt" class="headerlink" title="mv $data_dir/$database/data_date +%Y%m%d_%H:%M.sql $data_dir/$database/data_date +%Y%m%d_%H:%M.txt"></a>mv $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.sql $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.txt</h1><h1 id="将备份文件发送到邮箱-数据量小的情况下-服务器需要安装-yum-install-mailx-并配置-yum-install-sharutils"><a href="#将备份文件发送到邮箱-数据量小的情况下-服务器需要安装-yum-install-mailx-并配置-yum-install-sharutils" class="headerlink" title="将备份文件发送到邮箱 数据量小的情况下 服务器需要安装 yum install mailx 并配置 yum install sharutils"></a>将备份文件发送到邮箱 数据量小的情况下 服务器需要安装 yum install mailx 并配置 yum install sharutils</h1><h1 id="修改-vi-etc-mail-rc"><a href="#修改-vi-etc-mail-rc" class="headerlink" title="修改 vi /etc/mail.rc"></a>修改 vi /etc/mail.rc</h1><h1 id="添加以下配置"><a href="#添加以下配置" class="headerlink" title="添加以下配置"></a>添加以下配置</h1><h1 id="set-from-shenjianyu-thinktrader-net-smtp-smtp-exmail-qq-com"><a href="#set-from-shenjianyu-thinktrader-net-smtp-smtp-exmail-qq-com" class="headerlink" title="set from=shenjianyu@thinktrader.net smtp=smtp.exmail.qq.com"></a>set <a href="mailto:from=shenjianyu@thinktrader.net" target="_blank" rel="noopener">from=shenjianyu@thinktrader.net</a> smtp=smtp.exmail.qq.com</h1><h1 id="set-smtp-auth-user-shenjianyu-thinktrader-net-smtp-auth-password-邮箱密码"><a href="#set-smtp-auth-user-shenjianyu-thinktrader-net-smtp-auth-password-邮箱密码" class="headerlink" title="set smtp-auth-user=shenjianyu@thinktrader.net smtp-auth-password=邮箱密码"></a>set <a href="mailto:smtp-auth-user=shenjianyu@thinktrader.net" target="_blank" rel="noopener">smtp-auth-user=shenjianyu@thinktrader.net</a> smtp-auth-password=邮箱密码</h1><h1 id="set-smtp-auth-login"><a href="#set-smtp-auth-login" class="headerlink" title="set smtp-auth=login"></a>set smtp-auth=login</h1><h1 id="echo-e-“rap2备份文件”-mail-s-‘rap2备份’-a-data-dir-database-data-date-Y-m-d-H-M-txt-845142388-qq-com"><a href="#echo-e-“rap2备份文件”-mail-s-‘rap2备份’-a-data-dir-database-data-date-Y-m-d-H-M-txt-845142388-qq-com" class="headerlink" title="echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_date +%Y%m%d_%H:%M.txt 845142388@qq.com"></a>echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.txt <a href="mailto:845142388@qq.com" target="_blank" rel="noopener">845142388@qq.com</a></h1><p>if [ $time = “12:00” ]<br>then<br>    echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.txt <a href="mailto:845142388@qq.com" target="_blank" rel="noopener">845142388@qq.com</a><br>fi<br>if [ $time = “20:00” ]<br>then<br>    echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.txt <a href="mailto:chenjiajun@cmiot.chinamobile.com" target="_blank" rel="noopener">chenjiajun@cmiot.chinamobile.com</a><br>fi<br>find $data_dir -mtime +7 -name ‘data_*.txt’ -exec rm -rf {} \;</p>
+<p>以上代码和之前的命令有些不一样，之前的命令是直接生成到宿主机，但不知为什么，直接执行.sh文件是可以正常生成文件的，但使用定时器生成的文件内容是空的，求大神答疑解惑。</p>
+<p>问题代码如下：</p>
+<pre><code>#!/bin/bash
+data_dir=&quot;/home/iotdev/cjj/&quot;
+docker exec -it testmysql mysqldump -uroot -p12345 test &gt; &quot;$data_dir/data_`date +%Y%m%d_%H:%M`.sql&quot;
+</code></pre><h5 id="2-添加定时任务"><a href="#2-添加定时任务" class="headerlink" title="2.添加定时任务"></a>2.添加定时任务</h5><p>  以下添加的是每分钟执行一次，可根据自己情况配置</p>
+<pre><code>crontab -e
+* * * * * sh /home/cjj/mysql_test.sh 【.sh文件的位置】
+</code></pre><p>四、添加脚本，删除时间太久的文件</p>
+<pre><code>// 删除60分钟前的文件
+find $data_dir$container_dir -amin +60 -name &apos;data_*.sql&apos; -exec rm -rf {} \;
+
+//删除7天前的数据
+find $data_dir$container_dir -mtime +7 -name &apos;data_*.sql&apos; -exec rm -rf {} \;
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[用户代理字符串检测技术]]></title>
+      <url>https://chenjiaj.github.io/2019/01/18/%E7%94%A8%E6%88%B7%E4%BB%A3%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF/</url>
+      <content type="html"><![CDATA[<h3 id="一、各个浏览器user-agent信息"><a href="#一、各个浏览器user-agent信息" class="headerlink" title="一、各个浏览器user-agent信息"></a>一、各个浏览器user-agent信息</h3><p><img src="/images/用户代理字符串检测技术-img/1.png" alt="mac chrome 手机模式"></p>
+<p><img src="/images/用户代理字符串检测技术-img/2.png" alt="mac chrome"></p>
+<p><img src="/images/用户代理字符串检测技术-img/3.png" alt="win7 chrome"></p>
+<p><img src="/images/用户代理字符串检测技术-img/4.png" alt="mac opera"></p>
+<p><img src="/images/用户代理字符串检测技术-img/5.png" alt="win7 opera"></p>
+<p><img src="/images/用户代理字符串检测技术-img/6.png" alt="mac firefox"></p>
+<p><img src="/images/用户代理字符串检测技术-img/7.png" alt="win7 firefox"></p>
+<p><img src="/images/用户代理字符串检测技术-img/8.png" alt="mac safari"></p>
+<p><img src="/images/用户代理字符串检测技术-img/9.png" alt="win7 ie"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> js </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[解决微信入口文件缓存问题]]></title>
+      <url>https://chenjiaj.github.io/2019/01/18/%E8%A7%A3%E5%86%B3%E5%BE%AE%E4%BF%A1%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>目前微信会对页面进行缓存，会导致代码在服务器更新后，用户无法及时加载到，因为访问的还是用户客户端缓存的数据。如果后端接口已改变，而前端调用页面还访问的以前的，会导致无法正常使用。</p>
+<p>为了避免此问题，让用户看到最新的代码，需要禁止微信缓存入口文件，其他文件依然可以缓存。<br>注意：在修改nginx配置文件时，需要将编辑器设置为utf-8,否则重启nginx可能会报错 “unkonwn directive … ”之类的错误</p>
+<p>以nginx配置为例：</p>
+<pre><code>location / {
+  root  /usr/share/nginx/html;
+  index index.html index.htm;
+  try_files $uri $uri/ /index.html;
+  # 禁用缓存
+  add_header Last-Modified $date_gmt;
+  add_header Cache-Control &apos;no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0&apos;;
+  if_modified_since off;
+  expires off;
+  etag off;
+}
+location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|js)$ {
+  root  /usr/share/nginx/html;
+  access_log off;
+  expires 30d;
+}
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> 微信 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 微信 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[用户代理字符串检测技术]]></title>
+      <url>https://chenjiaj.github.io/2019/01/18/node%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h3 id="一、mysql库"><a href="#一、mysql库" class="headerlink" title="一、mysql库"></a>一、mysql库</h3><p>文档：<a href="https://github.com/mysqljs/mysql" target="_blank" rel="noopener">https://github.com/mysqljs/mysql</a></p>
+<p>mysql有三种创建连接方式</p>
+<h4 id="1-createConnection"><a href="#1-createConnection" class="headerlink" title="1.createConnection"></a>1.createConnection</h4><p>使用时需要对连接的创建、断开进行管理</p>
+<h4 id="2-createPool"><a href="#2-createPool" class="headerlink" title="2.createPool"></a>2.createPool</h4><p>创建资源池，使用时不需要对连接的创建、断开进行管理，每次使用完调用一次release进行释放连接到资源池，至于连接是否断开交给资源池去管理。每次建立连接时非常消耗资源的，影响性能，因此对连接创建合理的管理，有利于提高性能。</p>
+<h4 id="3-createPoolCluster"><a href="#3-createPoolCluster" class="headerlink" title="3.createPoolCluster"></a>3.createPoolCluster</h4><p>创建连接池集群，允许与多个host连接</p>
+<h3 id="二、sequelize库"><a href="#二、sequelize库" class="headerlink" title="二、sequelize库"></a>二、sequelize库</h3><p>中文文档：<a href="https://github.com/demopark/sequelize-docs-Zh-CN" target="_blank" rel="noopener">https://github.com/demopark/sequelize-docs-Zh-CN</a></p>
+<p>此库依赖mysql2</p>
+<p>与mysql库相比，不需要写sql语句，增删查改都封装成对应的方法。<br>mysql库入门比较简单，有利于学习sql语句<br>sequelize封装了一些简单sql语句，掌握封装的方法及对应的参数即可，但学习成本稍微高一些，需要创建模式，模式需要与数据库中的表对应起来。在项目实际开发过程中，使用sequelize开发效率更高，代码可以更加简短。也有query方法，支持使用sql语句。</p>
+<p>sequelize提供了一个方法sequelize.sync({ force: true });强制数据库中的表与模式定义的表进行同步，如果数据库中存在与模式定义同名的表，此表会被删除，重新定义。如果数据库中存在模式未定义的表，不会对其进行操作。<br>也可以对单个模式设置强制同步<br>如：</p>
+<pre><code>// 注意:如果表已经存在,使用`force:true`将删除该表
+User.sync({ force: true }).then(() =&gt; {
+  // 现在数据库中的 `users` 表对应于模型定义
+  return User.create({
+    firstName: &apos;John&apos;,
+    lastName: &apos;Hancock&apos;
+  });
+});
+</code></pre><p>强制同步也有风险点：<br>1.适合在项目初始化，需要创建数据表的时候使用<br>2.如果数据库中已有部分数据，当服务重启时，数据库中模式定义的表会被删除，数据会丢失，因此不适合在非初始化时使用，因此在使用时需要判断是否时初始化的情况</p>
+]]></content>
+      
+        <categories>
+            
+            <category> node </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[解决docker 创建mysql，navcat无法连接问题]]></title>
+      <url>https://chenjiaj.github.io/2019/01/18/%E8%A7%A3%E5%86%B3docker-%E5%88%9B%E5%BB%BAmysql%EF%BC%8Cnavcat%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<h4 id="一、创建容器"><a href="#一、创建容器" class="headerlink" title="一、创建容器"></a>一、创建容器</h4><pre><code>docker run -p 3306:3306 --name mymysql -v $PWD/data:/var/lib/mysql -d -e MYSQL_ROOT_PASSWORD=123456 mysql
+</code></pre><h4 id="二、navicat连接"><a href="#二、navicat连接" class="headerlink" title="二、navicat连接"></a>二、navicat连接</h4><p>配置好后无法连接</p>
+<p>1,容器中登录mysql,查看mysql的版本</p>
+<pre><code>mysql&gt; status;
+mysql  Ver 8.0.11 for Linux on x86_64 (MySQL Community Server - GPL)
+</code></pre><p>2,进行授权远程连接(注意mysql 8.0跟之前的授权方式不同)</p>
+<pre><code>// 授权
+GRANT ALL ON *.* TO &apos;root&apos;@&apos;%&apos;;
+
+//刷新权限
+flush privileges
+</code></pre><p>　<br>此时,还不能远程访问,因为Navicat只支持旧版本的加密,需要更改mysql的加密规则</p>
+<pre><code>//更改加密规则
+ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;password&apos; PASSWORD EXPIRE NEVER;
+//更新root用户密码
+ALTER USER &apos;root&apos;@&apos;%&apos; IDENTIFIED WITH mysql_native_password BY &apos;123456&apos;;
+//刷新权限
+flush privileges;
+</code></pre><p>OK，设置完成，再次使用 Navicat 连接数据库</p>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[小程序总结]]></title>
+      <url>https://chenjiaj.github.io/2019/01/18/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h3 id="一、获取用户信息"><a href="#一、获取用户信息" class="headerlink" title="一、获取用户信息"></a>一、获取用户信息</h3><p>获取用户信息，需要用户点击按钮弹出授权弹出，用户同意后才能获取</p>
+<pre><code>&lt;!-- wxml 需要使用 button 来授权登录 --&gt;
+&lt;button wx:if=&quot;{{canIUse}}&quot; open-type=&quot;getUserInfo&quot; bindgetuserinfo=&quot;bindGetUserInfo&quot;&gt;授权登录&lt;/button&gt;
+</code></pre><p>bindGetUserInfo 方法的参数中也可以获取到用户信息，第一次可以从这个方法中取</p>
+<p>获取到的用户信息中不包括敏感信息openId\unionId，如果要获取用户敏感信息，需要wx.login登录</p>
+<pre><code>// js
+wx.getSetting({
+  success (res){
+    if (res.authSetting[&apos;scope.userInfo&apos;]) {
+      // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+      wx.getUserInfo({
+        success: function(res) {
+          console.log(res.userInfo)
+        }
+      })
+    }
+  }
+})
+</code></pre><p><img src="/images/小程序总结-img/1.png" alt="用户信息"></p>
+<h3 id="二、用户登录"><a href="#二、用户登录" class="headerlink" title="二、用户登录"></a>二、用户登录</h3><ol>
+<li><p>调用 <a href="https://developers.weixin.qq.com/miniprogram/dev/api/open-api/login/wx.login.html" target="_blank" rel="noopener">wx.login()</a> 获取 <strong>临时登录凭证code</strong> ，并回传到开发者服务器。</p>
+</li>
+<li><p>调用 <a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html" target="_blank" rel="noopener">auth.code2Session</a> 接口，换取 <strong>用户唯一标识 OpenID</strong> 和 <strong>会话密钥 session_key</strong>。</p>
+</li>
+</ol>
+<p>3.通过code获取到的<strong>session_key</strong>与小程序<strong>appID</strong>创建一个对象</p>
+<p>4.将小程序wx.getUserInfo获取到的参数encryptedData、iv传到后台解密。</p>
+<pre><code>const pc = new WXBizDataCrypt(weChat.appId, data.sessionKey);
+const userData = pc.decryptData(params.encryptedData, params.iv);
+</code></pre><p><img src="/images/小程序总结-img/2.png" alt="获取到的数据"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 微信 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 微信 </tag>
+            
+            <tag> 小程序 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[css绘制三角形]]></title>
+      <url>https://chenjiaj.github.io/2018/09/12/css%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
+      <content type="html"><![CDATA[<h4 id="一、绘制固定宽高三角形"><a href="#一、绘制固定宽高三角形" class="headerlink" title="一、绘制固定宽高三角形"></a>一、绘制固定宽高三角形</h4><p>绘制三角形，主要通过border来实现，首先我们看一下四边border分配的效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;triangle&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.triangle&#123;</span><br><span class="line">    width: 0;</span><br><span class="line">    height: 0;</span><br><span class="line">    border-left: 100px solid red;</span><br><span class="line">    border-top: 100px solid green;</span><br><span class="line">    border-right: 100px solid blue;</span><br><span class="line">    border-bottom: 100px solid pink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下：<br><img src="/images/css绘制三角形-img/1.png" alt="image.png"></p>
+<p>可以看到，但宽高为0，四边border的宽度相等的情况下会均分为4个三角形。</p>
+<p>通过这个效果，我们可以通过控制四边border的透明、宽度来显示一个三角形。</p>
+<p>例如：绘制一个直角三角形<br>顶部border为0，左右border设置宽度相等且透明的即可实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.triangle&#123;</span><br><span class="line">     width: 0;</span><br><span class="line">     height: 0;</span><br><span class="line">     border-left: 100px solid transparent;</span><br><span class="line">     border-right: 100px solid transparent;</span><br><span class="line">     border-bottom: 100px solid pink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="/images/css绘制三角形-img/2.png" alt="image.png"></p>
+<h4 id="二、绘制宽高自适应三角形"><a href="#二、绘制宽高自适应三角形" class="headerlink" title="二、绘制宽高自适应三角形"></a>二、绘制宽高自适应三角形</h4><p>通过clip-path和svg实现宽高自适应的三角形。<br>但这个方式兼容性不太好。<br><img src="/images/css绘制三角形-img/3.png" alt="image.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;t&quot;&gt;</span><br><span class="line">   dsfsdfs</span><br><span class="line">   &lt;br/&gt;</span><br><span class="line">   dsfsdfs</span><br><span class="line">   &lt;br/&gt;</span><br><span class="line">   dsfsdfs</span><br><span class="line">   &lt;br/&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.t&#123;</span><br><span class="line">     width: 100%;</span><br><span class="line">     position: relative;</span><br><span class="line">     text-align: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.t:after&#123;</span><br><span class="line">     position: absolute;</span><br><span class="line">     content: &apos;&apos;;</span><br><span class="line">     top: 0;</span><br><span class="line">     left: 0;</span><br><span class="line">     right: 0;</span><br><span class="line">     bottom:0;</span><br><span class="line">     background: yellow;</span><br><span class="line">     z-index: -1;</span><br><span class="line">     clip-path: polygon(50% 0, 0% 100%, 100% 100%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/css绘制三角形-img/4.png" alt="image.png"></p>
+<p>效果如下：</p>
+<h4 id="三、绘制固定宽高比三角形"><a href="#三、绘制固定宽高比三角形" class="headerlink" title="三、绘制固定宽高比三角形"></a>三、绘制固定宽高比三角形</h4><p>思路：绘制一个足够大的三角形，外层三角形宽高比与三角形一致，且为百分比，根据屏幕改变，显示里边的内容，超出范围隐藏<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;t&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.t &#123;</span><br><span class="line">      width: 40%;</span><br><span class="line">      padding-top: 8%;</span><br><span class="line">      padding-left: 40%;</span><br><span class="line">      overflow: hidden;</span><br><span class="line">      border: 1px solid red;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .t:after &#123;</span><br><span class="line">      content: &apos;&apos;;</span><br><span class="line">      display: block;</span><br><span class="line">      width: 0;</span><br><span class="line">      height: 0;</span><br><span class="line">      border-left: 1500px solid transparent;</span><br><span class="line">      border-right: 1500px solid transparent;</span><br><span class="line">      border-top: 300px solid #249ff1;</span><br><span class="line">      margin-top: -300px;</span><br><span class="line">      margin-left: -1500px;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下：（会根据屏幕宽度变化）<br><img src="/images/css绘制三角形-img/5.png" alt="image.png"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> css </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> css </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[参加第四届FEDAY有感]]></title>
+      <url>https://chenjiaj.github.io/2018/08/22/%E5%8F%82%E5%8A%A0%E7%AC%AC%E5%9B%9B%E5%B1%8AFEDAY%E6%9C%89%E6%84%9F/</url>
+      <content type="html"><![CDATA[<p>这是第二次参加FEDAY大会了，这一次的广州行有些波折。先来吐槽一下，吐槽是为了期待以后有所改进，第一次经历航班晚点到凌晨2点（买的晚上9:15的机票），并且眼看着飞往重庆的其它航空公司的飞机都起飞了，唯独深圳航空的飞机飞不了，也很是心碎。倘若是因为不可抗拒的原因，例如天气、飞机坏掉，其实也可以理解，自认倒霉，只是到了起飞时间飞机还在南京，看了南京的天气也是没有问题的，为什么会出现这样的情况？官方解释是一会儿说南京天气原因一会儿说是南京机场限流，然而限流也不会只限制这一个航空公司吧，听其他乘客说深圳航空经常晚点，希望深圳航空未来有所改善，从自己内部审视调度、管理是否合理等，而非寻找客观原因，尽量去避免这样的情况。</p>
+<p>从这次飞机晚点，我也得到一些启发。其实乘坐飞机也类似于一次产品体验，当我们开发某个产品时，一定要谨慎、细心，并且尽自己所能为用户提供更好的用户体验，因为有的时候用户体验的机会或许只有一次，如果第一次用户感受到不好的用户体验，那么以后在选择的时候就会避免这一项选择，没有什么特殊情况，大概率上不会再给你第二次的机会。开发好的产品，能够让更多的用户喜欢并且长期使用，我相信也是每一个程序员心中的一份期盼。以前把精力基本上都放在技术上，按照UI、UE图将项目完成，尽量避免bug，在一些明显的地方考虑一些用户体验，很少真正完整的去想开发的这个产品是否能获得用户喜欢。现在觉得这些不仅仅是产品、UI 、UE需要去思考的事情，既然要花这么多精力去开发一个产品，大家最终目的是完成一个好的产品，那么每一个人都应该去思考如何让用户更加喜欢这个产品，而技术只是实现这个产品的一个工具而已，当然也之后不断的提高技术，才能去支撑好的想法，而这两者其实是相辅相成的。有了好的想法可以迫使自己不得不去提高自己的技术，有了好的技术也希望能产生好的创意。</p>
+<p>回到正题，这次feday大会一共讲了7个主题，我只能记录一下我的心得与收获，因为内容太多，现在还无法完全吸收。</p>
+<h4 id="一、JS面向对象的根基：无类继承-周爱民-Aimingoo"><a href="#一、JS面向对象的根基：无类继承-周爱民-Aimingoo" class="headerlink" title="一、JS面向对象的根基：无类继承 - 周爱民(Aimingoo)"></a>一、JS面向对象的根基：无类继承 - 周爱民(Aimingoo)</h4><h5 id="1-周老师先介绍了一些es5和es6的对象知识，做了一个对比。"><a href="#1-周老师先介绍了一些es5和es6的对象知识，做了一个对比。" class="headerlink" title="1.周老师先介绍了一些es5和es6的对象知识，做了一个对比。"></a>1.周老师先介绍了一些es5和es6的对象知识，做了一个对比。</h5><p>例子中主要涉及的知识点如下：<br><code>Object.setPrototypeOf(obj, prototype)</code>将一个指定的对象的原型设置为另一个对象或者[<code>null</code>]<br><code>Object.create(prototype, descriptors)</code>创建一个具有指定原型且可选择性地包含指定属性的对象<br><code>class xxx</code>、<code>class AAA extends xxx {}</code> 默认的constructor方法</p>
+<h5 id="2-最后引申出了原子与元的概念，也是这个最重要的部分。"><a href="#2-最后引申出了原子与元的概念，也是这个最重要的部分。" class="headerlink" title="2.最后引申出了原子与元的概念，也是这个最重要的部分。"></a>2.最后引申出了原子与元的概念，也是这个最重要的部分。</h5><p>原子 - 构造函数为null ,不具有Object上的方法与属性<br>元 - 能产⽣原⼦的⼀个过程</p>
+<p>原子有： arguments 、 namespace</p>
+<p>产生原子的方式： </p>
+<pre><code>class Atom extends null {
+ constructor() {
+     return Object.create(new.target.prototype);
+ }
+}
+
+Object.setPrototypeOf(Atom, null)
+</code></pre><p><code>new.target</code><br>一般用在构造函数之中，返回new命令作用于的那个构造函数。如果构造函数不是通过new命令调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的。</p>
+<h5 id="3-原子应用场景"><a href="#3-原子应用场景" class="headerlink" title="3.原子应用场景"></a>3.原子应用场景</h5><p>当需要一个纯净的对象，不拥有其他对象包括Object对象的方法、属性时使用。这样可以保证当前对象的所以属性方法是自己可控的，不会被其他对象所影响。</p>
+<h4 id="二、kepler-gl在海量地理定位数据可视化的应用-何珊-Shan-He"><a href="#二、kepler-gl在海量地理定位数据可视化的应用-何珊-Shan-He" class="headerlink" title="二、kepler.gl在海量地理定位数据可视化的应用 - 何珊(Shan He)"></a>二、kepler.gl在海量地理定位数据可视化的应用 - 何珊(Shan He)</h4><p>我们有时会使用第三方的图表、地图来展示我们的数据，但是我们很少去了解这些第三方的地图或图表是如何实现的。</p>
+<p>参加这次分享会之前，都不知道有数据可视化工程师这个职位，在我们使用哪些炫酷的地图或图表的时候，从未想过他们付出了多少汗水与心血，想想心中的敬佩之情油然而生。当然数据可视化不仅限于图表、地图，它有各式各样的表达方式，将枯燥无味的数据转化为生动形象的表现形式。</p>
+<p>从何珊老师的分享中，可以看出她真的是一位非常厉害的人，她的知识面很广，并且都很厉害。</p>
+<p>她讲述了数据可视化工程师需要必备的四个核心能力：设计、统计学、编程、讲故事。</p>
+<p>正好她的学习历程，让她具备了这四个能力。</p>
+<p>她最开始是学习的建筑设计，建筑设计的学习让她掌握了统计学和设计的能力，后来因为觉得这样的项目周期太长，希望更快的能获得成就感；于是转做UI/UE，更加巩固了她设计能力，但她又发现公司的程序员无法很好的实现她的想法；于是她又回到学校去学习编程，四个核心的能力她不知不觉就掌握了三个。当然讲故事的能力不需要特意去培养，在工作中不断积累，用心去做，将复杂的数据用简单的图形或动画表现出来。</p>
+<p>从她的一个职业发展来看，她尝试了很多岗位，但其实每个岗位之间都是有关联的，并且为她后面的职业都打下了扎实的基础。其实有时候就是这样，努力做好现在的事儿，将当下的事儿做到极致，当发现自己缺乏或者想要做其他事儿的时候再去学习，专注当下、不断挑战，积累到一定的程度，或许生活真的会给你意想不到的惊喜。</p>
+<p>最后她介绍了一些技术的东西，以及CPU、GPU，由于这一部分没有拿到ppt，有点记不太清楚细节了。不过最后介绍了一下他们团队开发的可视化工具kepler.gl，为大家造福，让大家不用重复造轮子，便可以使用他们的成果，为这样的共享精神点个赞。</p>
+<h4 id="三、复杂业务前端团队的进化之路-谢晓立"><a href="#三、复杂业务前端团队的进化之路-谢晓立" class="headerlink" title="三、复杂业务前端团队的进化之路 - 谢晓立"></a>三、复杂业务前端团队的进化之路 - 谢晓立</h4><p>这一部分主要介绍了京东商城的业务、技术迭代的一个历程。他们主要从两个方面进行迭代：工具迭代、流程优化。</p>
+<h5 id="1-统一前端工程化、静态资源管理"><a href="#1-统一前端工程化、静态资源管理" class="headerlink" title="1. 统一前端工程化、静态资源管理"></a>1. 统一前端工程化、静态资源管理</h5><p>通过统一前端工程化、静态资源管理解决了两方面的问题：</p>
+<p>1）开发体验<br>从创建项目、开发项目、线上部署都可以使用功能齐全的自动化工具、轻量组件化功能提升开发体验。<br>例如：less\sass编译、资源整合、资源压缩、热更新、路径替换、文件添加md5戳等等。</p>
+<p>2）性能优化<br>首屏HTML代码直出、基于楼层的懒加载功能。</p>
+<h5 id="2-调研技术，最终决定自己造轮子"><a href="#2-调研技术，最终决定自己造轮子" class="headerlink" title="2.调研技术，最终决定自己造轮子"></a>2.调研技术，最终决定自己造轮子</h5><p>由于京东要求兼容到ie8，因此现在流行的vue\react\angular都无法使用（都兼容到ie9+）。<br>于是他们开发了类react高性能前端框架Nerv，尽量保证与react相同的api，并且兼容ie8。</p>
+<h5 id="3-多端统一开发框架-taro"><a href="#3-多端统一开发框架-taro" class="headerlink" title="3.多端统一开发框架 taro"></a>3.多端统一开发框架 taro</h5><p>由于业务需求需要开发小程序，而小程序使用的新的语法，mina结构，存在以下问题：<br>1）规范不统一<br>2）落后的开发模式<br>如：不支持less/scss、手动图片、JS压缩、难以使用npm依赖、无法使用TypeScript、不支持单文件组件等等</p>
+<p>为了解决以上问题，做到开发一套，多端使用，京东凹凸工作室开发了taro框架，实现⼀套代码适配⼩程序/H5/RN等终端。</p>
+<h5 id="4-工作效率提升，但开发质量如何保证？-流程优化"><a href="#4-工作效率提升，但开发质量如何保证？-流程优化" class="headerlink" title="4.工作效率提升，但开发质量如何保证？- 流程优化"></a>4.工作效率提升，但开发质量如何保证？- 流程优化</h5><p><img src="/images/参加第四届FEDAY有感-img/1.png" alt="原始的研发流程"></p>
+<p><img src="/images/参加第四届FEDAY有感-img/2.png" alt="完整体系"></p>
+<p>为了保证质量，京东开发了数据监控（检测模块可用性保证页面安全）、素材监控（监控素材尺寸与体积确保页面性能）等系统对项目进行监控，实现24小时预告警，解决了一部分问题。</p>
+<p>但是整个听下了来，发现京东这一套东西，个性化比较强，适用于京东内部，可以参考和借鉴，但是无法共享与通用。</p>
+<h4 id="四、Webpack主题相关-Sean-Thomas-Larkin"><a href="#四、Webpack主题相关-Sean-Thomas-Larkin" class="headerlink" title="四、Webpack主题相关 - Sean Thomas Larkin"></a>四、Webpack主题相关 - Sean Thomas Larkin</h4><p>这一部分，因为是全英文分享并且也没有拿到ppt，目前能力有限，没能听太明白，所以无法总结什么心得。</p>
+<h4 id="五、如何正确点开技能树-陈广琛-Cat-Chen"><a href="#五、如何正确点开技能树-陈广琛-Cat-Chen" class="headerlink" title="五、如何正确点开技能树 - 陈广琛(Cat Chen)"></a>五、如何正确点开技能树 - 陈广琛(Cat Chen)</h4><p>所谓授人予鱼不如授人以渔，这一部分主要是就是对职业发展方向的一个引导。</p>
+<p>陈老师以开车为喻，通俗易懂的让我们理解一个典型的前端发展方向。</p>
+<h5 id="1-学开车阶段"><a href="#1-学开车阶段" class="headerlink" title="1.学开车阶段"></a>1.学开车阶段</h5><p>这个时候学习兴趣比较浓厚，并且也享受练习开车，但是这个时候是不具备独立在公共路段开车的能力，独立上路会比较危险，因此需要教练的指导。同样的刚开始学前端也是一样的，才开始接触各种基础都比较新奇，对各个技术都充满热情，也都很享受学习的过程，但这个时候还不具备独立开发的能力，需要前辈的多多指导，在项目中不断练习实践才能提高。</p>
+<h5 id="2-初拿驾驶证"><a href="#2-初拿驾驶证" class="headerlink" title="2.初拿驾驶证"></a>2.初拿驾驶证</h5><p>经过学习并且通过了考试，刚刚拿到驾驶证。这个时候基本以及具备独立上路的基本能力，但是因为还没有什么经验，很容易犯错，比如容易发生擦挂等小事故。但是这些都是一个过程，不要害怕犯错，需要在犯错中成长，多开，多积累经验。前端到这个阶段也是一样的，刚刚具备独立开发的能力，可能在项目开发中会遇到各种各样的问题，但是只要一个一个的去克服，在不断的积累中，会变得越来越强大。</p>
+<h5 id="3-熟练驾驶"><a href="#3-熟练驾驶" class="headerlink" title="3.熟练驾驶"></a>3.熟练驾驶</h5><p>当积累一定的经验以后，对驾驶已经驾轻就熟了，可以想开到哪里就开去哪里，独立上路也比较安全。这个时候也具备了带新驾驶员的能力，并且在带新驾驶员的过程中提升自己的能力。前端达到这个接到，也需要尽自己的力量对新人作出自己的一些贡献，并且提升自己带领新人的能力。</p>
+<h5 id="4-类似导游"><a href="#4-类似导游" class="headerlink" title="4.类似导游"></a>4.类似导游</h5><p>当驾驶经验积累到一定的程度，对当地的路线、地形基本上会了如指掌，这个时候如果需要从A点到B点，驾驶员可以作出比较好的路线选择，如果走更快到达、如何走路线最近、如何走路上的风景最美等等，这些都是非常了解的。当前端到达这一阶段，基本上可以达到对系统有一个比较完善的分析，拿到一个项目需求，可以做技术选型，知道项目选择哪一个技术框架最合适，性能最好，并且能够解决项目中出现的各种复杂问题，能够预测项目可能会遇见哪些风险。</p>
+<h5 id="5-组织者"><a href="#5-组织者" class="headerlink" title="5.组织者"></a>5.组织者</h5><p>当出去郊游等情况，可以为团队提供好的路线方案，并且领导团队成员通过相同的路线到达相同的目标。这一阶段，需要具备一定的领导能力。当前端团队不断扩大，人员不断增多，如何统一大家的编码风格，组织指导大家共同更好的完成一个项目是这一阶段需要锻炼的能力。</p>
+<h4 id="六、Time-in-JavaScript-贺师俊-Hax"><a href="#六、Time-in-JavaScript-贺师俊-Hax" class="headerlink" title="六、Time in JavaScript - 贺师俊(Hax)"></a>六、Time in JavaScript - 贺师俊(Hax)</h4><p>这一部分主要讲了javascript中的Date对象所存在的一些问题，比如有些api不太好分是UTC时间还是本地时间，而这些问题是由于，JavaScript最开始是从java最初的版本copy而来的，虽然Java已经修改了，但是因为浏览器已经这样去实现了，当发现问题的时候也无法进行修改，为了避免老版本的页面无法正常运行。</p>
+<p>推荐日期库，这些日期库内部解决了原生Date对象存在的问题：</p>
+<ul>
+<li><a href="http://momentjs.com/" target="_blank" rel="noopener">Moment.js</a></li>
+<li><a href="https://date-fns.org/" target="_blank" rel="noopener">date-fns</a></li>
+<li><a href="https://js-joda.github.io/js-joda/" target="_blank" rel="noopener">js-joda</a></li>
+</ul>
+<h4 id="七、把握趋势，你不容错过的Serverless-杜欢-风之石"><a href="#七、把握趋势，你不容错过的Serverless-杜欢-风之石" class="headerlink" title="七、把握趋势，你不容错过的Serverless - 杜欢(风之石)"></a>七、把握趋势，你不容错过的Serverless - 杜欢(风之石)</h4><p>这一部分由于事先没有了解过，导致听起来有点吃力，没有太多的体会。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 感悟 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 感悟 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[微信开发常用功能总结]]></title>
+      <url>https://chenjiaj.github.io/2018/08/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<h2 id="一、获取access-token"><a href="#一、获取access-token" class="headerlink" title="一、获取access_token"></a>一、获取access_token</h2><p>参考文档：<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140183" target="_blank" rel="noopener">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140183</a></p>
+<h5 id="1-用途"><a href="#1-用途" class="headerlink" title="1.用途"></a>1.用途</h5><p><strong>调用公众号的各个接口都需要用到access_token</strong></p>
+<p>备注：占用大小至少512个字符空间、有效期目前为2个小时，需要定时刷新，重复刷新获取惠导致上一次获取的access_token失效</p>
+<h5 id="2-获取方式"><a href="#2-获取方式" class="headerlink" title="2.获取方式"></a>2.获取方式</h5><pre><code>https请求方式: GET
+https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APPID&amp;secret=APPSECRET
+</code></pre><p>备注：调用接口时，请登录“微信公众平台-开发-基本配置”提前将服务器IP地址添加到IP白名单中，点击查看设置方法，否则将无法调用成功。小程序无需配置IP白名单。</p>
+<p>注意获取到access_token后需要存在数据库中，并且设置一个时间（2小时过期），最好在过期之前重新获取一次，更新数据库中的值。</p>
+<h2 id="二、接口配置信息（验证服务器有效性）"><a href="#二、接口配置信息（验证服务器有效性）" class="headerlink" title="二、接口配置信息（验证服务器有效性）"></a>二、接口配置信息（验证服务器有效性）</h2><p>配置服务器地址需要一个外网地址，开发过程中可以使用内网穿透工具，将一个外网地址指向你的本地服务，方便调试。</p>
+<p>常用的内网穿透工具：<br>mac:  ngrok<br>windows:  花生壳、nat123</p>
+<p><img src="/images/微信开发常用功能总结-img/1.png" alt="image.png"></p>
+<p>url:服务器接口地址<br>token:信息需要与服务器定义的token一直</p>
+<p>点击提交按钮时，微信会向服务器发送一个get请求，请求地址就是配置的url，这个请求会携带<strong>signature</strong>（微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数）、<strong>timestamp</strong>（时间戳）、<strong>nonce</strong>（随机数）、<strong>echostr</strong>（随机字符串）四个字符串过来</p>
+<p>服务器拿到这些字符串之后进行校验：<br>1）将token、timestamp、nonce三个参数进行字典序排序<br>2）将三个参数字符串拼接成一个字符串进行sha1加密<br>3）开发者获得加密后的字符串可与signature对比，标识该请求来源于微信</p>
+<p>代码可参考：<br><img src="/images/微信开发常用功能总结-img/2.png" alt="image.png"></p>
+<h2 id="三、被动回复用户消息"><a href="#三、被动回复用户消息" class="headerlink" title="三、被动回复用户消息"></a>三、被动回复用户消息</h2><h5 id="1-接收post请求"><a href="#1-接收post请求" class="headerlink" title="1.接收post请求"></a>1.接收post请求</h5><p>当用户向微信公众号发送消息的时候，微信会向我们认证（即之前配置的服务器地址）发送请求，配置服务器地址的时候向服务器发送的get请求，此时发送的post请求，请求地址相同。</p>
+<h5 id="2-处理请求返回信息"><a href="#2-处理请求返回信息" class="headerlink" title="2.处理请求返回信息"></a>2.处理请求返回信息</h5><p>当服务器端接收到请求时，需要验证一下请求来源，即也需要配置服务器地址时的判断，判断成功，可以获取用户发送来的消息，并且返回给用户信息</p>
+<pre><code>const token = opts.token
+const {
+  signature,
+  nonce,
+  timestamp,
+  echostr
+} = ctx.query
+
+const str = [token, timestamp, nonce].sort().join(&apos;&apos;)
+const sha = sha1(str)
+if (sha !== signature) {
+  ctx.body = &apos;Failed&apos;
+  return false
+}
+
+const data = await getRawBody(ctx.req, {
+  length: ctx.length,
+  limit: &apos;1mb&apos;,
+  encoding: ctx.charset
+})
+
+const content = await util.parseXML(data)
+console.log(content) //用户向微信公众号发送的消息
+const replyBody = `哈哈哈，欢迎来的v家族.点击&lt;a href=&quot;http://coding.imooc.com&quot;&gt;viho viho&lt;/a&gt;`//定义用户返回的信息
+
+//注意这一段模版&lt;与！之间不能有空格，如果有空格，向微信公众号发送消息时会返回“该公众号提供的服务出现故障，请稍后再试”
+const xml = `&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[${content.xml.FromUserName}]]&gt;&lt;/ToUserName&gt;&lt;FromUserName&gt;&lt;![CDATA[${content.xml.ToUserName}]]&gt;&lt;/FromUserName&gt;&lt;CreateTime&gt;12345678&lt;/CreateTime&gt;&lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;&lt;Content&gt;&lt;![CDATA[${replyBody}]]&gt;&lt;/Content&gt;&lt;/xml&gt;`
+console.log(&apos;--replyBody&apos;, replyBody)
+ctx.status = 200
+ctx.type = &apos;application/xml&apos;
+ctx.body = xml
+</code></pre><p>注意：<br>接收消息的格式和回复的格式不一样，所以在判断的时候会有区别。可以通过判断接收到的消息格式或内容作出处理，返回对应的回复消息格式或内容。<br>参考文档如下：<br><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140453" target="_blank" rel="noopener">接收消息</a><br><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140543" target="_blank" rel="noopener">回复消息</a></p>
+<h2 id="四、JS-SDK"><a href="#四、JS-SDK" class="headerlink" title="四、JS-SDK"></a>四、JS-SDK</h2><h5 id="1-基本步骤："><a href="#1-基本步骤：" class="headerlink" title="1.基本步骤："></a>1.基本步骤：</h5><p><strong>步骤一：绑定域名</strong><br>登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”</p>
+<p><strong>步骤二：引入JS文件</strong><br>在需要调用JS接口的页面引入如下JS文件，（支持https）：<a href="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" target="_blank" rel="noopener">http://res.wx.qq.com/open/js/jweixin-1.2.0.js</a></p>
+<p><strong>步骤三：通过config接口注入权限验证配置</strong></p>
+<pre><code>wx.config({
+  debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+  appId: &apos;&apos;, // 必填，公众号的唯一标识
+  timestamp: , // 必填，生成签名的时间戳
+  nonceStr: &apos;&apos;, // 必填，生成签名的随机串
+  signature: &apos;&apos;,// 必填，签名
+  jsApiList: [] // 必填，需要使用的JS接口列表
+});
+</code></pre><p><strong>步骤四：通过ready接口处理成功验证</strong></p>
+<p><strong>步骤五：通过error接口处理失败验证</strong></p>
+<h5 id="2-签名算法"><a href="#2-签名算法" class="headerlink" title="2.签名算法"></a>2.签名算法</h5><p>备注：此部分若想使用现成的代码测试，可以参考 <a href="https://www.jianshu.com/p/2b1e0be70250" target="_blank" rel="noopener">微信开发总结</a></p>
+<p>步骤三中涉及的appId、timestamp、nonceStr、signature 这四个参数是需要发送请求到后端服务器获取的。<br>后端服务器需要做一个签名才能生成signature。</p>
+<p>具体实现：</p>
+<p><strong>步骤一：获取access_token</strong><br>参考获取access_token部分</p>
+<p><strong>步骤二：获取jsapi_ticket</strong><br>access_token 采用http GET方式请求获得jsapi_ticket（有效期7200秒，开发者必须在自己的服务全局缓存jsapi_ticket）：<a href="https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&amp;type=jsapi" target="_blank" rel="noopener">https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&amp;type=jsapi</a></p>
+<p><strong>步骤三：签名算法</strong><br>参与签名的字段包括noncestr（随机字符串）, 有效的jsapi_ticket, timestamp（时间戳）, url（当前网页的URL，不包含#及其后面部分） 。对所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）后，使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串string1。这里需要注意的是所有参数名均为小写字符。对string1作sha1加密，字段名和字段值都采用原始值，不进行URL 转义。</p>
+<p>参考代码：</p>
+<pre><code>/**
+ * 创建随机数
+ */
+function createNoncestr() {
+  return Math.random().toString(35).substring(2, 15)
+}
+
+/**
+ * 生成时间戳
+ */
+function createTimestamp() {
+  return parseInt((+new Date()) / 1000)
+}
+
+/**
+ * 签名算法
+ */
+function signIt(args) {
+  const keys = Object.keys(args)
+  keys.sort()
+  let str = &apos;&apos;
+
+  keys.forEach(key =&gt; {
+    str += &apos;&amp;&apos; + key.toLowerCase() + &apos;=&apos; + args[key]
+  })
+
+  str = str.substring(1)
+  console.log(&apos;str--&apos;, str)
+  const sha = sha1(str) //需要引入外部sha1依赖包
+  return sha
+}
+
+/**
+ * 签名函数
+ * @param ticket
+ * @param url
+ * @returns {{noncestr: *, timestamp: *, signature: *}}
+ */
+function sign(ticket, url) {
+  const nonceStr = createNoncestr()
+  const timestamp = createTimestamp()
+  const signature = signIt({nonceStr, timestamp, jsapi_ticket: ticket, url})
+
+  return {
+    nonceStr,
+    timestamp,
+    signature
+  }
+}
+</code></pre><h3 id="五、网页授权、获取用户信息"><a href="#五、网页授权、获取用户信息" class="headerlink" title="五、网页授权、获取用户信息"></a>五、网页授权、获取用户信息</h3><h5 id="1-类别"><a href="#1-类别" class="headerlink" title="1.类别"></a>1.类别</h5><p> （1）以snsapi_base为scope发起的网页授权，用户无感知，静默授权，但只能获取到openid<br> （2）以snsapi_userinfo为scope发起的网页授权，弹出授权确认页面，用户点击确认授权后才能获取到用户信息<br>注意：对于已关注公众号的用户，如果用户从公众号的会话或者自定义菜单进入本公众号的网页授权页，即使是scope为snsapi_userinfo，也是静默授权，用户无感知。</p>
+<h5 id="2-基本流程"><a href="#2-基本流程" class="headerlink" title="2.基本流程"></a>2.基本流程</h5><p>（1）在公众中先设置授权回调域名<br><img src="/images/微信开发常用功能总结-img/3.png" alt="image.png"></p>
+<p>（2）用户同意授权，获取code<br>可以让用户直接访问下面的url地址，但是这个url过长，而且可以修改url中的参数，因此最好向服务器端发起一个get请求，由服务器端重定向到下面地址。<br><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect</a></p>
+<p>用户访问上面这个地址，如果合法会跳转redirect_uri参数值的地址，并在这个地址上加上code和state参数。</p>
+<p>（3）通过code换取网页授权access_token<br>注意：这里的access_token是专门用来获取授权用户信息使用的，与其他微信接口，需要通过基础支持中的“获取access_token”接口来获取到的普通access_token是两个不一样的参数，只是名字相同。<br>每个code只能使用一次。</p>
+<p><a href="https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&amp;secret=SECRET&amp;code=CODE&amp;grant_type=authorization_code" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&amp;secret=SECRET&amp;code=CODE&amp;grant_type=authorization_code</a></p>
+<p>（4）刷新access_token（如果需要）<br><a href="https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&amp;grant_type=refresh_token&amp;refresh_token=REFRESH_TOKEN" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&amp;grant_type=refresh_token&amp;refresh_token=REFRESH_TOKEN</a></p>
+<p>（5）拉取用户信息(需scope为 snsapi_userinfo)<br><a href="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 微信 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 微信 </tag>
+            
+            <tag> 总结 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Vue-给对象新增属性（使用Vue.$set()）]]></title>
+      <url>https://chenjiaj.github.io/2018/04/24/Vue-%E7%BB%99%E5%AF%B9%E8%B1%A1%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7%EF%BC%88%E4%BD%BF%E7%94%A8Vue-$set()%EF%BC%89/</url>
+      <content type="html"><![CDATA[<p>在开发过程中，我们时常会遇到这样一种情况：当vue的data里边声明或者已经赋值过的对象或者数组（数组里边的值是对象）时，向对象中添加新的属性，如果更新此属性的值，是不会更新视图的。</p>
+<p>根据官方文档定义：<strong>如果在实例创建之后添加新的属性到实例上，它不会触发视图更新</strong>。</p>
+<p>当你把一个普通的 JavaScript 对象传入 Vue 实例作为 <code>data</code> 选项，Vue 将遍历此对象所有的属性，并使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener"><code>Object.defineProperty</code></a> 把这些属性全部转为 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Working_with_Objects#%E5%AE%9A%E4%B9%89_getters_%E4%B8%8E_setters" target="_blank" rel="noopener">getter/setter</a>。</p>
+<p>受现代 JavaScript 的限制 (以及废弃 Object.observe)，Vue 不能检测到对象属性的添加或删除。由于 Vue 会在初始化实例时对属性执行 getter/setter 转化过程，所以属性必须在 data 对象上存在才能让 Vue 转换它，这样才能让它是响应的。</p>
+<p>看以下实例：</p>
+<pre><code>&lt;template&gt;
+     &lt;div&gt;
+    &lt;p @click=&quot;addd(obj)&quot;&gt;{{obj.d}}&lt;/p&gt;
+    &lt;p @click=&quot;adde(obj)&quot;&gt; {{obj.e}}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+ &lt;script&gt;
+  export default {
+      data(){
+            return {
+                obj:{}
+            }
+      },
+      mounted() {
+        this.obj = {d: 0};
+        this.obj.e = 0;
+        console.log(&apos;after--&apos;, this.obj);
+      },
+     methods: {
+        addd(item) {
+            item.d = item.d + 1;
+            console.log(&apos;item--&apos;,item);
+        },
+        adde(item) {
+            item.e = item.e + 1;
+            console.log(&apos;item--&apos;,item);
+        }
+       }
+  }
+ &lt;/scirpt&gt;
+</code></pre><p><img src="/images/Vue-给对象新增属性（使用Vue-$set）-img/1.png" alt="image.png"></p>
+<p>可以看出d属性是有get 和 set方法的，而新增的e属性是没有的。</p>
+<p>点击触发3次addd，点击触发3次adde,页面效果及控制台信息如下</p>
+<p><img src="/images/Vue-给对象新增属性（使用Vue-$set）-img/2.png" alt="image.png"></p>
+<p><img src="/images/Vue-给对象新增属性（使用Vue-$set）-img/3.png" alt="image.png"></p>
+<p>此时触发1次addd,页面效果如下：</p>
+<p><img src="/images/Vue-给对象新增属性（使用Vue-$set）-img/4.png" alt="image.png"></p>
+<p><img src="/images/Vue-给对象新增属性（使用Vue-$set）-img/5.png" alt="image.png"></p>
+<p>由此可以看出，更新新增属性e，是不会更新视图，但是会改变其值，当更新原有属性d时会更新视图，同时将新增的属性e的值也更新到视图里边</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>官方定义：</p>
+<p>Vue 不允许在已经创建的实例上动态添加新的根级响应式属性 (root-level reactive property)。然而它可以使用 Vue.set(object, key, value) 方法将响应属性添加到嵌套的对象上：</p>
+<p>Vue.set(vm.obj, ‘e’, 0)<br>您还可以使用 vm.$set 实例方法，这也是全局 Vue.set 方法的别名：</p>
+<p>this.$set(this.obj,’e’,02)</p>
+<p>有时你想向已有对象上添加一些属性，例如使用 Object.assign() 或 _.extend() 方法来添加属性。但是，添加到对象上的新属性不会触发更新。在这种情况下可以创建一个新的对象，让它包含原对象的属性和新的属性：</p>
+<p>// 代替 <code>Object.assign(this.obj, { a: 1, e: 2 })</code><br>this.obj= Object.assign({}, this.obj, { a: 1, e: 2 })</p>
+<p>上述实例解决如下：</p>
+<p><img src="/images/Vue-给对象新增属性（使用Vue-$set）-img/6.png" alt="image.png"></p>
+<p>点击触发3次addd，点击触发3次adde,页面效果及控制台信息如下：</p>
+<p><img src="/images/Vue-给对象新增属性（使用Vue-$set）-img/7.png" alt="image.png"></p>
+<p><img src="/images/Vue-给对象新增属性（使用Vue-$set）-img/8.png" alt="image.png"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> vue </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Vue组件-confirm]]></title>
+      <url>https://chenjiaj.github.io/2018/03/29/Vue%E7%BB%84%E4%BB%B6-confirm/</url>
+      <content type="html"><![CDATA[<p>对于confirm组件，我总共试过以下三种方式去实现，最后还是选择了用直接通过this调用promise方法的形式。</p>
+<h3 id="一、使用的地方引用，传入属性和方法"><a href="#一、使用的地方引用，传入属性和方法" class="headerlink" title="一、使用的地方引用，传入属性和方法"></a>一、使用的地方引用，传入属性和方法</h3><p>在需要的地方引入组件，然后传入对应的属性和方法</p>
+<p>组件</p>
+<pre><code>&lt;template&gt;
+&lt;div :class=&quot;{&apos;pop-up&apos;:true,&apos;show&apos;:isShow}&quot;&gt;
+    &lt;div class=&quot;popup-mask&quot; v-if=&quot;hasMark&quot;&gt;&lt;/div&gt;
+    &lt;transition name=&quot;bottom&quot;&gt;
+        &lt;div class=&quot;popup-note bottom&quot;&gt;
+            &lt;div class=&quot;pop-content&quot;&gt;
+                &lt;div class=&quot;pop-tit&quot;&gt;
+                    {{title}}
+                &lt;/div&gt;
+                &lt;p class=&quot;pop-note hasTitle&quot;&gt;
+                    &lt;span class=&quot;msg&quot; v-html=&quot;msg&quot;&gt;&lt;/span&gt;
+                &lt;/p&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;alert&apos;&quot; @click=&quot;alertClick&quot;&gt;
+                    &lt;span class=&quot;btn btn-block yes-btn&quot;&gt;{{alertBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;confirm&apos;&quot;&gt;
+                    &lt;span @touchstart=&quot;noClick&quot; class=&quot;btn&quot;&gt;{{noBtnText}}&lt;/span&gt;
+                    &lt;span @touchstart=&quot;yesClick&quot; class=&quot;btn yes-btn&quot;&gt;{{yesBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/transition&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+    props: {
+        isShow: {
+            type: Boolean,
+            default: false
+        },
+        title: {
+            type: String,
+            default: &apos;提示&apos;
+        },
+        msg: {
+            type: String,
+            default: &apos;&apos;
+        },
+        type: {
+            type: String,
+            default: &apos;alert&apos;
+        },
+        alertBtnText: {
+            type: String,
+            default: &apos;我知道了&apos;
+        },
+        yesBtnText: {
+            type: String,
+            default: &apos;确定&apos;
+        },
+        noBtnText: {
+            type: String,
+            default: &apos;取消&apos;
+        },
+        hasMark: {
+            type: Boolean,
+            default: true
+        }
+    },
+    methods: {
+        noClick() {
+            this.$emit(&apos;noClick&apos;);
+        },
+        yesClick() {
+            this.$emit(&apos;yesClick&apos;);
+        },
+        alertClick() {
+            this.$emit(&apos;alertClick&apos;);
+        }
+    }
+}
+&lt;/script&gt;
+&lt;style lang=&apos;less&apos;&gt;
+@import &quot;../../../static/less/components/tip/index.less&quot;;
+&lt;/style&gt;
+</code></pre><p>使用</p>
+<pre><code>&lt;template&gt;
+&lt;div&gt;
+    &lt;message
+        type=&quot;confirm&quot;
+        :title=&quot;confirmTitle&quot;
+        :msg=&quot;confrimMsg&quot;
+        :isShow=&quot;isConfirmShow&quot;
+        yesBtnText=&quot;覆盖&quot;
+        @noClick=&quot;cancelDel&quot;
+        @yesClick=&quot;doDel&quot;&gt;
+    &lt;/message&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import Message from &apos;../components/message/message.vue&apos;
+
+export default {
+    components: {
+        Message
+    },
+    data() {
+        return {
+            isConfirmShow: false,
+            confirmTitle: &apos;计划冲突&apos;,
+            confrimMsg: &apos;&apos;
+        }
+    },
+    methods:{
+              //取消
+        cancelDel() {
+            this.isConfirmShow = false;
+        },
+        //确定
+        doDel() {
+            this.isConfirmShow = false;
+        }
+      }
+}
+&lt;/script&gt;
+</code></pre><p>这种方式的问题在于在每个使用的地方都需要引用,如果组件使用频率比较多就不适合这样写，因为项目一般是会使用懒加载的，如果使用过多可以写到公共文件里边，不需要每次使用到的地方都去加载一次。</p>
+<p>另外 如果在遇到以下情景，使用起来也会特别的不方便。在离开路由前需要弹出一个确定框，点击确定执行next(),点击取消执行next(false)，如果按照这种方式的话需要提前定义好cancelDel和doDel方法，这个时候不好把next传递给这两个方法，只能通过一个变量或熟悉把next存起来，这样使用起来也不方便，并且阅读起来也会比较困难。</p>
+<pre><code> beforeRouteLeave(to, from, next) {
+    this.$confirm({
+                title: &apos;&apos;,
+                msg: &apos;模式未保存，确定离开？&apos;,
+                yesBtnText: &quot;离开&quot;
+            }).then(() =&gt; {
+                next();
+            }).catch(() =&gt; {
+                next(false);
+            });
+},
+</code></pre><h3 id="二、全局引入组件，使用vuex控制组件的显示"><a href="#二、全局引入组件，使用vuex控制组件的显示" class="headerlink" title="二、全局引入组件，使用vuex控制组件的显示"></a>二、全局引入组件，使用vuex控制组件的显示</h3><p>组件代码</p>
+<pre><code>&lt;template&gt;
+&lt;div :class=&quot;{&apos;pop-up&apos;:true,&apos;show&apos;:isShow}&quot;&gt;
+    &lt;div class=&quot;popup-mask&quot; v-if=&quot;hasMark&quot;&gt;&lt;/div&gt;
+    &lt;transition name=&quot;bottom&quot;&gt;
+        &lt;div class=&quot;popup-note bottom&quot;&gt;
+            &lt;div class=&quot;pop-content&quot;&gt;
+                &lt;div class=&quot;pop-tit&quot;&gt;
+                    {{title}}
+                &lt;/div&gt;
+                &lt;p class=&quot;pop-note hasTitle&quot;&gt;
+                    &lt;span class=&quot;msg&quot; v-html=&quot;msg&quot;&gt;&lt;/span&gt;
+                &lt;/p&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;alert&apos;&quot; @click.stop=&quot;alertClick&quot;&gt;
+                    &lt;span class=&quot;btn btn-block yes-btn&quot;&gt;{{alertBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;confirm&apos;&quot;&gt;
+                    &lt;span @click.prevent=&quot;noClick&quot; class=&quot;btn&quot;&gt;{{noBtnText}}&lt;/span&gt;
+                    &lt;span @click.prevent=&quot;yesClick&quot; class=&quot;btn yes-btn&quot;&gt;{{yesBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/transition&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import {mapState} from &apos;vuex&apos;
+
+export default {
+    computed: mapState({
+        title: state =&gt; state.confirm.title,
+        isShow: state =&gt; state.confirm.isShow,
+        msg: state =&gt; state.confirm.msg,
+        type: state =&gt; state.confirm.type,
+        hasMark: state =&gt; state.confirm.hasMark,
+        alertBtnText: state =&gt; state.confirm.alertBtnText,
+        noBtnText: state =&gt; state.confirm.noBtnText,
+        yesBtnText: state =&gt; state.confirm.yesBtnText,
+    }),
+    methods: {
+        alertClick() {
+            this.$store.commit(&apos;alertClick&apos;)
+        },
+        noClick() {
+            this.$store.commit(&apos;noClick&apos;)
+        },
+        yesClick() {
+            this.$store.commit(&apos;yesClick&apos;)
+        }
+    }
+}
+&lt;/script&gt;
+
+&lt;style lang=&apos;less&apos; type=&quot;text/less&quot; scoped&gt;
+@import &quot;../../../static/less/components/tip/index.less&quot;;
+&lt;/style&gt;
+</code></pre><p>vuex部分代码</p>
+<pre><code>let yesCallBack = () =&gt; {};
+let noCallBack = () =&gt; {};
+let alertCallBack = () =&gt; {};
+
+export default {
+state: {
+    title: &apos;&apos;,
+    isShow: false,
+    msg: &apos;&apos;,
+    type: &apos;confirm&apos;,
+    hasMark: true,
+    alertBtnText: &apos;&apos;,
+    noBtnText: &apos;取消&apos;,
+    yesBtnText: &apos;确定&apos;,
+},
+mutations: {
+    confirm(state, data) {
+        Object.assign(state, {
+            title: data.title,
+            isShow: true,
+            msg: data.msg,
+            type: &apos;confirm&apos;,
+            hasMark: data.hasMark === &apos;undefined&apos; ? true : data.hasMark,
+            alertBtnText: data.alertBtnText,
+            noBtnText: data.noBtnText || &apos;取消&apos;,
+            yesBtnText: data.yesBtnText || &apos;确定&apos;,
+        });
+
+        let yesCb = data.yesClick;
+        let noCb = data.noClick;
+        if (yesCb) {
+            yesCallBack = yesCb;
+        } else {
+            yesCallBack = () =&gt; {
+            };
+        }
+
+        if (noCb) {
+            noCallBack = noCb;
+        } else {
+            noCallBack = () =&gt; {
+            };
+        }
+    },
+    alert(state, data) {
+        Object.assign(state, {
+            title: data.title,
+            isShow: true,
+            msg: data.msg,
+            type: &apos;alert&apos;,
+            hasMark: data.hasMark === &apos;undefined&apos; ? true : data.hasMark,
+            alertBtnText: data.alertBtnText,
+            noBtnText: data.noBtnText || &apos;取消&apos;,
+            yesBtnText: data.yesBtnText || &apos;确定&apos;,
+        });
+
+        let alertCb = data.alertClick;
+        if (alertCb) {
+            alertCallBack = alertCb;
+        } else {
+            alertCallBack = () =&gt; {
+            };
+        }
+    },
+    noClick(state) {
+        noCallBack();
+        state.isShow = false;
+    },
+    yesClick(state) {
+        yesCallBack();
+        state.isShow = false;
+    },
+    alertClick(state) {
+        alertCallBack();
+        state.isShow = false;
+    }
+}
+}
+</code></pre><p>使用</p>
+<p>  全局主文件写入confirm</p>
+<pre><code>&lt;template&gt;
+&lt;div&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;confirm&gt;&lt;/confirm&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import confirm from &apos;./components/confirm/index.vue&apos;
+export default {
+    components: {
+        confirm
+    }
+}
+&lt;/script&gt;
+&lt;style lang=&quot;less&quot;&gt;
+@import &quot;../static/less/base.less&quot;;
+&lt;/style&gt;
+</code></pre><p>在使用的地方写入这样调用即可</p>
+<pre><code>this.$store.commit(&apos;confirm&apos;, {
+            title: &apos;title&apos;,
+            msg: &apos;是否确认删除&apos;,
+            yesClick: () =&gt; {
+                console.log(&apos;yes&apos;);
+            },
+            noClick: () =&gt; {
+                console.log(&apos;no&apos;);
+            }
+        });
+</code></pre><p>这种方式的好处是不需要每个使用的地方都引入组件，只需要在主文件引入即可。但是这个方法写的时候需要注意，在每次调用赋值的时候需要将以前所有值清空，避免属性受上次调用影响。</p>
+<p>这种方式相对来说比较麻烦，除了维护组件以外，还要维护vuex的状态，还需要提前把模板写入页面，相对来说比较麻烦。</p>
+<h3 id="三、直接通过this调用promise方法的形式"><a href="#三、直接通过this调用promise方法的形式" class="headerlink" title="三、直接通过this调用promise方法的形式"></a>三、直接通过this调用promise方法的形式</h3><p>这种方式实用简单，阅读起来也符合语义。<br>并且在未调用之前</p>
+<p>vue文件</p>
+<pre><code>  &lt;template&gt;
+&lt;div :class=&quot;{&apos;pop-up&apos;:true,&apos;show&apos;:show}&quot;&gt;
+    &lt;div class=&quot;popup-mask&quot; v-if=&quot;hasMark&quot;&gt;&lt;/div&gt;
+    &lt;transition name=&quot;bottom&quot;&gt;
+        &lt;div class=&quot;popup-note bottom&quot;&gt;
+            &lt;div class=&quot;pop-content&quot;&gt;
+                &lt;div class=&quot;pop-tit&quot;&gt;
+                    {{title}}
+                &lt;/div&gt;
+                &lt;p class=&quot;pop-note hasTitle&quot;&gt;
+                    &lt;span class=&quot;msg&quot; v-html=&quot;msg&quot;&gt;&lt;/span&gt;
+                &lt;/p&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;alert&apos;&quot; @click.stop=&quot;alertClick&quot;&gt;
+                    &lt;span class=&quot;btn btn-block yes-btn&quot;&gt;{{alertBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;confirm&apos;&quot;&gt;
+                    &lt;span @touchstart.prevent=&quot;noClick&quot; class=&quot;btn&quot;&gt;{{noBtnText}}&lt;/span&gt;
+                    &lt;span @touchstart.prevent=&quot;yesClick&quot; class=&quot;btn yes-btn&quot;&gt;{{yesBtnText}}        &lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/transition&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+    props: {
+        title: {
+            type: String,
+            default: &apos;提示&apos;
+        },
+        msg: {
+            type: String,
+            default: &apos;&apos;
+        },
+        type: {
+            type: String,
+            default: &apos;alert&apos;
+        },
+        alertBtnText: {
+            type: String,
+            default: &apos;我知道了&apos;
+        },
+        yesBtnText: {
+            type: String,
+            default: &apos;确定&apos;
+        },
+        noBtnText: {
+            type: String,
+            default: &apos;取消&apos;
+        },
+        hasMark: {
+            type: Boolean,
+            default: true
+        }
+    },
+    data() {
+        return {
+            promiseStatus: null,
+            show: false
+        }
+    },
+    methods: {
+        confirm() {
+            let _this = this;
+            this.show = true;
+            return new Promise(function (resolve, reject) {
+                _this.promiseStatus = {resolve, reject};
+            });
+        },
+        noClick() {
+            this.show = false;
+            this.promiseStatus &amp;&amp; this.promiseStatus.reject();
+
+        },
+        yesClick() {
+            this.show = false;
+            this.promiseStatus &amp;&amp; this.promiseStatus.resolve();
+
+        },
+        alertClick() {
+            this.show = false;
+            this.promiseStatus &amp;&amp; this.promiseStatus.resolve();
+        }
+    }
+}
+&lt;/script&gt;
+
+
+&lt;style lang=&apos;less&apos;&gt;
+@import &quot;../../../static/less/components/tip/index.less&quot;;
+&lt;/style&gt;
+</code></pre><p>confirm.js</p>
+<pre><code>import Vue from &apos;vue&apos;
+import message from &apos;./message.vue&apos;
+const VueComponent = Vue.extend(message);
+const vm = new VueComponent().$mount();
+let init = false;
+let defaultOptions = {
+yesBtnText: &apos;确定&apos;,
+noBtnText: &apos;取消&apos;
+};
+
+const confirm = function (options) {
+Object.assign(vm,defaultOptions , options,{
+    type:&apos;confirm&apos;
+});
+
+if (!init) {
+    document.body.appendChild(vm.$el);
+    init = true;
+}
+
+return vm.confirm();
+};
+
+export default confirm;
+</code></pre><p>全局注册</p>
+<pre><code>import confirm from &apos;./views/components/message/confirm&apos;
+Vue.prototype.$confirm = confirm;
+</code></pre><p>使用</p>
+<pre><code>this.$confirm({
+    title: &apos;&apos;,
+    msg: &apos;模式未保存，确定离开？&apos;,
+    yesBtnText: &quot;离开&quot;
+}).then(() =&gt; {
+    console.log(&apos;yes&apos;)
+    })
+   .catch(() =&gt; {
+    console.log(&apos;cancel&apos;)
+});
+</code></pre><p>这种方式和第二中方式写的时候都要注意，每次调用有些值需要重置，因为都是全局的，共用同一个组件，避免不同地方调用相互影响。</p>
+<p>第三种方式涉及的知识点</p>
+<h5 id="1-Vue-extend"><a href="#1-Vue-extend" class="headerlink" title="1.Vue.extend()"></a>1.Vue.extend()</h5><p>使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象<br>.vue单文件经过webpack打包之后是一个组件示例对象，因此可以传到Vue.extend中生成一个包含此组件的类</p>
+<h5 id="2-new-VueComponent-mount"><a href="#2-new-VueComponent-mount" class="headerlink" title="2.new VueComponent().$mount()"></a>2.new VueComponent().$mount()</h5><p>new VueComponent() 创建实例，调用$mount()可以手动编译</p>
+<p>如果.$mount(‘#app’)有参数，表示手动编译并且挂载到该元素上。</p>
+<h5 id="3-el属性-类型：string-HTMLElement"><a href="#3-el属性-类型：string-HTMLElement" class="headerlink" title="3.$el属性 类型：string | HTMLElement"></a>3.$el属性 类型：string | HTMLElement</h5><p>手动编译后的示例对象中存在一个$el对象（dom元素），可以作为模板被插入到页面中。</p>
+<h5 id="4-Vue-prototype-添加-Vue-实例方法"><a href="#4-Vue-prototype-添加-Vue-实例方法" class="headerlink" title="4.Vue.prototype 添加 Vue 实例方法"></a>4.Vue.prototype 添加 Vue 实例方法</h5>]]></content>
+      
+        <categories>
+            
+            <category> vue </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[request中间件的gzip]]></title>
+      <url>https://chenjiaj.github.io/2018/02/13/request%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84gzip/</url>
+      <content type="html"><![CDATA[<p>今天遇到一个问题，向文件服务器上传文件，上传成功后文件解析响应内容报错，由于英文不好，绕了不少弯路，记录一下，避免下次遇到忘记。</p>
+<p>将返回的body打出发现是乱码，最后发现是gzip的问题。node端request中间件向服务器发送的accept-encoding=”gzip, deflate, br”,服务器返回的content-encoding:gzip。但是request默认是没有将响应内容解压的，导致运行JSON.parse(body)的时候就会报错。</p>
+<p>代码如下：</p>
+<pre><code>router.post(&apos;/fileupload&apos;, function (req, res, next) {
+  req.setTimeout(1800000);
+  req.pipe(request.post(fileUpload.url, function (e, r, body) {
+    if (!e) {
+        if (r.statusCode == 200) {
+            try {
+                var importFileUrl = JSON.parse(body).url;
+                var privateUrl = JSON.parse(body).privateUrl;
+                var tr069Url = JSON.parse(body).tr069Url;
+                var internetUrl = JSON.parse(body).internetUrl;
+                req.body = {
+                    serviceName: &apos;xxx&apos;,
+                    methodName: &apos;xxx&apos;,
+                    parameters: {
+                        filePath: importFileUrl,
+                        privateUrl: privateUrl,
+                        tr069Url: tr069Url,
+                        internetUrl: internetUrl
+                    }
+                };
+                console.log(&apos;--req.body-&apos;,req.body);
+                postRequest(req, res, 1800000);
+            } catch (err) {
+                console.log(err);
+                res.send({
+                    resultMsg: &apos;文件服务器返回错误&apos;,
+                    resultCode: -2
+                });
+            }
+        }
+      } else {
+        console.log(e);
+        res.send({
+            resultMsg: &apos;服务器内部错误，请重试&apos;,
+            resultCode: -2
+        });
+      }
+  }));
+});
+</code></pre><p>服务器返回如下：</p>
+<p><img src="/images/request中间件的gzip-img/1.png" alt="image.png"></p>
+<p>请求头部：</p>
+<p><img src="/images/request中间件的gzip-img/2.png" alt="image.png"></p>
+<p>发现最终原因是：</p>
+<p>请求头部accept-encoding=”gzip, deflate, br”，表示是可以接受gzip编码的响应，但实际上服务器返回gzip编码的响应式却没有处理，导致报错。</p>
+<p>查阅了一下request的相关文档，发现需要设置gzip:true，响应后才会对相应的内容进行解压处理。</p>
+<p>文档内容：<br><img src="/images/request中间件的gzip-img/3.png" alt="image.png"></p>
+<p><img src="/images/request中间件的gzip-img/4.png" alt="image.png"></p>
+<p>代码修改如下：</p>
+<pre><code>router.post(&apos;/fileupload&apos;, function (req, res, next) {
+  req.setTimeout(1800000);
+    req.pipe(request.post(fileUpload.url,{
+          gzip: true,//是设置为true
+          /*proxy: &apos;http://127.0.0.1:8888&apos; // 为了用fiddler抓包，将返回内容替换成相应为gzip的,方便测试*/
+      } function (e, r, body) {
+            ...
+      })
+})
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> node </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[js生成某个范围的随机整数]]></title>
+      <url>https://chenjiaj.github.io/2017/12/18/js%E7%94%9F%E6%88%90%E6%9F%90%E4%B8%AA%E8%8C%83%E5%9B%B4%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B4%E6%95%B0/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>js没有提供一个现成的函数直接生成某个范围的随机数。<br>    js只有一个Math.random() 函数返回一个浮点,  伪随机数在范围[0，1)。</p>
+</blockquote>
+<p>我们只有利用Math.random() 函数，自己封装一些函数，实现生成某个范围的随机数。<br>实现生成某个范围色随机数也需要与一下函数配合使用：</p>
+<blockquote>
+<p>Math.ceil()    向上取整<br>Math.floor()   向下取整<br>Math.round()   四舍五入</p>
+</blockquote>
+<h2 id="一、以0-10为例理解生成某个范围的随机数"><a href="#一、以0-10为例理解生成某个范围的随机数" class="headerlink" title="一、以0~10为例理解生成某个范围的随机数"></a>一、以0~10为例理解生成某个范围的随机数</h2><p>首先我们以0~10为例，对生成某一返回有一个简单的理解：<br>Math.random() * 10 会随机生成 [0,10)，但是浮点数；</p>
+<p>生成[0,10]的随机整数，Math.round(Math.random() * 10) ，通过四舍五入可以将大于9.5的数值转换为10；</p>
+<p>生成[0,10)的随机整数，Math.floor(Math.random() * 10 )；</p>
+<p>生成(0,10]的随机整数，Math.ceil(Math.random() * 10 )；</p>
+<p>或者Math.round(Math.random() <em> 9 ) + 1  ，相当于[1,10]，Math.round(Math.random() </em> 9 )相当于Math.round(Math.random() <em> 10 </em> (9/10) )生成的[0,9]范围的随机值，再加一个1，就是[1,10]；<br>或者 var rand = Math.random(); Math.round(rand  <em> 10 ) === 0 ? Math.round(rand  </em> 10 ) + 1 : Math.round(rand  <em> 10 ) ;Math.round(rand  </em> 10 )生成[0,10]的随机数，但是做了一个判断，如果生成0，就转换成1；</p>
+<p>生成(0,10)的随机整数,Math.round(Math.random() <em> 8) + 1,相当于[1,9],理解同上<br>或者var rand = Math.random(); Math.floor(rand  </em> 10 ) === 0 ？(Math.floor(rand  <em> 10 ) +1：(Math.floor(rand  </em> 10 ) ;</p>
+<h2 id="二、生成随机整数的四种情况"><a href="#二、生成随机整数的四种情况" class="headerlink" title="二、生成随机整数的四种情况"></a>二、生成随机整数的四种情况</h2><p>归纳总结为一下四种情况：</p>
+<h3 id="1-min-≤-r-≤-max"><a href="#1-min-≤-r-≤-max" class="headerlink" title="1.min ≤ r ≤ max"></a>1.min ≤ r ≤ max</h3><p>实现函数如下：</p>
+<pre><code>function Random(min, max) {
+    return Math.round(Math.random() * (max - min)) + min;
+}
+</code></pre><h3 id="2-min﹤r-≦-max"><a href="#2-min﹤r-≦-max" class="headerlink" title="2.min﹤r ≦ max"></a>2.min﹤r ≦ max</h3><pre><code>function Random(min, max) {
+    return Math.ceil(Math.random() * (max - min)) + min;
+}
+
+function Random(min, max) {
+    return Math.round(Math.random() * (max - min)) === 0? (min+1):Math.round(Math.random() * (max - min)) + min;
+}
+</code></pre><h3 id="3-min≦-r-﹤-max"><a href="#3-min≦-r-﹤-max" class="headerlink" title="3.min≦ r ﹤ max"></a>3.min≦ r ﹤ max</h3><pre><code>function Random(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function Random(min, max) {
+    return Math.round(Math.random() * (max - min)) === max ? (max-1):Math.round(Math.random() * (max - min)) + min;
+}
+</code></pre><h3 id="4-min﹤-r-﹤-max"><a href="#4-min﹤-r-﹤-max" class="headerlink" title="4.min﹤ r ﹤ max"></a>4.min﹤ r ﹤ max</h3><pre><code>function Random(min, max) {
+    return Math.floor(Math.random() * (max - min)) === min  ? (min + 1) : Math.floor(Math.random() * (max - min)) + min;
+}
+
+function Random(min, max) {
+    return Math.floor(Math.random() * ((max-1) - (min+1))) + (min+1);相当于 min+1 ≤ r ≤ max - 1
+}
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> js </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Vue2+koa2构建单页应用（一）- 开发环境打包与配置]]></title>
+      <url>https://chenjiaj.github.io/2017/08/18/Vue2+koa2%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89--%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%89%93%E5%8C%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>之前用Vue2+webpack+express构建单页应用，发现node端不能用es6的语法，为了前后端都用上es6的语法，node框架决定尝试koa2</p>
+<p>代码地址：<a href="https://github.com/chenjiaj/Vue2-koa2-demo" target="_blank" rel="noopener">https://github.com/chenjiaj/Vue2-koa2-demo</a></p>
+<h2 id="一、需要环境"><a href="#一、需要环境" class="headerlink" title="一、需要环境"></a>一、需要环境</h2><p>node版本在7及以上<br>选择新版本的环境是为了node端不用引入babel对es6做处理，新的node版本对es6有良好的支持。</p>
+<h2 id="二、创建基本项目"><a href="#二、创建基本项目" class="headerlink" title="二、创建基本项目"></a>二、创建基本项目</h2><h3 id="1-1-启动koa小项目demo"><a href="#1-1-启动koa小项目demo" class="headerlink" title="1.1 启动koa小项目demo"></a>1.1 启动koa小项目demo</h3><p>1.新建文件夹koa2+vue2-demo，然后进入文件夹，打开cmd进入文件夹内的目录或者webstorm的命令面板。</p>
+<p>2.执行npm init命令生成package.json文件,然后执行npm install koa koa-onerror –save 下载koa和 koa-onerror</p>
+<p>3.在项目根目录下新建config文件夹,然后进入文件夹新建config.js，输入以下内容，配置端口号</p>
+<pre><code>module.exports = {
+    node: {
+    port: 3011
+}
+</code></pre><p>  };    </p>
+<p>4.在项目根目录新建app.js文件，然后输入以下内容，创建一个基本的项目</p>
+<pre><code>const Koa = require(&apos;koa&apos;);
+const app = new Koa();
+const Config = require(&apos;./config/config&apos;);
+const onerror = require(&apos;koa-onerror&apos;);
+
+//错误信息处理
+onerror(app);
+
+//控制台打印请求信息
+app.use(async(ctx, next) =&gt; {
+    const start = Date.now();
+    await next();
+    const ms = Date.now() - start;
+    console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+});
+
+app.listen(Config.node.port);
+</code></pre><ol start="5">
+<li>修改package.json,在script对象中添加 “start”: “node ./app.js”，如下图所示</li>
+</ol>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/1.png" alt="Paste_Image.png"></p>
+<p>6.此时在命令面板中输入npm start即可启动项目，然后在浏览器中访问 <a href="http://localhost:3011/，因为现在还没有对请求做任何处理，所以返回not" target="_blank" rel="noopener">http://localhost:3011/，因为现在还没有对请求做任何处理，所以返回not</a> found。</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/2.png" alt="Paste_Image.png"></p>
+<h3 id="1-2-添加vue页面，实现hello-world"><a href="#1-2-添加vue页面，实现hello-world" class="headerlink" title="1.2 添加vue页面，实现hello world"></a>1.2 添加vue页面，实现hello world</h3><p>1.在根目录下新建src,然后在src下添加index.html文件,并且添加一个id为app的div，如下。同时在命令面板输入 npm install vue –save</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/3.png" alt="Paste_Image.png"></p>
+<p>2.在src目录下新建views文件夹（存放所有的.vue文件），并在此文件夹下添加app.vue文件。在app.vue写入一下代码：</p>
+<pre><code>&lt;template&gt;
+    &lt;div&gt;hello world!&lt;/div&gt;
+&lt;/template&gt;
+</code></pre><p>3.在src下新建main.js作为vue的入口文件。在main.js中添加以下内容：</p>
+<pre><code>import Vue from &apos;vue&apos;;
+import App from &apos;./views/app.vue&apos;;
+
+new Vue({
+  el: &apos;#app&apos;,
+  render: h=&gt; h(App)
+});
+</code></pre><p>现在目录结构如下：<br><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/4.png" alt="Paste_Image.png"></p>
+<p>一个hello world 的demo就写好了，但是要在浏览器看到效果，还需要引入vue包，同时也需要添加webpack打包需要的文件与配置。将vue内容打包引入index.html中，然后再将node接收到的页面请求返回打包后的index.html页面</p>
+<h3 id="1-3-添加webpack打包文件与配置"><a href="#1-3-添加webpack打包文件与配置" class="headerlink" title="1.3 添加webpack打包文件与配置"></a>1.3 添加webpack打包文件与配置</h3><p>1.下载webpack打包需要的依赖包</p>
+<pre><code>npm install webpack webpack-merge koa-webpack extract-text-webpack-plugin html-webpack-plugin css-loader file-loader vue-template-compiler vue-loader vue-style-loader  --save-dev
+</code></pre><p><strong>webpack</strong> ：webpack打包需要引入的核心包</p>
+<p><strong>koa-webpack</strong>：封装了webpack-dev-middleware和webpack-hot-middleware两个插件</p>
+<p>webpack-dev-middleware是需要webpack打包的项目，开发时使用的中间件，主要作用是不需要将打包生成的文件放在硬盘中，而是放在内存中，这样可以提高开发效率，而且配合webpack-hot-middleware中间件使用可以实现热加载</p>
+<p><strong>extract-text-webpack-plugin</strong>：主要是为了抽离css样式,防止将样式打包在js中引起页面样式加载错乱的现象</p>
+<p><strong>html-webpack-plugin</strong>：是webpack的插件，这个插件用来简化创建服务于 webpack bundle 的 HTML 文件，尤其是对于在文件名中包含了 hash 值，而这个值在每次编译的时候都发生变化的情况。你既可以让这个插件来帮助你自动生成 HTML 文件，也可以使用 lodash 模板加载生成的 bundles，或者自己加载这些 bundles。</p>
+<p><strong>vue-loader</strong>：是webpack的loader,能够将.vue文件转换成js文件</p>
+<p><strong>vue-html-loader、vue-template-compiler、css-loader、vue-style-loader</strong>：这三个都是webpack的loader,都是将.vue文件转换成js文件的依赖</p>
+<p>2.下载babel需要的依赖包</p>
+<pre><code>npm install babel-core babel-loader babel-plugin-transform-runtime babel-polyfill babel-preset-es2015 babel-preset-stage-0 babel-runtime   --save-dev
+</code></pre><p><strong>以babel-开头</strong>：都是用于兼容es6写法，将es6的代码转换成es5的代码<br><strong>babel-core、babel-loader</strong>：babel配合webpack工具使用必须要引入的<br><strong>babel-plugin-transform-runtime、babel-runtime</strong>：解决重复出现在一些模块里，导致编译后的代码体积变大的问题。<br><strong>babel-preset-es2015</strong>：将 ES2015 编译成 ES5<br><strong>babel-preset-stage-2</strong>：除了覆盖stage-3的所有功能,不是对ES6功能的增加，而是为了增强代码的可读性和可修改性而提出的参考：<a href="http://babeljs.io/docs/setup/#installation" target="_blank" rel="noopener">http://babeljs.io/docs/setup/#installation</a></p>
+<p>3.在根目录下添加.babelrc文件，添加以下配置：</p>
+<pre><code>{
+      &quot;presets&quot;: [&quot;es2015&quot;,&quot;stage-0&quot;],
+      &quot;plugins&quot;: [&quot;transform-runtime&quot;],
+      &quot;comments&quot;: false
+ }
+</code></pre><p>4.在根目录下新建build文件夹，然后添加webpack.base.conf.js、webpack.dev.conf.js、webpack.prod.conf.js<br>webpack.base.conf.js：开发和生成环境相同配置写字这个里边<br>webpack.dev.conf.js：针对开发时配置的文件<br>webpack.prod.conf.js：针对生产环境（正式上线）配置的文件</p>
+<p>5.在webpack.base.conf.js中添加以下配置</p>
+<pre><code> /* 引入操作路径模块和webpack */
+const path = require(&apos;path&apos;);
+const webpack = require(&apos;webpack&apos;);
+const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
+const ExtractTextPlugin = require(&apos;extract-text-webpack-plugin&apos;);
+
+module.exports = {
+/* 输入文件 */
+entry: {
+    index: [&apos;babel-polyfill&apos;, path.resolve(__dirname, &apos;../src/main.js&apos;)]
+},
+output: {
+    /* 输出目录，没有则新建 */
+    path: path.resolve(__dirname, &apos;../dist&apos;),
+    /* 静态目录，可以直接从这里取文件 */
+    publicPath: &apos;/&apos;,
+    /* 文件名 */
+    filename: &apos;js/[name].[hash].js&apos;,
+    chunkFilename: &apos;js/[name].[chunkhash].js&apos;
+},
+module: {
+    rules: [{
+        test: /\.vue$/,
+        loader: &apos;vue-loader&apos;,
+        options: {
+            loaders: {
+                css: ExtractTextPlugin.extract({
+                    use: &apos;css-loader&apos;,
+                    fallback: &apos;vue-style-loader&apos; // &lt;- this is a dep of vue-loader, so no need to explicitly install if using npm3
+                })
+            }
+        }
+    }, {//页面中import css文件打包需要用到
+        test: /\.css/,
+        loader: ExtractTextPlugin.extract({ fallback: &apos;style-loader&apos;, use: &apos;css-loader&apos; })
+    }, {
+        test: /\.js$/,
+        loader: &apos;babel-loader&apos;,
+        /* 排除模块安装目录的文件 */
+        exclude: /node_modules/
+    },{
+        test: /\.png$|\.jpg$|\.gif$|\.ico$/,
+        loader: &quot;file-loader&quot;,
+        exclude: /node_modules/
+    }]
+},
+plugins: [
+    new HtmlWebpackPlugin({
+        filename: &apos;index.html&apos;,
+        template: path.resolve(__dirname, &apos;../src/index.html&apos;),
+        inject: true
+    }),
+    new ExtractTextPlugin(&quot;style.css&quot;)
+]
+</code></pre><p>};</p>
+<p>6.我们先配置开发是需要文件，生成环境之后再近些配置。<br>首先在webpack.dev.conf.js中添加</p>
+<pre><code>const merge = require(&apos;webpack-merge&apos;);
+const baseConfig = require(&apos;./webpack.base.conf&apos;);
+const webpack = require(&apos;webpack&apos;);
+
+let devConfig =  merge(baseConfig, {
+output: {
+    path: &apos;/&apos;
+},
+plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+]
+});
+
+module.exports = devConfig;
+</code></pre><p>7.然后在app.js中添加webpack配置，如下</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/5.png" alt="Paste_Image.png"></p>
+<p>8.然后运行npm start启动项目，看到打印出一下日志，证明启动成功</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/6.png" alt="Paste_Image.png"></p>
+<p>9.在浏览器中访问<a href="http://localhost:3011/，效果如下，vue" target="_blank" rel="noopener">http://localhost:3011/，效果如下，vue</a> + koa构建一个hello world的小项目就成功了。</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/7.png" alt="Paste_Image.png"></p>
+<h2 id="三、添加路由实现单页"><a href="#三、添加路由实现单页" class="headerlink" title="三、添加路由实现单页"></a>三、添加路由实现单页</h2><h3 id="1-1-vue添加路由"><a href="#1-1-vue添加路由" class="headerlink" title="1.1 vue添加路由"></a>1.1 vue添加路由</h3><p>1.下载路由的依赖包 npm install vue-router –save</p>
+<p>2.在src文件夹下添加router文件夹，然后新建index.js,存放路由主要配置</p>
+<p>3.在views文件夹下，添加example文件，然后添加两个文件，分别是example.vue和example1.vue，作为路由中的两个页面。分别添加以下内容：</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/8.png" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/9.png" alt="Paste_Image.png"></p>
+<p>4.在router下的index.js编辑以下内容：</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/10.png" alt="Paste_Image.png"></p>
+<p>5.修改main.js如下，将路由：</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/11.png" alt="Paste_Image.png"></p>
+<p>6.修改app.vue，配置的路由中的compent将显示在router-view中</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/12.png" alt="Paste_Image.png"></p>
+<p>7.刷新浏览器，可以看到以下效果</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/13.png" alt="Paste_Image.png"></p>
+<p>点击example1将显示(点击example1跳转并未刷新页面，只是vue的路由跳转)</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/14.png" alt="."></p>
+<p>8.但是在<a href="http://localhost:3011/example1下刷新浏览器，现在会发现找不到" target="_blank" rel="noopener">http://localhost:3011/example1下刷新浏览器，现在会发现找不到</a></p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/15.png" alt="Paste_Image.png"></p>
+<p>这是什么原因造成的呢？</p>
+<p>因为vue的路由是在浏览器中进行管理，如果刷新<a href="http://localhost:3011/时可以访问到的，因为请求/路径，node将其指向了index.html(因为webpack打包会把index.html打包到根目录，而koa-webpack在没有传递参数的情况下也是指向的webpack配置文件中output中的publicPath，配置文件中配置的是/，所以默认/请求指向index.html),以下是koa-webpack中默认配置的源代码" target="_blank" rel="noopener">http://localhost:3011/时可以访问到的，因为请求/路径，node将其指向了index.html(因为webpack打包会把index.html打包到根目录，而koa-webpack在没有传递参数的情况下也是指向的webpack配置文件中output中的publicPath，配置文件中配置的是/，所以默认/请求指向index.html),以下是koa-webpack中默认配置的源代码</a></p>
+<p>![Paste_Image.png](<a href="http://upload-images.jianshu.io/upload_images/1210894-bb4f6395ba003114.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240z" target="_blank" rel="noopener">http://upload-images.jianshu.io/upload_images/1210894-bb4f6395ba003114.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240z</a></p>
+<p>而/example1请求到node，node会去寻找node端的路由处理，因为node端没有配置这个路由，所有找不到。</p>
+<p>如果想要访问到/example1，需要请求到index.html,然后由vue的路由处理找到对应的模块</p>
+<p>解决方法有：</p>
+<p>（1）vue路由采用hash模式，修改router下的index.js文件，将mode的值改为hash，如果是hash，但是这样浏览器路径会变成<a href="http://localhost:3011/#/example1，有一点丑陋，http://localhost:3011/#/example1这个路径还是请求的/后面的会被当做参数处理" target="_blank" rel="noopener">http://localhost:3011/#/example1，有一点丑陋，http://localhost:3011/#/example1这个路径还是请求的/后面的会被当做参数处理</a></p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/16.png" alt="Paste_Image.png"></p>
+<p>（2）将所有html请求转到index.html 然后让vue的浏览器处理</p>
+<h3 id="1-2-配置node端端"><a href="#1-2-配置node端端" class="headerlink" title="1.2 配置node端端"></a>1.2 配置node端端</h3><p>1.将所有的html请求转到index.html,有一个现成的插件connect-history-api-fallback替我们做了这件事，但是需要稍微封装一下才能在koa2中使用。<br>（1）npm install connect-history-api-fallback –save 下载插件包<br>（2）在根目录下添加middleware文件夹，用于存放koa的中间件<br>（3）在middleware文件夹中添加koa2-connect-history-api-fallback.js 文件，koa2中间件需要传入需要的方法，所以封装返回了一个方法</p>
+<pre><code>const history = require(&apos;connect-history-api-fallback&apos;);
+module.exports = options=&gt; {
+    const middleware = history(options);
+    const noop = ()  =&gt; {
+    };
+
+    return async (ctx, next)=&gt; {
+      middleware(ctx, null, noop);
+    await next();
+    };
+};
+</code></pre><p>2.在app.js添加const history = require(‘./middleware/koa2-connect-history-api-fallback’);和<br>app.use(history({<br>    verbose: true//打出转发日志<br>}));<br>注意：app.use(history(…))要写在app.use(middleware({…}))之前，不然koa-webpack已经返回not found了，app.use(history(…))就不会生效了</p>
+<p>11.写好之后重启服务，然后访问浏览器刷新<a href="http://localhost:3011/example1就可以访问到了" target="_blank" rel="noopener">http://localhost:3011/example1就可以访问到了</a><br>并且可以看到日志，只有请求html转到了index.html</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/17.png" alt="Paste_Image.png"></p>
+<h3 id="1-3-优化"><a href="#1-3-优化" class="headerlink" title="1.3 优化"></a>1.3 优化</h3><h4 id="1-添加less配置，让-vue文件支持写less文件"><a href="#1-添加less配置，让-vue文件支持写less文件" class="headerlink" title="1.添加less配置，让.vue文件支持写less文件"></a>1.添加less配置，让.vue文件支持写less文件</h4><p>（1）下载less打包编译需要的依赖，npm install less less-loader –save-dev<br>（2）在webpack.base.conf.js中配置，添加这两个配置，将会识别.vue里边的less,也可以将less写成单独的文件</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/18.png" alt="Paste_Image.png"></p>
+<p>（3）在页面中引入less文件（通常便于维护，less写在单独文件中）<br>在src文件夹中添加static文件夹，然后在static文件夹中添加less文件，专门存放less文件，然后添加example.less文件，顺便写一些样式进去，如下</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/19.png" alt="Paste_Image.png"></p>
+<p>然后在example.vue文件中引入这个less文件</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/20.png" alt="Paste_Image.png"></p>
+<p>页面效果如下</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/21.png" alt="Paste_Image.png"></p>
+<h4 id="2-实现懒加载，优化初始化加载"><a href="#2-实现懒加载，优化初始化加载" class="headerlink" title="2.实现懒加载，优化初始化加载"></a>2.实现懒加载，优化初始化加载</h4><p>在页面比较多的时，单页应用按照之前的方式打包成一个js会导致首页加载时很慢，为了解决这个问题，可以修改打包，让首页只加载通用代码和首页要用到的代码，跳转到其他页面再加载对应页面的js，这样可以解决项目较大首页加载缓慢的问题。</p>
+<p>修改router中index.js,将.vue文件加载改为<br>const Example = r =&gt; require.ensure([], () =&gt; r(require(‘../views/example/example.vue’)), ‘Example’);<br>const Example1 = r =&gt; require.ensure([], () =&gt; r(require(‘../views/example/example1.vue’)), ‘Example1’);</p>
+<p>因为webpack.base.conf.js已经加了chunkFilename: ‘js/[name].[chunkhash].js’，所以不用再修改webpack配置</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/22.png" alt="Paste_Image.png"></p>
+<p>浏览页面，这个时候会发现，访问example页面只有example.js</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/23.png" alt="Paste_Image.png"></p>
+<p>点击example1页面，才会新加入example1.js，并且加载之后，以后返回example1页面不会重新加载，提高性能</p>
+<p><img src="/images/Vue2+koa2构建单页应用（一）--开发环境打包与配置-img/24.png" alt="Paste_Image.png"></p>
+<p>经过以上步骤，我们已经可以在本地跑起来开发vue项目了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> vue </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
         
     </entry>
     
     <entry>
       <title><![CDATA[express4构建单页应用二]]></title>
-      <url>https://chenjiaj.github.io/2016/12/28/express4%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E4%BA%8C/</url>
-      <content type="html"><![CDATA[<p>根据Vue2 + webpack + express4构建单页应用(一)已经构建了一个基本的小应用，但是还没有解决jquery的ajax请求、style模块中使用less等问题</p>
+      <url>https://chenjiaj.github.io/2016/12/28/Vue2-+-webpack-+-express4%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8(%E4%BA%8C)/</url>
+      <content type="html"><![CDATA[<p>根据<a href="http://www.jianshu.com/p/2e65ac138df6" target="_blank" rel="noopener">Vue2 + webpack + express4构建单页应用(一)</a>已经构建了一个基本的小应用，但是还没有解决jquery的ajax请求、style模块中使用less等问题</p>
 <h2 id="一、实现异步请求及转发"><a href="#一、实现异步请求及转发" class="headerlink" title="一、实现异步请求及转发"></a>一、实现异步请求及转发</h2><h3 id="1-客户端发起请求"><a href="#1-客户端发起请求" class="headerlink" title="1.客户端发起请求"></a>1.客户端发起请求</h3><p>一直实现异步请求都是用ajax（XMLHttpRequest）来实现的  ,最近兴起了ajax的替代技术fetch,XMLHttpRequest 是一个设计粗糙的 API，不符合关注分离（Separation of Concerns）的原则，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。</p>
 <p>Fetch 的出现就是为了解决 XHR 的问题。</p>
 <p>我在github上选择了一个支持前后端同构的fetch插件：<a href="https://github.com/matthew-andrews/isomorphic-fetch" target="_blank" rel="noopener">https://github.com/matthew-andrews/isomorphic-fetch</a></p>
@@ -24,10 +1652,10 @@ import fetch from &apos;isomorphic-fetch&apos;;
 es6Promise.polyfill();
 
 fetch(&apos;//offline-news-api.herokuapp.com/stories&apos;)
-    .then(function(response) { 
-        if (response.status &gt;= 400) { 
+    .then(function(response) {
+        if (response.status &gt;= 400) {
             throw new Error(&quot;Bad response from server&quot;); } return response.json(); }
-     )     
+     )
     .then(function(stories) { console.log(stories); });
 </code></pre><p>一般在项目中会将以上代码抽离出来写成一个方法单独抽离出成一个文件，使用时引入文件调用该方法</p>
 <h3 id="2-node端转发异步请求"><a href="#2-node端转发异步请求" class="headerlink" title="2.node端转发异步请求"></a>2.node端转发异步请求</h3><p>node有一个http转发的中间件http-proxy-middleware</p>
@@ -38,36 +1666,74 @@ app.use(&apos;/api&apos;, proxy({target: &apos;http://www.example.org&apos;, cha
 </code></pre><p>详细使用，参考 <a href="https://github.com/chimurai/http-proxy-middleware#options" target="_blank" rel="noopener">https://github.com/chimurai/http-proxy-middleware#options</a></p>
 <h2 id="二、使用less预编译语言"><a href="#二、使用less预编译语言" class="headerlink" title="二、使用less预编译语言"></a>二、使用less预编译语言</h2><p>现在写样式一般可以使用预编译语言less或者sass</p>
 <p>根据个人习惯我选用的less，使用less需要有一下配置：</p>
-<p>1.在.vue文件中的style需要加上lang=”less”属性，如：</p>
+<p>1.在.vue文件中的<style>需要加上lang=”less”属性，如：</p>
 <pre><code>&lt;style lang=&quot;less&quot;&gt;
 </code></pre><p>2.下载less-loader、less插件，npm install –save-dev less-loader less</p>
 <p>3.在webpack.base.conf.js中加上postcss: [require(‘autoprefixer’)()]，如下：</p>
-<pre><code>vue: { 
-    loaders: {  js: &apos;babel&apos; }, 
+<pre><code>vue: {
+    loaders: {  js: &apos;babel&apos; },
     postcss: [require(&apos;autoprefixer&apos;)()]
 }
 </code></pre><p>这样就可以在.vue中的style里边写less语法了</p>
 <h2 id="三、将-vue中的css单独提出来成一个css文件"><a href="#三、将-vue中的css单独提出来成一个css文件" class="headerlink" title="三、将.vue中的css单独提出来成一个css文件"></a>三、将.vue中的css单独提出来成一个css文件</h2><p>需要使用webpack的extract-text-webpack-plugin插件</p>
-<p>参考文档：<a href="https://vue-loader.vuejs.org/en/configurations/extract-css.html" target="_blank" rel="noopener">https://vue-loader.vuejs.org/en/configurations/extract-css.html</a></p>
+<p>参考文档：<a href="https://vue-loader.vuejs.org/en/configurations/extract-css.html">https://vue-loader.vuejs.org/en/configurations/extract-css.html</a></p>
 <p>npm install extract-text-webpack-plugin –save-dev</p>
 <p>一般只需要在生成环境提取出来，于是在webpack.prod.conf.js中添加</p>
-<pre><code>vue: { 
-    loaders: {  
-        css: ExtractTextPlugin.extract(&quot;css&quot;),  
-        // you can also include &lt;style lang=&quot;less&quot;&gt; or other langauges  
-        less: ExtractTextPlugin.extract(&quot;css!less&quot;)
+<pre><code>vue: {
+    loaders: {
+        css: ExtractTextPlugin.extract(&apos;vue-style-loader&apos;, &apos;css&apos;),
+        // you can also include &lt;style lang=&quot;less&quot;&gt; or other langauges
+        less: ExtractTextPlugin.extract(&apos;vue-style-loader&apos;, &apos;css!less&apos;)
     }
 }
-</code></pre><p>在plugins中加入new ExtractTextPlugin(“/static/css/style.css”)，这样css就是在output/static/css中生成style.css文件</p>
+</code></pre><p>在plugins中加入new ExtractTextPlugin(“static/css/style.css”)，这样css就是在output/static/css中生成style.css文件</p>
 <h2 id="四、引用图片"><a href="#四、引用图片" class="headerlink" title="四、引用图片"></a>四、引用图片</h2><p>如果template中或style中引用了图片，需要添加file-loader</p>
-<p>参考：<a href="https://vue-loader.vuejs.org/en/configurations/asset-url.html" target="_blank" rel="noopener">https://vue-loader.vuejs.org/en/configurations/asset-url.html</a></p>
+<p>参考：<a href="https://vue-loader.vuejs.org/en/configurations/asset-url.html">https://vue-loader.vuejs.org/en/configurations/asset-url.html</a></p>
 <p>1.下载file-loader    npm install –save-dev file-loader<br>2.在webpack.base.conf.js中的loaders里边添加</p>
 <pre><code> {
-    test: /\.png$|\.jpg$|\.gif$|\.ico$/, 
-    loader: &quot;file?name=/static/img/[name].[hash].[ext]&quot;, 
+    test: /\.png$|\.jpg$|\.gif$|\.ico$/,
+    loader: &quot;file?name=static/img/[name].[hash].[ext]&quot;,
     exclude: /node_modules/
 }
-</code></pre>]]></content>
+</code></pre><h2 id="五、实现懒加载（按需加载）"><a href="#五、实现懒加载（按需加载）" class="headerlink" title="五、实现懒加载（按需加载）"></a>五、实现懒加载（按需加载）</h2><p>在页面比较多的时，单页应用按照之前的方式打包成一个js会导致首页加载时很慢，为了解决这个问题，可以修改打包，让首页只加载通用代码和首页要用到的代码，跳转到其他页面再加载对应页面的js，这样可以解决项目较大首页加载缓慢的问题。</p>
+<p><a href="http://router.vuejs.org/zh-cn/advanced/lazy-loading.html">官方文档地址</a></p>
+<h3 id="1-修改路由"><a href="#1-修改路由" class="headerlink" title="1.修改路由"></a>1.修改路由</h3><p>将要通过懒加载的路由的compenent改写成</p>
+<pre><code>const Plugin = r =&gt; require.ensure([], () =&gt; r(require(&apos;../views/Plugins/plugin&apos;)), &apos;Plugin&apos;);
+</code></pre><p>具体路由页面如下：</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/1.png" alt="Paste_Image.png"></p>
+<h3 id="2-修改webpack配置"><a href="#2-修改webpack配置" class="headerlink" title="2.修改webpack配置"></a>2.修改webpack配置</h3><p>在webpack.prod.conf.js中的output中添加</p>
+<pre><code>chunkFilename: &apos;static/js/[id].[name]_[chunkhash:7].js&apos;
+</code></pre><p>运行 npm run build 这个时候就可以看到每一个require.ensure引入的模块都单独生成了一个js</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/2.png" alt="Paste_Image.png"></p>
+<p>运行npm run prod启动生产环节，访问页面<a href="http://localhost:3001/">http://localhost:3001/</a><br>因为我没有定义首页路由，所以会跳转到下面模块中：</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/3.png" alt="Paste_Image.png"></p>
+<p>查看请求，只请求了index.js和notFoundComponent.js。</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/4.png" alt="Paste_Image.png"></p>
+<p>访问我定义的路由的<a href="http://localhost:3001/plugin（根据你自己定义的路由查看），可以看到除了公用的index.js以为，其他js并没有加载，如果通过路由跳转的话也不用重新加载index.js">http://localhost:3001/plugin（根据你自己定义的路由查看），可以看到除了公用的index.js以为，其他js并没有加载，如果通过路由跳转的话也不用重新加载index.js</a></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/5.png" alt="Paste_Image.png"></p>
+<p>细心的你如果仔细看的话会发现一个问题，除了app.vue里边的css打包到style.css外，其他vue里的js并没有打包进去</p>
+<p>于是还需要在webpack.prod.conf.js的plugins中将</p>
+<pre><code>new ExtractTextPlugin(&quot;static/css/style.css&quot;)
+</code></pre><p>修改为</p>
+<pre><code>//实现css分块，讲所有vue文件中的css打包到一个一个入口css中
+new ExtractTextPlugin(&apos;static/css/[id].[name]_[chunkhash:7].css&apos;, {
+    allChunks: true
+})
+
+//加上这个插件，可以将通用的css和js单独打包成一个vendors.css和vendors.js
+new webpack.optimize.CommonsChunkPlugin({
+    name:&apos;vendors&apos;,
+    filename:&apos;static/js/[id].[name].[hash].js&apos;,
+    minChunks: function () {  return true }
+})
+</code></pre><p>minChunks:num 表示require了num此才放在CommonChunk里边</p>
+<p>再次执行npm run build会生成一下目录</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/6.png" alt="Paste_Image.png"></p>
+<p>会发现app.vue里边的css被打包到了vendor.css中了，app.vue里的js和vue/vue-router被打包到了vendor.js中。</p>
+<p>这样就基本完成了懒加载。</p>
+<p>但是还没有实现如何将css安装vue文件打包成单独的文件，请大神多多指教！</p>
+<p>备忘：生命周期（<a href="https://segmentfault.com/a/1190000008010666">参考</a>）<br><img src="/images/Vue2-+-webpack-+-express4构建单页应用二-img/7.png" alt="Paste_Image.png"></p>
+</style></p>]]></content>
       
         <categories>
             
@@ -86,15 +1752,15 @@ app.use(&apos;/api&apos;, proxy({target: &apos;http://www.example.org&apos;, cha
     
     <entry>
       <title><![CDATA[express4构建单页应用一]]></title>
-      <url>https://chenjiaj.github.io/2016/12/28/express4%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E4%B8%80/</url>
+      <url>https://chenjiaj.github.io/2016/12/28/Vue2-+-webpack-+-express4%E6%9E%84%E5%BB%BA%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8(%E4%B8%80)/</url>
       <content type="html"><![CDATA[<p>想要构建一个vue2的单页应用，发现vue-cli生成的项目虽然可以直接用，但是生成的项目是用的vue1，而且直接使用也不能完全掌握和了解项目用了哪些插件和打包工具，为了自己更好的了解和学习开发vue2需要用到的打包工具和相关插件，自己看了许多博客，总结了以下一个构建基本vue2单页项目的流程，对于vue2和webpack小白可以跟着步骤试着自己构建一个小项目，如有大神请多指教。</p>
 <p>完整源码链接：<a href="https://github.com/chenjiaj/vue2-express4-webpack" target="_blank" rel="noopener">https://github.com/chenjiaj/vue2-express4-webpack</a></p>
 <h2 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h2><p>需要安装node v4.4.4及以上</p>
-<h2 id="二、创建基本项目"><a href="#二、创建基本项目" class="headerlink" title="二、创建基本项目"></a>二、创建基本项目</h2><p>1.打开cmd,运行 npm install express-generator -g （express-generator是express的应用生成器,相关介绍:<a href="http://www.expressjs.com.cn/starter/generator.html）" target="_blank" rel="noopener">http://www.expressjs.com.cn/starter/generator.html）</a><br>用生成器生成主要是为了使用bin文件夹下的www文件，为了少写一点打印的日志而已，对应不需要的，可以不用生成器生成，自己创建server就行，可以用http模块或者直接调用app.listen都可以</p>
+<h2 id="二、创建基本项目"><a href="#二、创建基本项目" class="headerlink" title="二、创建基本项目"></a>二、创建基本项目</h2><p>1.打开cmd,运行 npm install express-generator -g （express-generator是express的应用生成器,相关介绍:<a href="http://www.expressjs.com.cn/starter/generator.html" target="_blank" rel="noopener">http://www.expressjs.com.cn/starter/generator.html</a><br>用生成器生成主要是为了使用bin文件夹下的www文件，为了少写一点打印的日志而已，对应不需要的，可以不用生成器生成，自己创建server就行，可以用http模块或者直接调用app.listen都可以</p>
 <p>2.切换到你要生成项目的目录，然后运行 express myapp，生成新的express项目，目录如下：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-bd7539f2841c5745.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/1.png" alt="Paste_Image.png"></p>
 <p>3.删除public、routes、views文件夹，现在项目目录如下</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-2a8d74b4ff18d214.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/2.png" alt="Paste_Image.png"></p>
 <p>4.在根目录下创建index.html，内容如下：</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -120,7 +1786,7 @@ new Vue({
     el:&apos;#app&apos;, 
     render:h=&gt; h(App)
 })
-</code></pre><p>如果是用的webStorm,请将language设置为ECMAScript6,这样才不会报错误提示<br><img src="http://upload-images.jianshu.io/upload_images/1210894-19e2dc588efa8c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</code></pre><p>如果是用的webStorm,请将language设置为ECMAScript6,这样才不会报错误提示<br><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/3.png" alt="Paste_Image.png"></p>
 <p>6.需要安装以下依赖，将package.json文件替换如下：</p>
 <pre><code>{  &quot;name&quot;: &quot;myapp&quot;,  
     &quot;version&quot;: &quot;0.0.0&quot;, 
@@ -147,7 +1813,7 @@ new Vue({
         &quot;vue-router&quot;: &quot;^2.1.1&quot; 
      }
 }
-</code></pre><p><strong>以babel-开头</strong>：都是用于兼容es6写法，将es6的代码转换成es5的代码<br>参考：<a href="http://babeljs.io/docs/setup/#installation" target="_blank" rel="noopener">http://babeljs.io/docs/setup/#installation</a></p>
+</code></pre><p><strong>以babel-开头</strong>：都是用于兼容es6写法，将es6的代码转换成es5的代码<br><strong>babel-core、babel-loader</strong>：babel配合webpack工具使用必须要引入的<br><strong>babel-plugin-transform-runtime、babel-runtime</strong>：解决重复出现在一些模块里，导致编译后的代码体积变大的问题。<br><strong>babel-preset-es2015</strong>：将 ES2015 编译成 ES5<br><strong>babel-preset-stage-2</strong>：除了覆盖stage-3的所有功能,不是对ES6功能的增加，而是为了增强代码的可读性和可修改性而提出的<br>参考：<a href="http://babeljs.io/docs/setup/#installation" target="_blank" rel="noopener">http://babeljs.io/docs/setup/#installation</a></p>
 <p><strong>webpack</strong> ：webpack打包需要引入的核心包</p>
 <p><strong>html-webpack-plugin</strong>：是webpack的插件，这个插件用来简化创建服务于 webpack bundle 的 HTML 文件，尤其是对于在文件名中包含了 hash 值，而这个值在每次编译的时候都发生变化的情况。你既可以让这个插件来帮助你自动生成 HTML 文件，也可以使用 lodash 模板加载生成的 bundles，或者自己加载这些 bundles。</p>
 <p><strong>vue-loader</strong>：是webpack的loader,能够将.vue文件转换成js文件</p>
@@ -158,7 +1824,7 @@ new Vue({
 var path = require(&apos;path&apos;);
 var webpack = require(&apos;webpack&apos;);
 var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);
-module.exports = {
+var  webpackConf = {
     // 入口文件，path.resolve()方法，可以结合我们给定的两个参数最后生成绝对路径，最终指向的就是我们的index.js文件 
     entry: {  index: [   path.resolve(__dirname, &apos;../src/main.js&apos;)  ] },
     // 输出配置 
@@ -183,8 +1849,10 @@ module.exports = {
               template: path.resolve(__dirname, &apos;../index.html&apos;),  
               inject: true  
           }) ]
- }
-</code></pre><p>8.将根目录下app.js内容替换如下：</p>
+ };
+ module.exports  = webpackConf;
+</code></pre><p><code>path</code>：用来存放打包后文件的输出目录<br><code>publicPath</code>：指定资源文件引用的目录 </p>
+<p>8.将根目录下app.js内容替换如下：</p>
 <pre><code>var express = require(&apos;express&apos;);
 var path = require(&apos;path&apos;);
 var webpack = require(&apos;webpack&apos;);
@@ -202,11 +1870,12 @@ app.use(devMiddleware);
 module.exports = app;
 </code></pre><p>10.在根目录下添加.babelrc文件，内容如下：</p>
 <pre><code>{  &quot;presets&quot;: [&quot;es2015&quot;,&quot;stage-2&quot;],  &quot;plugins&quot;: [&quot;transform-runtime&quot;],  &quot;comments&quot;: false}
-</code></pre><p>9.在根目录下运行 npm install ,然后运行npm start,webpack编译完之后如下图所示，就可以通过<a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a> 访问了，效果如图所示：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-d9e25c9616f979a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-aa6a53d0798ab337.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</code></pre><p><code>presets</code> 字段设定转码规则，官方提供以下的规则集，你可以根据需要安装。<br><code>comments</code>是否输出输出中的注释</p>
+<p>9.在根目录下运行 npm install ,然后运行npm start,webpack编译完之后如下图所示，就可以通过<a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a> 访问了，效果如图所示：</p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/4.png" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/5.png" alt="Paste_Image.png"></p>
 <p>这样就生成了一个简单的应用。</p>
-<h2 id="三、添加热加载"><a href="#三、添加热加载" class="headerlink" title="三、添加热加载"></a>三、添加热加载</h2><p>开发是需要热加载，即修改完代码后重新编译并更新浏览器，提高开发效率<br>热加载需要webpack-hot-middleware中间件（<a href="https://www.npmjs.com/package/webpack-hot-middleware）" target="_blank" rel="noopener">https://www.npmjs.com/package/webpack-hot-middleware）</a><br>1.在项目根目录下运行npm install –save-dev  webpack-hot-middleware<br>2.打开app.js,添加app.use(require(“webpack-hot-middleware”)(compiler));<br>3.在webpack.base.js中的plugins中添加</p>
+<h2 id="三、添加热加载"><a href="#三、添加热加载" class="headerlink" title="三、添加热加载"></a>三、添加热加载</h2><p>开发是需要热加载，即修改完代码后重新编译并更新浏览器，提高开发效率<br>热加载需要webpack-hot-middleware中间件（<a href="https://www.npmjs.com/package/webpack-hot-middleware）" target="_blank" rel="noopener">https://www.npmjs.com/package/webpack-hot-middleware）</a><br>1.在项目根目录下运行npm install –save-dev  webpack-hot-middleware<br>2.打开app.js,添加app.use(require(“webpack-hot-middleware”)(compiler));<br>3.在webpack.base.conf.js中的plugins中添加</p>
 <pre><code>// Webpack 1.0
 new webpack.optimize.OccurenceOrderPlugin(),
 // Webpack 2.0 fixed this mispelling
@@ -243,7 +1912,7 @@ Object.keys(webpackConf.entry).forEach(function (name) {
 });
 </code></pre><p>重新启动服务，修改vue或者js可以看到浏览器自动更新了</p>
 <p><strong> 注意如果编辑器是webstorm的要将settings=&gt;appearance=&gt;system settings中synchronization中的最后一个选项不勾选，否则没有效果 </strong></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-4700764dda1c0065.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/6.png" alt="Paste_Image.png"></p>
 <h2 id="四、将开发的webpack配置提取出来"><a href="#四、将开发的webpack配置提取出来" class="headerlink" title="四、将开发的webpack配置提取出来"></a>四、将开发的webpack配置提取出来</h2><p>因为开发时需要webpack-dev-middleware、webpack-hot-middleware这两个中间件，但是正真发布的时候并不需要，因此需要将这两个的配置提取出来。</p>
 <p>webpack-dev-middleware 这个中间件的作用是 开发的时候不生成代码，编译后的代码放在内存中，不会写入硬盘，因此不用每次编译都生成新的文件，提高开发效率</p>
 <p>webpack-hot-middleware用于热加载，修改代码后立即更新</p>
@@ -305,7 +1974,7 @@ module.exports = app;
 </code></pre><p>重新启动服务查看效果</p>
 <p>五、添加路由实现单页应用</p>
 <p>1.按照下图添加文件夹和文件</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-9a2df2adbeda9a4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/7.png" alt="Paste_Image.png"></p>
 <p>说明：<br>components文件夹中放公用组件<br>router放置路由相关配置的js<br>views下放置单页的vue，按照模块放置</p>
 <p>现在模拟一个场景：<br>有两个页面首页和用户页</p>
 <p>1.修改main.js</p>
@@ -344,14 +2013,13 @@ module.exports = router;
 <p><strong> 注意:一定要放在app.use(devMiddleware);之前才有效 </strong></p>
 <p>参考：<a href="https://github.com/bripkens/connect-history-api-fallback" target="_blank" rel="noopener">https://github.com/bripkens/connect-history-api-fallback</a></p>
 <p>重启服务，就可以访问<a href="http://localhost:3000看到如下" target="_blank" rel="noopener">http://localhost:3000看到如下</a></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-5dc0b0cb9b911758.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/8.png" alt="Paste_Image.png"></p>
 <p>访问<a href="http://localhost:3000/user" target="_blank" rel="noopener">http://localhost:3000/user</a> 效果如下</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-6cb39695bc7aeb8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/9.png" alt="Paste_Image.png"></p>
 <p>完成以上步骤就可以开发用vue开发一个简单的单页应用了</p>
-<h2 id="五、生成环境打包"><a href="#五、生成环境打包" class="headerlink" title="五、生成环境打包"></a>五、生成环境打包</h2><p>1.运行 npm instal shelljs  ora –save-dev</p>
+<h2 id="五、生成环境打包"><a href="#五、生成环境打包" class="headerlink" title="五、生成环境打包"></a>五、生成环境打包</h2><p>1.运行 npm install shelljs  ora –save-dev</p>
 <p>2.在build文件下创建一个webpack.prod.conf.js.内容如下：</p>
-<pre><code>var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;;
-var path = require(&apos;path&apos;);
+<pre><code>var path = require(&apos;path&apos;);
 var webpack = require(&apos;webpack&apos;);
 var merge = require(&apos;webpack-merge&apos;);
 // 引入基本配置
@@ -391,7 +2059,7 @@ webpack(webpackConf, function (err, stats) {
  });
 </code></pre><p>4.在package.json的script中添加 “build”: “node build/build.js”</p>
 <p>5.运行npm run build 之后会生成一下文件</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-1ab5b23a0894bbab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/Vue2-+-webpack-+-express4构建单页应用一-img/10.png" alt="Paste_Image.png"></p>
 <p>6.修改app.js,在if(app.get(‘env’) == ‘development’){……}条件后添加<br>    else{<br>        app.use(express.static(‘output’));<br>    }</p>
 <p>7.在package.json的script中添加 “prod”:”cross-env NODE_ENV=production node bin/www”</p>
 <p>8.运行npm run prod 就可以查看成产环境了</p>
@@ -403,7 +2071,7 @@ webpack(webpackConf, function (err, stats) {
 <p><strong>注意</strong></p>
 <p>1.connect-history-api-fallback中间件注册一定要在webpack-dev-middleware中间件注册之前<br>2.connect-history-api-fallback中间件注册一定要在app.use(express.static(path.join(__dirname, ‘output’)));之前</p>
 <p>参考链接：</p>
-<p>1.vue2官网：<a href="http://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">http://cn.vuejs.org/v2/guide/</a><br>2.vue-loader文档：<a href="https://vue-loader.vuejs.org/en/" target="_blank" rel="noopener">https://vue-loader.vuejs.org/en/</a><br>3.vue-cli创建项目介绍：<a href="https://vuejs-templates.github.io/webpack/" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack/</a></p>
+<p>1.vue2官网：<a href="http://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">http://cn.vuejs.org/v2/guide/</a><br>2.vue-loader文档：<a href="https://vue-loader.vuejs.org/en/" target="_blank" rel="noopener">https://vue-loader.vuejs.org/en/</a><br>3.vue-cli创建项目介绍：<a href="https://vuejs-templates.github.io/webpack/" target="_blank" rel="noopener">https://vuejs-templates.github.io/webpack/</a><br>4.<a href="http://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&amp;mid=2247484393&amp;idx=1&amp;sn=142b8e37dfc94de07be211607e468030&amp;chksm=9723612ba054e83db6622a891287af119bb63708f1b7a09aed9149d846c9428ad5abbb822294&amp;mpshare=1&amp;scene=1&amp;srcid=1026oUz3521V74ua0uwTcIWa&amp;from=groupmessage&amp;isappinstalled=0#wechat_redirect&amp;utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">Vue作者尤雨溪：Vue 2.0，渐进式前端解决方案</a></p>
 ]]></content>
       
         <categories>
@@ -428,8 +2096,8 @@ webpack(webpackConf, function (err, stats) {
 <h4 id="2-插件"><a href="#2-插件" class="headerlink" title="2.插件"></a>2.插件</h4><p>#####（1）地图<br>百度地图、leafletjs<br>(国外免费地图插件<a href="http://leafletjs.com/reference.html#map-conversion-methods" target="_blank" rel="noopener">http://leafletjs.com/reference.html#map-conversion-methods</a>)<br><a href="http://leafletjs.com/" target="_blank" rel="noopener">http://leafletjs.com/</a></p>
 <p>#####（2）日期<br>JQuery datepicker<br>bootstrap-datetimepicker.js<br>(<a href="http://www.tuicool.com/articles/7neYr2" target="_blank" rel="noopener">http://www.tuicool.com/articles/7neYr2</a>)<br>jquery.simple-event-calendar（可以添加事件，打标识）<br> <a href="https://sensortower.github.io/daterangepicker/" target="_blank" rel="noopener">https://sensortower.github.io/daterangepicker/</a></p>
 <p>#####（3）文件上传<br>webuploader\Uploadify</p>
-<p>#####（4）表单验证<br>jQuery Form Validator\原生js<br><a href="http://validatejs.org/" target="_blank" rel="noopener">http://validatejs.org/</a></p>
-<p>#####（6）css库<br>pure.css(   <a href="http://purecss.io/base/" target="_blank" rel="noopener">http://purecss.io/base/</a>)<br>fundation<br>bootstrap</p>
+<h5 id="（4）表单验证"><a href="#（4）表单验证" class="headerlink" title="（4）表单验证"></a>（4）表单验证</h5><p>jQuery Form Validator\原生js<br><a href="http://validatejs.org/" target="_blank" rel="noopener">http://validatejs.org/</a></p>
+<h5 id="（6）css库"><a href="#（6）css库" class="headerlink" title="（6）css库"></a>（6）css库</h5><p>pure.css(   <a href="http://purecss.io/base/" target="_blank" rel="noopener">http://purecss.io/base/</a>)<br>fundation<br>bootstrap</p>
 <p>#####（7）模版<br>baiduTemplate(<a href="http://tangram.baidu.com/BaiduTemplate/" target="_blank" rel="noopener">http://tangram.baidu.com/BaiduTemplate/</a>)<br>smarty<br>baiduTemplate(百度)\artTemplate（腾讯）\juicer（淘宝）\doT\ tmpl\ handlebars\ easyTemplate\ underscoretemplate \ mustache \kissytemplate</p>
 <p>#####（8）键盘事件<br>keymaster.js  <a href="https://github.com/madrobby/keymaster" target="_blank" rel="noopener">https://github.com/madrobby/keymaster</a></p>
 <p>#####（9）颜色插件<br>Rainbow-custom</p>
@@ -447,14 +2115,17 @@ webpack(webpackConf, function (err, stats) {
 <p>#####（19）移动端滚动插件<br> isscroll.js <a href="http://wiki.jikexueyuan.com/project/iscroll-5/" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/iscroll-5/</a></p>
 <p>#####（20）图片裁剪<br><a href="https://github.com/libmw/imageClipper" target="_blank" rel="noopener">https://github.com/libmw/imageClipper</a></p>
 <p>#####（21）轮播插件<br> jquery.carouFredSel<br>swipper <a href="http://www.swiper.com.cn/demo/index.html" target="_blank" rel="noopener">http://www.swiper.com.cn/demo/index.html</a><br>unslider <a href="http://unslider.com/" target="_blank" rel="noopener">http://unslider.com/</a></p>
-<p>#####（22）javascript 工具库<br><a href="https://lodash.com/docs#difference" target="_blank" rel="noopener">https://lodash.com/docs#difference</a></p>
+<h5 id="22-javascript-工具库"><a href="#22-javascript-工具库" class="headerlink" title="(22)javascript 工具库"></a>(22)javascript 工具库</h5><p><a href="https://lodash.com/docs#difference" target="_blank" rel="noopener">https://lodash.com/docs#difference</a></p>
 <p>#####（23）前端生成二维码<br>js QRCode.js<br><a href="http://code.ciaoca.com/javascript/qrcode/" target="_blank" rel="noopener">http://code.ciaoca.com/javascript/qrcode/</a><br>color-thief-master</p>
-<p>#####（24）代码检测<br>JSLint</p>
+<h5 id="24-代码检测"><a href="#24-代码检测" class="headerlink" title="(24)代码检测"></a>(24)代码检测</h5><p>JSLint</p>
 <h4 id="3-手机端框架"><a href="#3-手机端框架" class="headerlink" title="3.手机端框架"></a>3.手机端框架</h4><p> apache cordova（PhoneGap）、jqmobi、Zeptojs、jQuery Mobile、GMUzepto<br>文档<br><a href="http://www.css88.com/doc/zeptojs_api/" target="_blank" rel="noopener">http://www.css88.com/doc/zeptojs_api/</a><br>（中文版）<br><a href="http://zeptojs.com/#$.camelCase" target="_blank" rel="noopener">http://zeptojs.com/#$.camelCase</a><br>（英文版）<br>cordova<br>中文<br><a href="http://cordova.apache.org/docs/zh/edge/index.html" target="_blank" rel="noopener">http://cordova.apache.org/docs/zh/edge/index.html</a><br>视频下载地址<br><a href="http://bbs.php100.com/read-htm-tid-518128.html" target="_blank" rel="noopener">http://bbs.php100.com/read-htm-tid-518128.html</a><br><a href="http://bbs.phonegap100.com/thread-361-1-1.html" target="_blank" rel="noopener">http://bbs.phonegap100.com/thread-361-1-1.html</a><br>jqMobi<br>指南系列教程是《jqMobi JavascriptFrameworks Cheat Sheet》的中文版,详细介绍了jqMobi.<br><a href="http://www.verydemo.com/demo_c98_i7766.html" target="_blank" rel="noopener">http://www.verydemo.com/demo_c98_i7766.html</a><br>PhoneGap<br>网站<br><a href="http://www.phonegap100.com/" target="_blank" rel="noopener">http://www.phonegap100.com/</a></p>
 <h4 id="4-文档编辑"><a href="#4-文档编辑" class="headerlink" title="4.文档编辑"></a>4.文档编辑</h4><p>markdown(<a href="https://www.zybuluo.com/mdeditor在线编辑器" target="_blank" rel="noopener">https://www.zybuluo.com/mdeditor在线编辑器</a>)</p>
 <h4 id="5-软件"><a href="#5-软件" class="headerlink" title="5.软件"></a>5.软件</h4><p>（1）编程sublime\phpstorm\webstorm<br>（2）思维导图mindManager<br>（3）nodejs安装npm安装<br>（4）python2.7安装及插件<br>（5）翻墙goagent、蓝灯<br>（6）连接服务器SecureCRT、Xftp<br>（7）android SDK</p>
 <h4 id="6-代码管理工具git-svn"><a href="#6-代码管理工具git-svn" class="headerlink" title="6.代码管理工具git\svn"></a>6.代码管理工具git\svn</h4><p>git廖雪峰教程<br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a><br>基于git的源代码管理模型——git flow<br><a href="https://ihower.tw/blog/archives/5140" target="_blank" rel="noopener">https://ihower.tw/blog/archives/5140</a></p>
 <h4 id="7-css预编译语言"><a href="#7-css预编译语言" class="headerlink" title="7.css预编译语言"></a>7.css预编译语言</h4><p>less(<a href="http://www.lesscss.net/)\sass" target="_blank" rel="noopener">http://www.lesscss.net/)\sass</a><br>less源码：<br><a href="https://github.com/twbs/bootstrap/blob/master/less/variables.less" target="_blank" rel="noopener">https://github.com/twbs/bootstrap/blob/master/less/variables.less</a></p>
+<h4 id="8-素材"><a href="#8-素材" class="headerlink" title="8.素材"></a>8.素材</h4><p>设计百宝箱 <a href="http://uirush.com/" target="_blank" rel="noopener">http://uirush.com/</a><br> 17素材 <a href="http://www.17sucai.com/category/1/31/44" target="_blank" rel="noopener">http://www.17sucai.com/category/1/31/44</a></p>
+<p>webstorm注册码链接：<a href="http://idea.qinxi1992.cn/" target="_blank" rel="noopener">http://idea.qinxi1992.cn/</a></p>
+<p>vue相关网站：<br>ui框架：<a href="https://www.iviewui.com/docs/guide/install" target="_blank" rel="noopener">https://www.iviewui.com/docs/guide/install</a></p>
 ]]></content>
       
         <categories>
@@ -478,21 +2149,21 @@ webpack(webpackConf, function (err, stats) {
       <content type="html"><![CDATA[<p>最近参与了一个微信活动页面开发，遇到各种问题，总结一下，主要涉及微信jssdk（难点在于微信签名，签名后才能使用jssdk）、微信网页授权获取用户信息、微信公众账号支付这三个部分。</p>
 <h3 id="一、微信jssdk的使用"><a href="#一、微信jssdk的使用" class="headerlink" title="一、微信jssdk的使用"></a>一、微信jssdk的使用</h3><p>由于要使用微信jssdk需要在微信公众账号里边配置微信js安全域名，如果是正式的公众号时需要备案的域名，并且一个月只能修改三次。</p>
 <p>因此开发时我们申请了一个订阅号(订阅号不需要认证，申请起来比较快，但是订阅号不能测试微信公众号支付)，然后进入订阅号的开发者工具=》公众平台测试账号=》按照步骤扫二维码进入以下页面<br> 配置js接口安全域名（注意必须是外网可以访问的域名，测试号也可以是ip地址）</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-a1d9f1ff994d4fec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/微信页面开发总结-img/1.png" alt="Paste_Image.png"></p>
 <p>因为使用微信jssdk需要签名，签名必须要后端支持，作为一名不会写后台代码的前端开发者来说，自己想测试一下jssdk的功能也是有办法可寻的（如果有后端人员愿意支持你，给你提供签名的接口也是可以的）。</p>
 <p>我来讲讲我初步学习使用jssdk的方式。</p>
 <p>1.在微信开发者文档<br><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115&amp;token=&amp;lang=zh_CN" target="_blank" rel="noopener">https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115&amp;token=&amp;lang=zh_CN</a><br>底部提供的链接<br><a href="http://demo.open.weixin.qq.com/jssdk/sample.zip" target="_blank" rel="noopener">http://demo.open.weixin.qq.com/jssdk/sample.zip</a><br>下载实例代码，其中包含php、java、nodejs以及python的示例代码；我使用的是php的代码因为搭建服务比较简单，’修改sample.php页面，将测试号的appid\appsecret写到代码对应的位置，然后将要测试的代码房子wx.ready(function(){})里边就可以了<br>我选择的是新浪云<br><a href="http://www.sinacloud.com/?from=baidu_web" target="_blank" rel="noopener">http://www.sinacloud.com/?from=baidu_web</a><br>平台SEA搭建的一个php的云服务，然后通过svn或者git将修改后的代码传到创建的应用里边，通过微信客户端访问创建的应用的网址就可以看到效果了<br>也可以下载微信web开发者工具，登录自己的微信号就可以在开发者工具里边看到效果并且调试了</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-c07c25c620925135.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-e66582c7d7bbfd77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/微信页面开发总结-img/2.png" alt="Paste_Image.png"></p>
+<p><img src="/images/微信页面开发总结-img/3.png" alt="Paste_Image.png"></p>
 <h3 id="二、微信网页授权，获取用户信息"><a href="#二、微信网页授权，获取用户信息" class="headerlink" title="二、微信网页授权，获取用户信息"></a>二、微信网页授权，获取用户信息</h3><p> 在公众账号中配置授权回调域名<br>通过微信的授权url，配置appid\回调url，授权后会跳转到回调url,回调的url上微信会自动加上一个code码，然后将code码传给后端，后端用code获取到openid（不通的授权方式获取的用户信息权限不一样）或其他用户信息返回给前端，授权成功</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-ac96a4cba055cfde.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/微信页面开发总结-img/4.png" alt="Paste_Image.png"></p>
 <h3 id="三、微信支付"><a href="#三、微信支付" class="headerlink" title="三、微信支付"></a>三、微信支付</h3><p>申请微信公众账号支付，申请成功之后，配置支付授权目录（建议直接使用支付授权目录，不通过测试目录开发），支付授权目录要求如下（虽要求进去匹配，但实际开发过程中，支付页面是/cart/payment，但是只有配置/cart才生效，不知道为什么）</p>
 <p>将openid传给后端，后端返回timestamp、nonceStr、package、paySign信息，然后再前端调用一下jssdk(按文档要求需要签名后再调用，但实际测试签名失败调用此sdk也能成功)<br>    wx.chooseWXPay({<br>    timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付             后台生成签名使用的timeStamp字段名需大写其中的S字符<br>    nonceStr: ‘’, // 支付签名随机串，不长于 32 位<br>    package: ‘’, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）<br>    signType: ‘’, // 签名方式，默认为’SHA1’，使用新版支付需传入’MD5’<br>    paySign: ‘’, // 支付签名<br>    success: function (res) {<br>        // 支付成功后的回调函数<br>    },<br>     cancle:function(res){<br>          //取消支付的回调函数<br>     },<br>     fail:function(res){<br>          //支付失败的回调函数<br>     }<br>});</p>
 <h3 id="四、主要遇到的问题和注意事项"><a href="#四、主要遇到的问题和注意事项" class="headerlink" title="四、主要遇到的问题和注意事项"></a>四、主要遇到的问题和注意事项</h3><p>1.jssdk签名、微信授权回调地址都是需要外网地址的，这俩个都可以通过申请一个测试号就可以开发，外网地址可以通过第三方云服务，或者下载一个net123/花生壳将外网域名映射到内网ip，如果本身就有外网域名最好</p>
 <p>2.微信支付必须要有一个认证的公众号才能开发（订阅号不能认证），并且必须要一个备案的的域名（可以是二级域名）</p>
 <p>3.微信公众账号支付最好使用wx.chooseWXPay而不要使用 getBrandWCPayRequest，因为后者是现在新版本的已经不支持了，并且前者更安全</p>
 <p>4.一个还未有更好解决方式的问题</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-3031a5ef2f415e6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/微信页面开发总结-img/5.png" alt="Paste_Image.png"></p>
 <p> 对应单页的web app来说，通过react-rooter的push来跳转页面，签名可能存在问题<br> 实际中遇到的问题，在一个用thinkjs+react搭建的触屏版商城中开发微信公众账号支付，该项目是一个单页app，通过react-rooter来管理页面的跳转，整个流程如下：<br>     登录=》微信授权网址=》跳转到回调url=》获取回调url中的code，传给后台获取openid,将openid存储下来<br>     提交订单写道openid过去=》后台返回支付需要的必要参数=》跳转到支付页面/cart/payment=》签名=》调用支付接口<br>     如果用路由自带的push的方法跳转到/cart/payment，那么通过window.location.href.split(‘#’)[0]获取到的url拿去签名会签名失败，但是将首页的url传过去才能成功<br>     但是如果遇到从其他活动直接跳转到提交订单页面（如果没有登录的情况下，会跳转到登录页面）=》登录后回调的url会是之前的url，此时如果再支付iphone5s会一直报当前url未注册（而当前url的地址是提交订单页面），但是iphone6当前url的地址是首页，会导致支付失败，但是安卓手机能够正常支付</p>
 <p>最后通过window.location.href跳转到/cart/payment，签名url还是window.location.href.split(‘#’)[0]就都能正常支付，但是对于单页app来说这样的跳转会很慢</p>
 ]]></content>
@@ -513,31 +2184,6 @@ webpack(webpackConf, function (err, stats) {
     </entry>
     
     <entry>
-      <title><![CDATA[SublimeText3快捷键精华版（转载）]]></title>
-      <url>https://chenjiaj.github.io/2016/09/12/SublimeText3%E5%BF%AB%E6%8D%B7%E9%94%AE%E7%B2%BE%E5%8D%8E%E7%89%88/</url>
-      <content type="html"><![CDATA[<p><code>Ctrl+Shift+P</code>：打开命令面板<br><code>Ctrl+P</code>：搜索项目中的文件<br><code>Ctrl+G</code>：跳转到第几行<br><code>Ctrl+W</code>：关闭当前打开文件<br><code>Ctrl+Shift+W</code>：关闭所有打开文件<br><code>Ctrl+Shift+V</code>：粘贴并格式化<br><code>Ctrl+D</code>：选择单词，重复可增加选择下一个相同的单词<br><code>Ctrl+L</code>：选择行，重复可依次增加选择下一行<br><code>Ctrl+Shift+L</code>：选择多行<br><code>Ctrl+Shift+Enter</code>：在当前行前插入新行<br><code>Ctrl+X</code>：删除当前行<br><code>Ctrl+M</code>：跳转到对应括号<br><code>Ctrl+U</code>：软撤销，撤销光标位置<br><code>Ctrl+J</code>：选择标签内容<br><code>Ctrl+F</code>：查找内容<br><code>Ctrl+Shift+F</code>：查找并替换<br><code>Ctrl+H</code>：替换<br><code>Ctrl+R</code>：前往method<br><code>Ctrl+N</code>：新建窗口<br><code>Ctrl+K+B</code>：开关侧栏<br><code>Ctrl+Shift+M</code>：选中当前括号内容，重复可选着括号本身<br><code>Ctrl+F2</code>：设置/删除标记<br><code>Ctrl+/</code>：注释当前行<br><code>Ctrl+Shift+/</code>：当前位置插入注释<br><code>Ctrl+Alt+/</code>：块注释，并Focus到首行，写注释说明用的<br><code>Ctrl+Shift+A</code>：选择当前标签前后，修改标签用的<br><code>F11</code>：全屏<br><code>Shift+F11</code>：全屏免打扰模式，只编辑当前文件<br><code>Alt+F3</code>：选择所有相同的词<br><code>Alt+.</code>：闭合标签<br><code>Alt+Shift+数字</code>：分屏显示<br><code>Alt+数字</code>：切换打开第N个文件<br><code>Shift+右键拖动</code>：光标多不，用来更改或插入列内容<br>鼠标的前进后退键可切换Tab文件<br>按<code>Ctrl</code>，依次点击或选取，可需要编辑的多个位置<br>按<code>Ctrl+Shift+上下键</code>，可替换行</p>
-<h3 id="选择类"><a href="#选择类" class="headerlink" title="选择类"></a>选择类</h3><p><code>Ctrl+D</code>：选中光标所占的文本，继续操作则会选中下一个相同的文本。<br><code>Alt+F3</code>：选中文本按下快捷键，即可一次性选择全部的相同文本进行同时编辑。举个栗子：快速选中并更改所有相同的变量名、函数名等。<br><code>Ctrl+L</code>：选中整行，继续操作则继续选择下一行，效果和<code>Shift+↓</code>效果一样。<br><code>Ctrl+Shift+L</code>：先选中多行，再按下快捷键，会在每行行尾插入光标，即可同时编辑这些行。<br><code>Ctrl+Shift+M</code>：选择括号内的内容（继续选择父括号）。举个栗子：快速选中删除函数中的代码，重写函数体代码或重写括号内里的内容。<br><code>Ctrl+M</code>：光标移动至括号内结束或开始的位置。<br><code>Ctrl+Enter</code>：在下一行插入新行。举个栗子：即使光标不在行尾，也能快速向下插入一行。<br><code>Ctrl+Shift+Enter</code>：在上一行插入新行。举个栗子：即使光标不在行首，也能快速向上插入一行。<br><code>Ctrl+Shift+[</code>：选中代码，按下快捷键，折叠代码。<br><code>Ctrl+Shift+]</code>：选中代码，按下快捷键，展开代码。<br><code>Ctrl+K+0</code>：展开所有折叠代码。<br><code>Ctrl+←</code>：向左单位性地移动光标，快速移动光标。<br><code>Ctrl+→</code>：向右单位性地移动光标，快速移动光标。<br><code>shift+↑</code>：向上选中多行。<br><code>shift+↓</code>：向下选中多行。<br><code>Shift+←</code>：向左选中文本。<br><code>Shift+→</code>：向右选中文本。<br><code>Ctrl+Shift+←</code>：向左单位性地选中文本。<br><code>Ctrl+Shift+→</code>：向右单位性地选中文本。<br><code>Ctrl+Shift+↑</code>：将光标所在行和上一行代码互换（将光标所在行插入到上一行之前）。<br><code>Ctrl+Shift+↓</code>：将光标所在行和下一行代码互换（将光标所在行插入到下一行之后）。<br><code>Ctrl+Alt+↑</code>：向上添加多行光标，可同时编辑多行。<br><code>Ctrl+Alt+↓</code>：向下添加多行光标，可同时编辑多行。</p>
-<h3 id="编辑类"><a href="#编辑类" class="headerlink" title="编辑类"></a>编辑类</h3><p><code>Ctrl+J</code>：合并选中的多行代码为一行。举个栗子：将多行格式的CSS属性合并为一行。<br><code>Ctrl+Shift+D</code>：复制光标所在整行，插入到下一行。<br><code>Tab</code>：向右缩进。<br><code>Shift+Tab</code>：向左缩进。<br><code>Ctrl+K+K</code>：从光标处开始删除代码至行尾。<br><code>Ctrl+Shift+K</code>：删除整行。<br><code>Ctrl+/</code>：注释单行。<br><code>Ctrl+Shift+/</code>：注释多行。<br><code>Ctrl+K+U</code>：转换大写。<br><code>Ctrl+K+L</code>：转换小写。<br><code>Ctrl+Z</code>：撤销。<br><code>Ctrl+Y</code>：恢复撤销。<br><code>Ctrl+U</code>：软撤销，感觉和<code>Gtrl+Z</code>一样。<br><code>Ctrl+F2</code>：设置书签<br><code>Ctrl+T</code>：左右字母互换。<br><code>F6</code>：单词检测拼写</p>
-<h3 id="搜索类"><a href="#搜索类" class="headerlink" title="搜索类"></a>搜索类</h3><p><code>Ctrl+F</code>：打开底部搜索框，查找关键字。<br><code>Ctrl+shift+F</code>：在文件夹内查找，与普通编辑器不同的地方是sublime允许添加多个文件夹进行查找，略高端，未研究。<br><code>Ctrl+P</code>：打开搜索框。举个栗子：1、输入当前项目中的文件名，快速搜索文件，2、输入@和关键字，查找文件中函数名，3、输入：和数字，跳转到文件中该行代码，4、输入#和关键字，查找变量名。<br><code>Ctrl+G</code>：打开搜索框，自动带：，输入数字跳转到该行代码。举个栗子：在页面代码比较长的文件中快速定位。<br><code>Ctrl+R</code>：打开搜索框，自动带@，输入关键字，查找文件中的函数名。举个栗子：在函数较多的页面快速查找某个函数。<br><code>Ctrl+</code>：打开搜索框，自动带#，输入关键字，查找文件中的变量名、属性名等。<br><code>Ctrl+Shift+P</code>：打开命令框。场景栗子：打开命名框，输入关键字，调用sublime：text或插件的功能，例如使用package安装插件。<br><code>Esc</code>：退出光标多行选择，退出搜索框，命令框等。</p>
-<h3 id="显示类"><a href="#显示类" class="headerlink" title="显示类"></a>显示类</h3><p><code>Ctrl+Tab</code>：按文件浏览过的顺序，切换当前窗口的标签页。<br><code>Ctrl+PageDown</code>：向左切换当前窗口的标签页。<br><code>Ctrl+PageUp</code>：向右切换当前窗口的标签页。<br><code>Alt+Shift+1</code>：窗口分屏，恢复默认1屏（非小键盘的数字）<br><code>Alt+Shift+2</code>：左右分屏-2列<br><code>Alt+Shift+3</code>：左右分屏-3列<br><code>Alt+Shift+4</code>：左右分屏-4列<br><code>Alt+Shift+5</code>：等分4屏<br><code>Alt+Shift+8</code>：垂直分屏-2屏<br><code>Alt+Shift+9</code>：垂直分屏-3屏<br><code>Ctrl+K+B</code>：开启/关闭侧边栏。<br><code>F11</code>：全屏模式<br><code>Shift+F11</code>：免打扰模式</p>
-]]></content>
-      
-        <categories>
-            
-            <category> sublime </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> sublime </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[sublime实用技巧]]></title>
       <url>https://chenjiaj.github.io/2016/09/12/sublime%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/</url>
       <content type="html"><![CDATA[<p>sublime是一款具有漂亮的用户界面和强大的功能且小巧高速的代码编辑器。它最大的特点就是可以根据自己的需求下载需要的插件，自定义一款适合自己编码习惯的编辑器。</p>
@@ -545,8 +2191,8 @@ webpack(webpackConf, function (err, stats) {
 <h3 id="二、用Package-Control安装其他插件"><a href="#二、用Package-Control安装其他插件" class="headerlink" title="二、用Package Control安装其他插件"></a>二、用Package Control安装其他插件</h3><p>按下Ctrl+Shift+P调出命令面板，输入install 调出 Install Package 选项并回车，然后在列表中选中要安装的插件。可以在<a href="https://packagecontrol.io/browse查阅想要下载的插件。" target="_blank" rel="noopener">https://packagecontrol.io/browse查阅想要下载的插件。</a></p>
 <p>常用插件如下：</p>
 <h5 id="1-Emmet"><a href="#1-Emmet" class="headerlink" title="1.Emmet"></a>1.Emmet</h5><p>emmet是一种快速的html、css编写方式。默认用tab键、’ctrl+E’。直接在html代码中或者通过ctrl+alt+enter弹出代码框，写入类似以下格式的代码（ul&gt;.item{content}$*10）（&gt; 号生成子元素 ，$ 产生序号，{ }产生内容）,点击’ctrl+E’或tab键会自动生成html代码。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-32d01baf9fefd549.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1210894-7d00aa418ca3ce7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p><img src="/images/sublime实用技巧-img/1.png" alt="Paste_Image.png"></p>
+<p><img src="/images/sublime实用技巧-img/2.png" alt="Paste_Image.png"></p>
 <h5 id="2-JS-Format"><a href="#2-JS-Format" class="headerlink" title="2.JS Format"></a>2.JS Format</h5><p>一个JS代码格式化插件。默认ctrl+alt+f</p>
 <h5 id="3-sublimelinter-sublimelinter-jshint-npw-install-g-jshint"><a href="#3-sublimelinter-sublimelinter-jshint-npw-install-g-jshint" class="headerlink" title="3.sublimelinter+sublimelinter-jshint+npw install -g jshint"></a>3.sublimelinter+sublimelinter-jshint+npw install -g jshint</h5><p>使用lint进行语法及风格校验jshint可以统一编码风格。</p>
 <p>安装jshint的步骤：<br>ctrl+shift+p打开命令模式—&gt;输入pcip回车—&gt;输入sublimelinter回车（是总体框架，如果需要对js进行校验的话，还需要安装针对js的校验插件，其中有两套js校验插件，分别是jslint,jshint,其中jshint是最流行的，此处也是安装jshint为主）—&gt;ctrl+shift+p—&gt;输入sublimelinter-jshint回车进行安装—&gt;下载node.js进行安装（因为用命令方式安装jshint插件用到npw install(node版本库），到node.js官网下载node-v6.2.0-x64.msi并且点击安装，安装完成之后—&gt;需要在命令行安装jshint,命令代码时：npw install -g jshint。如果没有安装node的话，那么npw命令就是无效的。注意：在sublime text使用sublimelinter jshint，那么jshint版本必须大于2.4。</p>
@@ -647,7 +2293,7 @@ alert(arr.constructor === Array); // false
       <title><![CDATA[浅析使用attr设置宽高与css设置宽高的区别]]></title>
       <url>https://chenjiaj.github.io/2016/08/31/%E6%B5%85%E6%9E%90%E4%BD%BF%E7%94%A8attr%E8%AE%BE%E7%BD%AE%E5%AE%BD%E9%AB%98%E4%B8%8Ecss%E8%AE%BE%E7%BD%AE%E5%AE%BD%E9%AB%98%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
       <content type="html"><![CDATA[<h3 id="一、主要区别"><a href="#一、主要区别" class="headerlink" title="一、主要区别"></a>一、主要区别</h3><p>使用attr设置宽高，attr对于的是实际宽高，如果没设置css就是显示的实际宽高，如果设置了css就会跟随css变成对应的显示宽高，这个时候实际宽高就可能跟显示宽高不一样，但是你所有操作对应的还是实际宽高而不是显示宽高</p>
-<h3 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h3><p>主要是针对图片、视频、canvas<br>以例子来说明更有说服力，如下：<br>想要实现画一个800*800的灰色canvas画布，然后清空坐标点在（40,40）,且宽高为140的矩形。如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/1210894-b6cb5e5ba55215b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<h3 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h3><p>主要是针对图片、视频、canvas<br>以例子来说明更有说服力，如下：<br>想要实现画一个800*800的灰色canvas画布，然后清空坐标点在（40,40）,且宽高为140的矩形。如下图所示：<br><img src="/images/浅析使用attr设置宽高与css设置宽高的区别-img/1.png" alt="Paste_Image.png"></p>
 <p>先看一下第一段代码，通过css设置宽高：</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -678,7 +2324,7 @@ alert(arr.constructor === Array); // false
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>发现效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/1210894-abfc3fe9e6fcd263.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</code></pre><p>发现效果如下：<br><img src="/images/浅析使用attr设置宽高与css设置宽高的区别-img/2.png" alt="Paste_Image.png"></p>
 <p>很明显宽高远大于140，并且左上角的坐标也不是（40,40），并且四边还有点模糊，像是被拉伸一样</p>
 <p>原因是：<br>通过css设置的是显示宽高，没有通过attr设置canvas的实际宽高，但canvas默认的实际宽高是300*150，但操作还是针对canvas的实际宽高操作的，因此看到的效果是缩放后的效果</p>
 <p>如何达到要求的效果呢，需要修改canvas的实际宽高，如下</p>
@@ -739,9 +2385,8 @@ alert(arr.constructor === Array); // false
 <p>专业定义对应我来说比较抽象，很难理解和记住。就我自己的理解来说<b>“闭包就是函数内部的函数，能够读取外部函数的变量，能够访问他被创建时所处的上下文环境”。</b></p>
 <h3 id="二、闭包的作用"><a href="#二、闭包的作用" class="headerlink" title="二、闭包的作用"></a>二、闭包的作用</h3><p>1.可以读取外部函数的变量，并让这些变量始终保持在内存中<br>2.便于模块化开发，减少全局变量。让开发过程中不必担心变量或函数重名的问题，避免污染全局变量，让全局变量专注于通用。</p>
 <h3 id="三、闭包存在的问题"><a href="#三、闭包存在的问题" class="headerlink" title="三、闭包存在的问题"></a>三、闭包存在的问题</h3><p>闭包会使内部变量被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页性能问题，在IE中造成内存泄漏。<br>解决方法：在退出函数时，将不使用的的局部变量全部删除</p>
-<h3 id="四、闭包的应用实例"><a href="#四、闭包的应用实例" class="headerlink" title="四、闭包的应用实例"></a>四、闭包的应用实例</h3><h4 id="1-闭包只能获取函数中任何变量最新的值"><a href="#1-闭包只能获取函数中任何变量最新的值" class="headerlink" title="1.闭包只能获取函数中任何变量最新的值"></a>1.闭包只能获取函数中任何变量最新的值</h4><pre><code>闭包只能获取函数中任何变量最新的值（通常是最后一个值），闭包保存的是整个变量对象，而不是某个特殊的变量
-
-function createFunc() {
+<h3 id="四、闭包的应用实例"><a href="#四、闭包的应用实例" class="headerlink" title="四、闭包的应用实例"></a>四、闭包的应用实例</h3><h4 id="1-闭包只能获取函数中任何变量最新的值"><a href="#1-闭包只能获取函数中任何变量最新的值" class="headerlink" title="1.闭包只能获取函数中任何变量最新的值"></a>1.闭包只能获取函数中任何变量最新的值</h4><p>闭包只能获取函数中任何变量最新的值（通常是最后一个值），闭包保存的是整个变量对象，而不是某个特殊的变量</p>
+<pre><code>function createFunc() {
 var result = new Array();
 for (var i = 0; i &lt; 10; i++) {
     result[i] = function() {
@@ -804,7 +2449,8 @@ alert(object.getNameFunc()());
     }
   element = null;
 }
-</code></pre><p>闭包不直接引用element，包含函数的活动对象中也仍然会保存这个引用。隐藏必须报element变量设置成null,这样才能够解除对DOM对象的引用，顺利地减少其引用次数，确保正常收回其占用的内存。</p>
+</code></pre><h2 id="闭包不直接引用element，包含函数的活动对象中也仍然会保存这个引用。隐藏必须报element变量设置成null-这样才能够解除对DOM对象的引用，顺利地减少其引用次数，确保正常收回其占用的内存。-lt-–"><a href="#闭包不直接引用element，包含函数的活动对象中也仍然会保存这个引用。隐藏必须报element变量设置成null-这样才能够解除对DOM对象的引用，顺利地减少其引用次数，确保正常收回其占用的内存。-lt-–" class="headerlink" title="闭包不直接引用element，包含函数的活动对象中也仍然会保存这个引用。隐藏必须报element变量设置成null,这样才能够解除对DOM对象的引用，顺利地减少其引用次数，确保正常收回其占用的内存。&lt;!–"></a>闭包不直接引用element，包含函数的活动对象中也仍然会保存这个引用。隐藏必须报element变量设置成null,这样才能够解除对DOM对象的引用，顺利地减少其引用次数，确保正常收回其占用的内存。&lt;!–</h2><p>title: 浅析使用attr设置宽高与css设置宽高的区别<br>date: 2016-08-31 13:59:14<br>categories: ‘canvas’</p>
+<h2 id="tags-canvas"><a href="#tags-canvas" class="headerlink" title="tags: canvas"></a>tags: canvas</h2><p>–&gt;</p>
 ]]></content>
       
         <categories>
@@ -855,60 +2501,6 @@ $ hexo deploy
         <categories>
             
             <category> hexo </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[日历插件——选择性标记日期]]></title>
-      <url>https://chenjiaj.github.io/2015/12/08/calender/</url>
-      <content type="html"><![CDATA[<p>本插件件可以用来简单的展示一个活动时间段，将这个活动时间段的日记全部列出；也可以在日历上标记一些特殊日期，例如：用于展示一个活动的签到<br><a href="https://chenjiaj.github.io/RgCalender/">参考示例</a></p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>1.在<a href="https://github.com/chenjiaj/RgCalender" target="_blank" rel="noopener">github</a>下载代码</p>
-<p>2.在使用的页面引入zepto.min.js或jquery、rgcalendar.js、rgcalendar.css</p>
-<p>3.可以再rgcalendar.css中修改插件样式</p>
-<p>4.实例化插件对象，如下：</p>
-<pre><code>var calendar = new RgCalendar({
-        startTime:null,
-        endTime:null,
-        showSTAll:false,
-        isfocus:true,
-        focusTime:endTime,
-        eventsDate:[time1,time2,time3],
-        parentNode:$(&apos;.rg-calendar-wrapper1&apos;),
-        startMonthDay:1,
-        eventClass:&apos;event&apos;,
-        isExtended:false,
-        prevText:&apos;&apos;,
-        nextText:&apos;&apos;
-    });
-</code></pre><p>可以传入一下参数，改变默认日历样子：</p>
-<p>1.<code>startTime</code>：默认为null;<br>活动开始时间，当isExtended为true时，必须同时传入endTime才生效，传入后按活动时间段展示，当isExtended为false时，只显示一个月，通过切换按钮切换显示月份，传入startTime后，点击上一个月，当上一个月小于startTime后将按钮置为disabled，可以设置.ym .disabled的样式,可以通过.startDay给活动开始的日期设置样式,开始日期当月在开始日期前的日期可以通过.calendar .beforStartDay 设置样式</p>
-<p>接收格式：可以为2016-02-1、毫秒数等其它可以传入new Date()的参数</p>
-<p>2.<code>endTime</code>：默认为null;<br>活动结束时间，当isExtended为true时，必须同时传入endTime才生效，传入后按活动时间段展示，当isExtended为false时，只显示一个月，通过切换按钮切换显示月份，传入endTime后，点击下一个月，当下一个月大于于endTime后将按钮置为disabled，可以设置.ym .disabled的样式，可以通过.endDay给活动结束的日期设置样式，结束日期当月在结束日期后的日期可以通过.afterEndDay 设置样式</p>
-<p>接收格式：可以为2016-02-1、毫秒数等其它可以传入new Date()的参数</p>
-<p>3.<code>showSTAll</code>：默认为false;<br>当传入startTime、endTime参数设置为才生效(按活动时间段展示,只从开始日期显示到结束日期),设置为false，开始、结束时间当月其他日期不显示，设置为ture则显示开始、结束时间当月的其他日期</p>
-<p>4.<code>isfocus</code>:默认为true;当值为true时，标记初始化聚焦日期，设置初始化聚焦日期的class为current-day,设置为false，则不标记聚焦日期，传入focusTime也不生效</p>
-<p>5.<code>focusTime</code>:默认值null,当isfocus值为true时才生效，不传此值，默认为当天</p>
-<p>接收格式：可以为2016-02-1、毫秒数等其它可以传入new Date()的参数</p>
-<p>6.<code>eventsDate</code>:默认为[]，此参数表示要标记的日期,将会个标记的日期加上class,默认为event,可以通过参数eventClass改变</p>
-<p>接收格式：接收一个数组，数组的每一个值可以为2016-02-1、毫秒数等其它可以传入new Date()的参数</p>
-<p>7.<code>parentNode</code>:默认为$(‘body’),此参数为日历的父容器</p>
-<p>8.<code>startMonthDay</code>:默认为1,表示日历从星期一开始从左往右展示</p>
-<p>接收格式：可以为1,2,3,4,5,6,7</p>
-<p>9.<code>eventClass</code>:默认为event，此参数表示标记的日记的class的名字</p>
-<p>10.<code>isExtended</code>:默认为false，此参数表示是按照时间段显示还是按照传统日历插件的样式显示（只显示一个月，通过切换按钮切换显示月份）,当值为true时，必须同时传入startTime和endTime才生效</p>
-<p>接收格式：true 或 false</p>
-<p>11.<code>prevText</code>:默认’’，此参数表示上一月按钮文字</p>
-<p>12.<code>nextText</code>:默认’’，此参数表示下一月按钮文字</p>
-<p>13.支持给空白表格设置样式，通过.blank</p>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>此插件基于插件 <a href="https://github.com/philipehsing/jQuery.Simple-Event-Calendar" target="_blank" rel="noopener">jquery.simple-event-calendar</a>修改，jquery.simple-event-calendar插件可以显示标记的日历事件</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 插件 </category>
             
         </categories>
         

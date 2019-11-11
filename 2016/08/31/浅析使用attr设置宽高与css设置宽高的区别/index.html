@@ -180,8 +180,48 @@
         
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/canvas/">
-                    canvas <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/vue/">
+                    vue <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/js/">
+                    js <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/mysql/">
+                    mysql <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/node/">
+                    node <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/css/">
+                    css <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/sublime/">
+                    sublime <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -196,24 +236,24 @@
         
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/js/">
-                    js <span class="right">2 篇</span></a>
+                <a class="no-padding" href="/categories/微信/">
+                    微信 <span class="right">4 篇</span></a>
                 </a>
             </li>
 
         
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/sublime/">
-                    sublime <span class="right">2 篇</span></a>
+                <a class="no-padding" href="/categories/canvas/">
+                    canvas <span class="right">1 篇</span></a>
                 </a>
             </li>
 
         
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/vue/">
-                    vue <span class="right">2 篇</span></a>
+                <a class="no-padding" href="/categories/工具/">
+                    工具 <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -228,8 +268,8 @@
         
 
             <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/微信/">
-                    微信 <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/感悟/">
+                    感悟 <span class="right">1 篇</span></a>
                 </a>
             </li>
 
@@ -304,7 +344,7 @@
 
             <div class="entry pink-link-context">
                 <h3 id="一、主要区别"><a href="#一、主要区别" class="headerlink" title="一、主要区别"></a>一、主要区别</h3><p>使用attr设置宽高，attr对于的是实际宽高，如果没设置css就是显示的实际宽高，如果设置了css就会跟随css变成对应的显示宽高，这个时候实际宽高就可能跟显示宽高不一样，但是你所有操作对应的还是实际宽高而不是显示宽高</p>
-<h3 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h3><p>主要是针对图片、视频、canvas<br>以例子来说明更有说服力，如下：<br>想要实现画一个800*800的灰色canvas画布，然后清空坐标点在（40,40）,且宽高为140的矩形。如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/1210894-b6cb5e5ba55215b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<h3 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h3><p>主要是针对图片、视频、canvas<br>以例子来说明更有说服力，如下：<br>想要实现画一个800*800的灰色canvas画布，然后清空坐标点在（40,40）,且宽高为140的矩形。如下图所示：<br><img src="/images/浅析使用attr设置宽高与css设置宽高的区别-img/1.png" alt="Paste_Image.png"></p>
 <p>先看一下第一段代码，通过css设置宽高：</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
@@ -335,7 +375,7 @@
 &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p>发现效果如下：<br><img src="http://upload-images.jianshu.io/upload_images/1210894-abfc3fe9e6fcd263.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</code></pre><p>发现效果如下：<br><img src="/images/浅析使用attr设置宽高与css设置宽高的区别-img/2.png" alt="Paste_Image.png"></p>
 <p>很明显宽高远大于140，并且左上角的坐标也不是（40,40），并且四边还有点模糊，像是被拉伸一样</p>
 <p>原因是：<br>通过css设置的是显示宽高，没有通过attr设置canvas的实际宽高，但canvas默认的实际宽高是300*150，但操作还是针对canvas的实际宽高操作的，因此看到的效果是缩放后的效果</p>
 <p>如何达到要求的效果呢，需要修改canvas的实际宽高，如下</p>

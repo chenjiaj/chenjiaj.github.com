@@ -1,0 +1,1071 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Vue组件-confirm | </title>
+    <meta name="author" content="chenjiajun">
+    
+    <meta name="description" content="对于confirm组件，我总共试过以下三种方式去实现，最后还是选择了用直接通过this调用promise方法的形式。
+一、使用的地方引用，传入属性和方法在需要的地方引入组件，然后传入对应的属性和方法
+组件
+&amp;lt;template&amp;gt;
+&amp;lt;div :class=&amp;quot;{&amp;apos;po">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Vue组件-confirm">
+    <meta property="og:site_name" content="chenjiajun">
+
+    
+    <meta property="og:image" content="undefined">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="chenjiajun" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="light-blue accent-4">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">chenjiajun</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav light-blue darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://upload.jianshu.io/users/upload_avatars/1210894/9f3436e83320?imageMogr/thumbnail/90x90/quality/100" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">chenjiajun</p>
+                        <p class="desc">Web前端</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav light-blue darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/插件/">
+                    插件 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/vue/">
+                    vue <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/js/">
+                    js <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/mysql/">
+                    mysql <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/node/">
+                    node <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/css/">
+                    css <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/sublime/">
+                    sublime <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/hexo/">
+                    hexo <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/微信/">
+                    微信 <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/canvas/">
+                    canvas <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/工具/">
+                    工具 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/总结/">
+                    总结 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/感悟/">
+                    感悟 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper light-blue accent-4">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/vue/">vue</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Vue组件-confirm</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2018-03-29T03:42:00.000Z"><a href="/2018/03/29/Vue组件-confirm/">2018-03-29</a></time>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/vue/" class="chip pink lighten-1">vue</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一、使用的地方引用，传入属性和方法"><span class="section table-of-contents-text">一、使用的地方引用，传入属性和方法</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#二、全局引入组件，使用vuex控制组件的显示"><span class="section table-of-contents-text">二、全局引入组件，使用vuex控制组件的显示</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#三、直接通过this调用promise方法的形式"><span class="section table-of-contents-text">三、直接通过this调用promise方法的形式</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-Vue-extend"><span class="section table-of-contents-text">1.Vue.extend()</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-new-VueComponent-mount"><span class="section table-of-contents-text">2.new VueComponent().$mount()</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#3-el属性-类型：string-HTMLElement"><span class="section table-of-contents-text">3.$el属性 类型：string | HTMLElement</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#4-Vue-prototype-添加-Vue-实例方法"><span class="section table-of-contents-text">4.Vue.prototype 添加 Vue 实例方法</span></a></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>对于confirm组件，我总共试过以下三种方式去实现，最后还是选择了用直接通过this调用promise方法的形式。</p>
+<h3 id="一、使用的地方引用，传入属性和方法"><a href="#一、使用的地方引用，传入属性和方法" class="headerlink" title="一、使用的地方引用，传入属性和方法"></a>一、使用的地方引用，传入属性和方法</h3><p>在需要的地方引入组件，然后传入对应的属性和方法</p>
+<p>组件</p>
+<pre><code>&lt;template&gt;
+&lt;div :class=&quot;{&apos;pop-up&apos;:true,&apos;show&apos;:isShow}&quot;&gt;
+    &lt;div class=&quot;popup-mask&quot; v-if=&quot;hasMark&quot;&gt;&lt;/div&gt;
+    &lt;transition name=&quot;bottom&quot;&gt;
+        &lt;div class=&quot;popup-note bottom&quot;&gt;
+            &lt;div class=&quot;pop-content&quot;&gt;
+                &lt;div class=&quot;pop-tit&quot;&gt;
+                    {{title}}
+                &lt;/div&gt;
+                &lt;p class=&quot;pop-note hasTitle&quot;&gt;
+                    &lt;span class=&quot;msg&quot; v-html=&quot;msg&quot;&gt;&lt;/span&gt;
+                &lt;/p&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;alert&apos;&quot; @click=&quot;alertClick&quot;&gt;
+                    &lt;span class=&quot;btn btn-block yes-btn&quot;&gt;{{alertBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;confirm&apos;&quot;&gt;
+                    &lt;span @touchstart=&quot;noClick&quot; class=&quot;btn&quot;&gt;{{noBtnText}}&lt;/span&gt;
+                    &lt;span @touchstart=&quot;yesClick&quot; class=&quot;btn yes-btn&quot;&gt;{{yesBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/transition&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+    props: {
+        isShow: {
+            type: Boolean,
+            default: false
+        },
+        title: {
+            type: String,
+            default: &apos;提示&apos;
+        },
+        msg: {
+            type: String,
+            default: &apos;&apos;
+        },
+        type: {
+            type: String,
+            default: &apos;alert&apos;
+        },
+        alertBtnText: {
+            type: String,
+            default: &apos;我知道了&apos;
+        },
+        yesBtnText: {
+            type: String,
+            default: &apos;确定&apos;
+        },
+        noBtnText: {
+            type: String,
+            default: &apos;取消&apos;
+        },
+        hasMark: {
+            type: Boolean,
+            default: true
+        }
+    },
+    methods: {
+        noClick() {
+            this.$emit(&apos;noClick&apos;);
+        },
+        yesClick() {
+            this.$emit(&apos;yesClick&apos;);
+        },
+        alertClick() {
+            this.$emit(&apos;alertClick&apos;);
+        }
+    }
+}
+&lt;/script&gt;
+&lt;style lang=&apos;less&apos;&gt;
+@import &quot;../../../static/less/components/tip/index.less&quot;;
+&lt;/style&gt;
+</code></pre><p>使用</p>
+<pre><code>&lt;template&gt;
+&lt;div&gt;
+    &lt;message
+        type=&quot;confirm&quot;
+        :title=&quot;confirmTitle&quot;
+        :msg=&quot;confrimMsg&quot;
+        :isShow=&quot;isConfirmShow&quot;
+        yesBtnText=&quot;覆盖&quot;
+        @noClick=&quot;cancelDel&quot;
+        @yesClick=&quot;doDel&quot;&gt;
+    &lt;/message&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import Message from &apos;../components/message/message.vue&apos;
+
+export default {
+    components: {
+        Message
+    },
+    data() {
+        return {
+            isConfirmShow: false,
+            confirmTitle: &apos;计划冲突&apos;,
+            confrimMsg: &apos;&apos;
+        }
+    },
+    methods:{
+              //取消
+        cancelDel() {
+            this.isConfirmShow = false;
+        },
+        //确定
+        doDel() {
+            this.isConfirmShow = false;
+        }
+      }
+}
+&lt;/script&gt;
+</code></pre><p>这种方式的问题在于在每个使用的地方都需要引用,如果组件使用频率比较多就不适合这样写，因为项目一般是会使用懒加载的，如果使用过多可以写到公共文件里边，不需要每次使用到的地方都去加载一次。</p>
+<p>另外 如果在遇到以下情景，使用起来也会特别的不方便。在离开路由前需要弹出一个确定框，点击确定执行next(),点击取消执行next(false)，如果按照这种方式的话需要提前定义好cancelDel和doDel方法，这个时候不好把next传递给这两个方法，只能通过一个变量或熟悉把next存起来，这样使用起来也不方便，并且阅读起来也会比较困难。</p>
+<pre><code> beforeRouteLeave(to, from, next) {
+    this.$confirm({
+                title: &apos;&apos;,
+                msg: &apos;模式未保存，确定离开？&apos;,
+                yesBtnText: &quot;离开&quot;
+            }).then(() =&gt; {
+                next();
+            }).catch(() =&gt; {
+                next(false);
+            });
+},
+</code></pre><h3 id="二、全局引入组件，使用vuex控制组件的显示"><a href="#二、全局引入组件，使用vuex控制组件的显示" class="headerlink" title="二、全局引入组件，使用vuex控制组件的显示"></a>二、全局引入组件，使用vuex控制组件的显示</h3><p>组件代码</p>
+<pre><code>&lt;template&gt;
+&lt;div :class=&quot;{&apos;pop-up&apos;:true,&apos;show&apos;:isShow}&quot;&gt;
+    &lt;div class=&quot;popup-mask&quot; v-if=&quot;hasMark&quot;&gt;&lt;/div&gt;
+    &lt;transition name=&quot;bottom&quot;&gt;
+        &lt;div class=&quot;popup-note bottom&quot;&gt;
+            &lt;div class=&quot;pop-content&quot;&gt;
+                &lt;div class=&quot;pop-tit&quot;&gt;
+                    {{title}}
+                &lt;/div&gt;
+                &lt;p class=&quot;pop-note hasTitle&quot;&gt;
+                    &lt;span class=&quot;msg&quot; v-html=&quot;msg&quot;&gt;&lt;/span&gt;
+                &lt;/p&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;alert&apos;&quot; @click.stop=&quot;alertClick&quot;&gt;
+                    &lt;span class=&quot;btn btn-block yes-btn&quot;&gt;{{alertBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;confirm&apos;&quot;&gt;
+                    &lt;span @click.prevent=&quot;noClick&quot; class=&quot;btn&quot;&gt;{{noBtnText}}&lt;/span&gt;
+                    &lt;span @click.prevent=&quot;yesClick&quot; class=&quot;btn yes-btn&quot;&gt;{{yesBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/transition&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+import {mapState} from &apos;vuex&apos;
+
+export default {
+    computed: mapState({
+        title: state =&gt; state.confirm.title,
+        isShow: state =&gt; state.confirm.isShow,
+        msg: state =&gt; state.confirm.msg,
+        type: state =&gt; state.confirm.type,
+        hasMark: state =&gt; state.confirm.hasMark,
+        alertBtnText: state =&gt; state.confirm.alertBtnText,
+        noBtnText: state =&gt; state.confirm.noBtnText,
+        yesBtnText: state =&gt; state.confirm.yesBtnText,
+    }),
+    methods: {
+        alertClick() {
+            this.$store.commit(&apos;alertClick&apos;)
+        },
+        noClick() {
+            this.$store.commit(&apos;noClick&apos;)
+        },
+        yesClick() {
+            this.$store.commit(&apos;yesClick&apos;)
+        }
+    }
+}
+&lt;/script&gt;
+
+&lt;style lang=&apos;less&apos; type=&quot;text/less&quot; scoped&gt;
+@import &quot;../../../static/less/components/tip/index.less&quot;;
+&lt;/style&gt;
+</code></pre><p>vuex部分代码</p>
+<pre><code>let yesCallBack = () =&gt; {};
+let noCallBack = () =&gt; {};
+let alertCallBack = () =&gt; {};
+
+export default {
+state: {
+    title: &apos;&apos;,
+    isShow: false,
+    msg: &apos;&apos;,
+    type: &apos;confirm&apos;,
+    hasMark: true,
+    alertBtnText: &apos;&apos;,
+    noBtnText: &apos;取消&apos;,
+    yesBtnText: &apos;确定&apos;,
+},
+mutations: {
+    confirm(state, data) {
+        Object.assign(state, {
+            title: data.title,
+            isShow: true,
+            msg: data.msg,
+            type: &apos;confirm&apos;,
+            hasMark: data.hasMark === &apos;undefined&apos; ? true : data.hasMark,
+            alertBtnText: data.alertBtnText,
+            noBtnText: data.noBtnText || &apos;取消&apos;,
+            yesBtnText: data.yesBtnText || &apos;确定&apos;,
+        });
+
+        let yesCb = data.yesClick;
+        let noCb = data.noClick;
+        if (yesCb) {
+            yesCallBack = yesCb;
+        } else {
+            yesCallBack = () =&gt; {
+            };
+        }
+
+        if (noCb) {
+            noCallBack = noCb;
+        } else {
+            noCallBack = () =&gt; {
+            };
+        }
+    },
+    alert(state, data) {
+        Object.assign(state, {
+            title: data.title,
+            isShow: true,
+            msg: data.msg,
+            type: &apos;alert&apos;,
+            hasMark: data.hasMark === &apos;undefined&apos; ? true : data.hasMark,
+            alertBtnText: data.alertBtnText,
+            noBtnText: data.noBtnText || &apos;取消&apos;,
+            yesBtnText: data.yesBtnText || &apos;确定&apos;,
+        });
+
+        let alertCb = data.alertClick;
+        if (alertCb) {
+            alertCallBack = alertCb;
+        } else {
+            alertCallBack = () =&gt; {
+            };
+        }
+    },
+    noClick(state) {
+        noCallBack();
+        state.isShow = false;
+    },
+    yesClick(state) {
+        yesCallBack();
+        state.isShow = false;
+    },
+    alertClick(state) {
+        alertCallBack();
+        state.isShow = false;
+    }
+}
+}
+</code></pre><p>使用</p>
+<p>  全局主文件写入confirm</p>
+<pre><code>&lt;template&gt;
+&lt;div&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;confirm&gt;&lt;/confirm&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import confirm from &apos;./components/confirm/index.vue&apos;
+export default {
+    components: {
+        confirm
+    }
+}
+&lt;/script&gt;
+&lt;style lang=&quot;less&quot;&gt;
+@import &quot;../static/less/base.less&quot;;
+&lt;/style&gt;
+</code></pre><p>在使用的地方写入这样调用即可</p>
+<pre><code>this.$store.commit(&apos;confirm&apos;, {
+            title: &apos;title&apos;,
+            msg: &apos;是否确认删除&apos;,
+            yesClick: () =&gt; {
+                console.log(&apos;yes&apos;);
+            },
+            noClick: () =&gt; {
+                console.log(&apos;no&apos;);
+            }
+        });
+</code></pre><p>这种方式的好处是不需要每个使用的地方都引入组件，只需要在主文件引入即可。但是这个方法写的时候需要注意，在每次调用赋值的时候需要将以前所有值清空，避免属性受上次调用影响。</p>
+<p>这种方式相对来说比较麻烦，除了维护组件以外，还要维护vuex的状态，还需要提前把模板写入页面，相对来说比较麻烦。</p>
+<h3 id="三、直接通过this调用promise方法的形式"><a href="#三、直接通过this调用promise方法的形式" class="headerlink" title="三、直接通过this调用promise方法的形式"></a>三、直接通过this调用promise方法的形式</h3><p>这种方式实用简单，阅读起来也符合语义。<br>并且在未调用之前</p>
+<p>vue文件</p>
+<pre><code>  &lt;template&gt;
+&lt;div :class=&quot;{&apos;pop-up&apos;:true,&apos;show&apos;:show}&quot;&gt;
+    &lt;div class=&quot;popup-mask&quot; v-if=&quot;hasMark&quot;&gt;&lt;/div&gt;
+    &lt;transition name=&quot;bottom&quot;&gt;
+        &lt;div class=&quot;popup-note bottom&quot;&gt;
+            &lt;div class=&quot;pop-content&quot;&gt;
+                &lt;div class=&quot;pop-tit&quot;&gt;
+                    {{title}}
+                &lt;/div&gt;
+                &lt;p class=&quot;pop-note hasTitle&quot;&gt;
+                    &lt;span class=&quot;msg&quot; v-html=&quot;msg&quot;&gt;&lt;/span&gt;
+                &lt;/p&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;alert&apos;&quot; @click.stop=&quot;alertClick&quot;&gt;
+                    &lt;span class=&quot;btn btn-block yes-btn&quot;&gt;{{alertBtnText}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;btn-wrapper&quot; v-if=&quot;type == &apos;confirm&apos;&quot;&gt;
+                    &lt;span @touchstart.prevent=&quot;noClick&quot; class=&quot;btn&quot;&gt;{{noBtnText}}&lt;/span&gt;
+                    &lt;span @touchstart.prevent=&quot;yesClick&quot; class=&quot;btn yes-btn&quot;&gt;{{yesBtnText}}        &lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/transition&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+    props: {
+        title: {
+            type: String,
+            default: &apos;提示&apos;
+        },
+        msg: {
+            type: String,
+            default: &apos;&apos;
+        },
+        type: {
+            type: String,
+            default: &apos;alert&apos;
+        },
+        alertBtnText: {
+            type: String,
+            default: &apos;我知道了&apos;
+        },
+        yesBtnText: {
+            type: String,
+            default: &apos;确定&apos;
+        },
+        noBtnText: {
+            type: String,
+            default: &apos;取消&apos;
+        },
+        hasMark: {
+            type: Boolean,
+            default: true
+        }
+    },
+    data() {
+        return {
+            promiseStatus: null,
+            show: false
+        }
+    },
+    methods: {
+        confirm() {
+            let _this = this;
+            this.show = true;
+            return new Promise(function (resolve, reject) {
+                _this.promiseStatus = {resolve, reject};
+            });
+        },
+        noClick() {
+            this.show = false;
+            this.promiseStatus &amp;&amp; this.promiseStatus.reject();
+
+        },
+        yesClick() {
+            this.show = false;
+            this.promiseStatus &amp;&amp; this.promiseStatus.resolve();
+
+        },
+        alertClick() {
+            this.show = false;
+            this.promiseStatus &amp;&amp; this.promiseStatus.resolve();
+        }
+    }
+}
+&lt;/script&gt;
+
+
+&lt;style lang=&apos;less&apos;&gt;
+@import &quot;../../../static/less/components/tip/index.less&quot;;
+&lt;/style&gt;
+</code></pre><p>confirm.js</p>
+<pre><code>import Vue from &apos;vue&apos;
+import message from &apos;./message.vue&apos;
+const VueComponent = Vue.extend(message);
+const vm = new VueComponent().$mount();
+let init = false;
+let defaultOptions = {
+yesBtnText: &apos;确定&apos;,
+noBtnText: &apos;取消&apos;
+};
+
+const confirm = function (options) {
+Object.assign(vm,defaultOptions , options,{
+    type:&apos;confirm&apos;
+});
+
+if (!init) {
+    document.body.appendChild(vm.$el);
+    init = true;
+}
+
+return vm.confirm();
+};
+
+export default confirm;
+</code></pre><p>全局注册</p>
+<pre><code>import confirm from &apos;./views/components/message/confirm&apos;
+Vue.prototype.$confirm = confirm;
+</code></pre><p>使用</p>
+<pre><code>this.$confirm({
+    title: &apos;&apos;,
+    msg: &apos;模式未保存，确定离开？&apos;,
+    yesBtnText: &quot;离开&quot;
+}).then(() =&gt; {
+    console.log(&apos;yes&apos;)
+    })
+   .catch(() =&gt; {
+    console.log(&apos;cancel&apos;)
+});
+</code></pre><p>这种方式和第二中方式写的时候都要注意，每次调用有些值需要重置，因为都是全局的，共用同一个组件，避免不同地方调用相互影响。</p>
+<p>第三种方式涉及的知识点</p>
+<h5 id="1-Vue-extend"><a href="#1-Vue-extend" class="headerlink" title="1.Vue.extend()"></a>1.Vue.extend()</h5><p>使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象<br>.vue单文件经过webpack打包之后是一个组件示例对象，因此可以传到Vue.extend中生成一个包含此组件的类</p>
+<h5 id="2-new-VueComponent-mount"><a href="#2-new-VueComponent-mount" class="headerlink" title="2.new VueComponent().$mount()"></a>2.new VueComponent().$mount()</h5><p>new VueComponent() 创建实例，调用$mount()可以手动编译</p>
+<p>如果.$mount(‘#app’)有参数，表示手动编译并且挂载到该元素上。</p>
+<h5 id="3-el属性-类型：string-HTMLElement"><a href="#3-el属性-类型：string-HTMLElement" class="headerlink" title="3.$el属性 类型：string | HTMLElement"></a>3.$el属性 类型：string | HTMLElement</h5><p>手动编译后的示例对象中存在一个$el对象（dom元素），可以作为模板被插入到页面中。</p>
+<h5 id="4-Vue-prototype-添加-Vue-实例方法"><a href="#4-Vue-prototype-添加-Vue-实例方法" class="headerlink" title="4.Vue.prototype 添加 Vue 实例方法"></a>4.Vue.prototype 添加 Vue 实例方法</h5>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer light-blue accent-4 darken-1">
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="social-group col m3 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">
+                        <i class="fa fa-2x fa-book"></i>
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="col m9 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">我的简书</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">我的Github</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-search').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

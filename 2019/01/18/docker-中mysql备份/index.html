@@ -1,0 +1,689 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>docker中mysql备份 | </title>
+    <meta name="author" content="chenjiajun">
+    
+    <meta name="description" content="以下示例均在镜像mysql:5.7.22基础上应用
+一、备份mysql1.创建容器testmysqldocker run -p 3307:3306 --name testmysql -e MYSQL_ROOT_PASSWORD=12345 -d mysql:5.7.22
+2.创建数据库test、数据">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="docker中mysql备份">
+    <meta property="og:site_name" content="chenjiajun">
+
+    
+    <meta property="og:image" content="undefined">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="chenjiajun" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="light-blue accent-4">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">chenjiajun</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav light-blue darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://upload.jianshu.io/users/upload_avatars/1210894/9f3436e83320?imageMogr/thumbnail/90x90/quality/100" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">chenjiajun</p>
+                        <p class="desc">Web前端</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav light-blue darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/插件/">
+                    插件 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/vue/">
+                    vue <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/js/">
+                    js <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/mysql/">
+                    mysql <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/node/">
+                    node <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/css/">
+                    css <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/sublime/">
+                    sublime <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/hexo/">
+                    hexo <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/微信/">
+                    微信 <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/canvas/">
+                    canvas <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/工具/">
+                    工具 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/总结/">
+                    总结 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/感悟/">
+                    感悟 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper light-blue accent-4">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/mysql/">mysql</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>docker中mysql备份</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2019-01-18T02:15:00.000Z"><a href="/2019/01/18/docker-中mysql备份/">2019-01-18</a></time>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/docker/" class="chip pink lighten-1">docker</a>
+        
+            <a href="/tags/mysql/" class="chip pink lighten-1">mysql</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#一、备份mysql"><span class="section table-of-contents-text">一、备份mysql</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-创建容器testmysql"><span class="section table-of-contents-text">1.创建容器testmysql</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-创建数据库test、数据表test1"><span class="section table-of-contents-text">2.创建数据库test、数据表test1</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-mysqldump-备份"><span class="section table-of-contents-text">2.mysqldump 备份</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#二、导入备份"><span class="section table-of-contents-text">二、导入备份</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-创建容器testmysql1"><span class="section table-of-contents-text">1.创建容器testmysql1</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#2-导入命令"><span class="section table-of-contents-text">2.导入命令</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#1-添加myql-test-sh文件"><span class="section table-of-contents-text">1.添加myql_test.sh文件</span></a></li></ol></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#mv-data-dir-database-data-date-Y-m-d-H-M-sql-data-dir-database-data-date-Y-m-d-H-M-txt"><span class="section table-of-contents-text">mv $data_dir/$database/data_date +%Y%m%d_%H:%M.sql $data_dir/$database/data_date +%Y%m%d_%H:%M.txt</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#将备份文件发送到邮箱-数据量小的情况下-服务器需要安装-yum-install-mailx-并配置-yum-install-sharutils"><span class="section table-of-contents-text">将备份文件发送到邮箱 数据量小的情况下 服务器需要安装 yum install mailx 并配置 yum install sharutils</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#修改-vi-etc-mail-rc"><span class="section table-of-contents-text">修改 vi /etc/mail.rc</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#添加以下配置"><span class="section table-of-contents-text">添加以下配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#set-from-shenjianyu-thinktrader-net-smtp-smtp-exmail-qq-com"><span class="section table-of-contents-text">set from=shenjianyu@thinktrader.net smtp=smtp.exmail.qq.com</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#set-smtp-auth-user-shenjianyu-thinktrader-net-smtp-auth-password-邮箱密码"><span class="section table-of-contents-text">set smtp-auth-user=shenjianyu@thinktrader.net smtp-auth-password=邮箱密码</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#set-smtp-auth-login"><span class="section table-of-contents-text">set smtp-auth=login</span></a></li><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#echo-e-“rap2备份文件”-mail-s-‘rap2备份’-a-data-dir-database-data-date-Y-m-d-H-M-txt-845142388-qq-com"><span class="section table-of-contents-text">echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_date +%Y%m%d_%H:%M.txt 845142388@qq.com</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-添加定时任务"><span class="section table-of-contents-text">2.添加定时任务</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>以下示例均在镜像mysql:5.7.22基础上应用</p>
+<h2 id="一、备份mysql"><a href="#一、备份mysql" class="headerlink" title="一、备份mysql"></a>一、备份mysql</h2><h4 id="1-创建容器testmysql"><a href="#1-创建容器testmysql" class="headerlink" title="1.创建容器testmysql"></a>1.创建容器testmysql</h4><pre><code>docker run -p 3307:3306 --name testmysql -e MYSQL_ROOT_PASSWORD=12345 -d mysql:5.7.22
+</code></pre><h4 id="2-创建数据库test、数据表test1"><a href="#2-创建数据库test、数据表test1" class="headerlink" title="2.创建数据库test、数据表test1"></a>2.创建数据库test、数据表test1</h4><pre><code>docker exec -it testmysql /bin/bash //进入容器
+
+mysql -uroot -p //进入数据库
+
+show databases; //查询数据库
+create database test; // 创建名为test数据库
+use test;//切换到数据库 test
+create table test (id int);//创建名为test的数据表
+insert into test (id) values (1); //插入一条数据
+</code></pre><p><img src="/images/docker-中mysql备份-img/1.png" alt="添加数据"></p>
+<h4 id="2-mysqldump-备份"><a href="#2-mysqldump-备份" class="headerlink" title="2.mysqldump 备份"></a>2.mysqldump 备份</h4><p>导出命令1（建议使用此命令）</p>
+<p>docker exec -it mysql_server【docker容器名称/ID】 mysqldump –defaults-extra-file=/etc/mysql/my.cnf  test_db【数据库名称】 &gt; /opt/sql_bak/test_db.sql【导出表格路径】</p>
+<p>（1）修改/etc/mysql/my.cnf文件</p>
+<pre><code>vim /etc/mysql/my.cnf
+
+[mysqldump]
+user=your_backup_user_name
+password=your_backup_password
+</code></pre><p><img src="/images/docker-中mysql备份-img/2.png" alt="image.png"></p>
+<p>进入容器后执行vim /etc/mysql/my.cnf，如果报bash: vim: command not found<br>在容器内执行以下代码下载vim即可</p>
+<pre><code>apt-get update
+apt-get install vim
+</code></pre><p>修改后，exit退出容器，重启以下容器 docker restart testmysql【容器名称/id】</p>
+<p>执行导出命令</p>
+<pre><code>docker exec -it testmysql mysqldump --defaults-extra-file=/etc/mysql/my.cnf test &gt; /home/iotdev/cjj/test.sql
+</code></pre><p>导出命令2<br>docker exec -it  mysql_server【docker容器名称/ID】 mysqldump -uroot -p12345【数据库密码】 test_db【数据库名称】 &gt; /opt/sql_bak/test_db.sql【导出表格路径】</p>
+<pre><code>docker exec -it testmysql mysqldump -p12345 test &gt; /home/iotdev/cjj/test.sql
+</code></pre><p>如果使用这个命令，导出的文件会有警告 ，在导入的时候报这个错误,需要把警告删除再导入<br><img src="/images/docker-中mysql备份-img/3.png" alt="导入"></p>
+<h2 id="二、导入备份"><a href="#二、导入备份" class="headerlink" title="二、导入备份"></a>二、导入备份</h2><h4 id="1-创建容器testmysql1"><a href="#1-创建容器testmysql1" class="headerlink" title="1.创建容器testmysql1"></a>1.创建容器testmysql1</h4><pre><code>docker run -p 3308:3306 --name testmysql1 -e MYSQL_ROOT_PASSWORD=1234 -d mysql:5.7.22
+</code></pre><h4 id="2-导入命令"><a href="#2-导入命令" class="headerlink" title="2.导入命令"></a>2.导入命令</h4><p>(1)先将文件导入到容器</p>
+<pre><code>docker cp **.sql 【容器名】:/root/
+</code></pre><p>(2)进入容器</p>
+<pre><code>docker exec -ti 【容器名/ID】/bin/bash
+</code></pre><p>(3)创建数据库</p>
+<pre><code>mysql -uroot -p
+create database test
+</code></pre><p>(4)将文件导入数据库</p>
+<pre><code>mysql -uroot -p 【数据库名】 &lt; ***.sql
+</code></pre><p>三、加入定时任务<br>用crontab添加定时器，参考详情 <a href="https://www.cnblogs.com/peida/archive/2013/01/08/2850483.html" target="_blank" rel="noopener">https://www.cnblogs.com/peida/archive/2013/01/08/2850483.html</a></p>
+<h4 id="1-添加myql-test-sh文件"><a href="#1-添加myql-test-sh文件" class="headerlink" title="1.添加myql_test.sh文件"></a>1.添加myql_test.sh文件</h4><pre><code>#!/bin/bash
+</code></pre><p>data_name=”rap2-mysql-new”<br>data_dir=”/mysql_data/rap2-new”<br>database=”RAP2_DELOS_APP”<br>time=”<code>date +%H:%M</code>“<br>docker exec $data_name sh -c “rm -rf /$database”<br>docker exec $data_name sh -c “mkdir $database”<br>docker exec $data_name sh -c “mysqldump -uroot -pfewsdkjk13_ –databases $database &gt; /$database/data_<code>date +%Y%m%d_%H:%M</code>.txt”<br>docker cp $data_name:$database/ $data_dir</p>
+<h1 id="mv-data-dir-database-data-date-Y-m-d-H-M-sql-data-dir-database-data-date-Y-m-d-H-M-txt"><a href="#mv-data-dir-database-data-date-Y-m-d-H-M-sql-data-dir-database-data-date-Y-m-d-H-M-txt" class="headerlink" title="mv $data_dir/$database/data_date +%Y%m%d_%H:%M.sql $data_dir/$database/data_date +%Y%m%d_%H:%M.txt"></a>mv $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.sql $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.txt</h1><h1 id="将备份文件发送到邮箱-数据量小的情况下-服务器需要安装-yum-install-mailx-并配置-yum-install-sharutils"><a href="#将备份文件发送到邮箱-数据量小的情况下-服务器需要安装-yum-install-mailx-并配置-yum-install-sharutils" class="headerlink" title="将备份文件发送到邮箱 数据量小的情况下 服务器需要安装 yum install mailx 并配置 yum install sharutils"></a>将备份文件发送到邮箱 数据量小的情况下 服务器需要安装 yum install mailx 并配置 yum install sharutils</h1><h1 id="修改-vi-etc-mail-rc"><a href="#修改-vi-etc-mail-rc" class="headerlink" title="修改 vi /etc/mail.rc"></a>修改 vi /etc/mail.rc</h1><h1 id="添加以下配置"><a href="#添加以下配置" class="headerlink" title="添加以下配置"></a>添加以下配置</h1><h1 id="set-from-shenjianyu-thinktrader-net-smtp-smtp-exmail-qq-com"><a href="#set-from-shenjianyu-thinktrader-net-smtp-smtp-exmail-qq-com" class="headerlink" title="set from=shenjianyu@thinktrader.net smtp=smtp.exmail.qq.com"></a>set <a href="mailto:from=shenjianyu@thinktrader.net" target="_blank" rel="noopener">from=shenjianyu@thinktrader.net</a> smtp=smtp.exmail.qq.com</h1><h1 id="set-smtp-auth-user-shenjianyu-thinktrader-net-smtp-auth-password-邮箱密码"><a href="#set-smtp-auth-user-shenjianyu-thinktrader-net-smtp-auth-password-邮箱密码" class="headerlink" title="set smtp-auth-user=shenjianyu@thinktrader.net smtp-auth-password=邮箱密码"></a>set <a href="mailto:smtp-auth-user=shenjianyu@thinktrader.net" target="_blank" rel="noopener">smtp-auth-user=shenjianyu@thinktrader.net</a> smtp-auth-password=邮箱密码</h1><h1 id="set-smtp-auth-login"><a href="#set-smtp-auth-login" class="headerlink" title="set smtp-auth=login"></a>set smtp-auth=login</h1><h1 id="echo-e-“rap2备份文件”-mail-s-‘rap2备份’-a-data-dir-database-data-date-Y-m-d-H-M-txt-845142388-qq-com"><a href="#echo-e-“rap2备份文件”-mail-s-‘rap2备份’-a-data-dir-database-data-date-Y-m-d-H-M-txt-845142388-qq-com" class="headerlink" title="echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_date +%Y%m%d_%H:%M.txt 845142388@qq.com"></a>echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.txt <a href="mailto:845142388@qq.com" target="_blank" rel="noopener">845142388@qq.com</a></h1><p>if [ $time = “12:00” ]<br>then<br>    echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.txt <a href="mailto:845142388@qq.com" target="_blank" rel="noopener">845142388@qq.com</a><br>fi<br>if [ $time = “20:00” ]<br>then<br>    echo -e “rap2备份文件” | mail -s ‘rap2备份’ -a $data_dir/$database/data_<code>date +%Y%m%d_%H:%M</code>.txt <a href="mailto:chenjiajun@cmiot.chinamobile.com" target="_blank" rel="noopener">chenjiajun@cmiot.chinamobile.com</a><br>fi<br>find $data_dir -mtime +7 -name ‘data_*.txt’ -exec rm -rf {} \;</p>
+<p>以上代码和之前的命令有些不一样，之前的命令是直接生成到宿主机，但不知为什么，直接执行.sh文件是可以正常生成文件的，但使用定时器生成的文件内容是空的，求大神答疑解惑。</p>
+<p>问题代码如下：</p>
+<pre><code>#!/bin/bash
+data_dir=&quot;/home/iotdev/cjj/&quot;
+docker exec -it testmysql mysqldump -uroot -p12345 test &gt; &quot;$data_dir/data_`date +%Y%m%d_%H:%M`.sql&quot;
+</code></pre><h5 id="2-添加定时任务"><a href="#2-添加定时任务" class="headerlink" title="2.添加定时任务"></a>2.添加定时任务</h5><p>  以下添加的是每分钟执行一次，可根据自己情况配置</p>
+<pre><code>crontab -e
+* * * * * sh /home/cjj/mysql_test.sh 【.sh文件的位置】
+</code></pre><p>四、添加脚本，删除时间太久的文件</p>
+<pre><code>// 删除60分钟前的文件
+find $data_dir$container_dir -amin +60 -name &apos;data_*.sql&apos; -exec rm -rf {} \;
+
+//删除7天前的数据
+find $data_dir$container_dir -mtime +7 -name &apos;data_*.sql&apos; -exec rm -rf {} \;
+</code></pre>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer light-blue accent-4 darken-1">
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="social-group col m3 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">
+                        <i class="fa fa-2x fa-book"></i>
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="col m9 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">我的简书</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">我的Github</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-search').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

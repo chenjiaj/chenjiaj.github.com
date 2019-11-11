@@ -1,0 +1,721 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>mysql实现主从复制（docker环境） | </title>
+    <meta name="author" content="chenjiajun">
+    
+    <meta name="description" content="原文链接：https://blog.csdn.net/fyihdg/article/details/78951357 
+本文是学习了以上链接文章之后，自己总结了一遍，便于以后查看。
+一、拉取镜像、创建2个容器1.拉取镜像centos7，作为安装运行mysql的环境。docker pull regis">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="mysql实现主从复制（docker环境）">
+    <meta property="og:site_name" content="chenjiajun">
+
+    
+    <meta property="og:image" content="undefined">
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="chenjiajun" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="light-blue accent-4">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class="">
+            <a href="/" class="brand-logo hide-on-med-and-down">chenjiajun</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/" >
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives" >
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading" >
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about" >
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search" >
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav light-blue darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://upload.jianshu.io/users/upload_avatars/1210894/9f3436e83320?imageMogr/thumbnail/90x90/quality/100" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">chenjiajun</p>
+                        <p class="desc">Web前端</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/" >
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives" >
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading" >
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about" >
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search" >
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav light-blue darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/插件/">
+                    插件 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/vue/">
+                    vue <span class="right">5 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/js/">
+                    js <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/mysql/">
+                    mysql <span class="right">3 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/node/">
+                    node <span class="right">2 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/css/">
+                    css <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/sublime/">
+                    sublime <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/hexo/">
+                    hexo <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/微信/">
+                    微信 <span class="right">4 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/canvas/">
+                    canvas <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/工具/">
+                    工具 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/总结/">
+                    总结 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/感悟/">
+                    感悟 <span class="right">1 篇</span></a>
+                </a>
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper light-blue accent-4">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/mysql/">mysql</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>mysql实现主从复制（docker环境）</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2019-01-18T06:15:00.000Z"><a href="/2019/01/18/mysql实现主从复制（docker环境）/">2019-01-18</a></time>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/docker/" class="chip pink lighten-1">docker</a>
+        
+            <a href="/tags/mysql/" class="chip pink lighten-1">mysql</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#一、拉取镜像、创建2个容器"><span class="section table-of-contents-text">一、拉取镜像、创建2个容器</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-拉取镜像centos7，作为安装运行mysql的环境。"><span class="section table-of-contents-text">1.拉取镜像centos7，作为安装运行mysql的环境。</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-查询镜像ID"><span class="section table-of-contents-text">2.查询镜像ID</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#3-创建两个空容器"><span class="section table-of-contents-text">3.创建两个空容器</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#二、在容器中安装mysql"><span class="section table-of-contents-text">二、在容器中安装mysql</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-进入容器"><span class="section table-of-contents-text">1.进入容器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-安装mysql"><span class="section table-of-contents-text">2.安装mysql</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#三、搭建主从复制"><span class="section table-of-contents-text">三、搭建主从复制</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-启动mysql、登录设置mysql"><span class="section table-of-contents-text">1.启动mysql、登录设置mysql</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-修改配置，实现主从复制"><span class="section table-of-contents-text">2. 修改配置，实现主从复制</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-6"><a class="section table-of-contents-link" href="#1）修改配置文件"><span class="section table-of-contents-text">1）修改配置文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-6"><a class="section table-of-contents-link" href="#2-查询两个容器ip"><span class="section table-of-contents-text">2)查询两个容器ip</span></a></li><li class="section table-of-contents-item section table-of-contents-level-6"><a class="section table-of-contents-link" href="#3-主机配置"><span class="section table-of-contents-text">3) 主机配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-6"><a class="section table-of-contents-link" href="#4-从机配置"><span class="section table-of-contents-text">4)从机配置</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#3-检测主从复制"><span class="section table-of-contents-text">3.检测主从复制</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#四、搭建主主复制"><span class="section table-of-contents-text">四、搭建主主复制</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#1-在之前的从机上进行主机操作"><span class="section table-of-contents-text">1.在之前的从机上进行主机操作</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#2-在之前的主机上进行从机操作"><span class="section table-of-contents-text">2.在之前的主机上进行从机操作</span></a></li><li class="section table-of-contents-item section table-of-contents-level-5"><a class="section table-of-contents-link" href="#3-检测如主从检测"><span class="section table-of-contents-text">3.检测如主从检测</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#五、-排错"><span class="section table-of-contents-text">五、 排错</span></a></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <p>原文链接：<a href="https://blog.csdn.net/fyihdg/article/details/78951357" target="_blank" rel="noopener">https://blog.csdn.net/fyihdg/article/details/78951357</a> </p>
+<p>本文是学习了以上链接文章之后，自己总结了一遍，便于以后查看。</p>
+<h3 id="一、拉取镜像、创建2个容器"><a href="#一、拉取镜像、创建2个容器" class="headerlink" title="一、拉取镜像、创建2个容器"></a>一、拉取镜像、创建2个容器</h3><h5 id="1-拉取镜像centos7，作为安装运行mysql的环境。"><a href="#1-拉取镜像centos7，作为安装运行mysql的环境。" class="headerlink" title="1.拉取镜像centos7，作为安装运行mysql的环境。"></a>1.拉取镜像centos7，作为安装运行mysql的环境。</h5><pre><code>docker pull registry.cn-hangzhou.aliyuncs.com/moensun/centos7
+</code></pre><h5 id="2-查询镜像ID"><a href="#2-查询镜像ID" class="headerlink" title="2.查询镜像ID"></a>2.查询镜像ID</h5><pre><code>docker images
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/1.png" alt="查询镜像ID"></p>
+<h5 id="3-创建两个空容器"><a href="#3-创建两个空容器" class="headerlink" title="3.创建两个空容器"></a>3.创建两个空容器</h5><p>如果是centos7需要加上–privileged 和 /usr/sbin/init，解决systemctl报错不能使用的问题</p>
+<pre><code>docker run --privileged -itd --name 容器名称 镜像ID /usr/sbin/init
+</code></pre><p>非centos7，使用命令如下</p>
+<pre><code>docker run -tid 镜像ID /bin/bash
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/2.png" alt="a.png"></p>
+<h3 id="二、在容器中安装mysql"><a href="#二、在容器中安装mysql" class="headerlink" title="二、在容器中安装mysql"></a>二、在容器中安装mysql</h3><p>两个容器分别执行以下操作</p>
+<h5 id="1-进入容器"><a href="#1-进入容器" class="headerlink" title="1.进入容器"></a>1.进入容器</h5><pre><code>docker ps //查询容器信息
+docker exec -it 容器ID或容器名称 /bin/bash  //进入容器命令
+</code></pre><h5 id="2-安装mysql"><a href="#2-安装mysql" class="headerlink" title="2.安装mysql"></a>2.安装mysql</h5><p>依此执行以下命令</p>
+<pre><code>yum -y install wget
+wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum install mysql-community-server
+</code></pre><p>如遇到以下提示，输入y<br><img src="/images/mysql实现主从复制（docker环境）-img/3.png" alt="b.png"></p>
+<h3 id="三、搭建主从复制"><a href="#三、搭建主从复制" class="headerlink" title="三、搭建主从复制"></a>三、搭建主从复制</h3><p><img src="/images/mysql实现主从复制（docker环境）-img/4.png" alt="架构图"></p>
+<h5 id="1-启动mysql、登录设置mysql"><a href="#1-启动mysql、登录设置mysql" class="headerlink" title="1.启动mysql、登录设置mysql"></a>1.启动mysql、登录设置mysql</h5><p>这一个步骤，两个容器都需要执行</p>
+<p>启动mysql、登录</p>
+<pre><code>systemctl start mysql
+mysql -uroot
+</code></pre><p>设置mysql密码，不想设置可以跳过这一步</p>
+<pre><code>mysql&gt; set password = password(‘你的密码’)
+</code></pre><p>远程登陆授权</p>
+<pre><code>mysql&gt; grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;root&apos; with grant option;
+mysql&gt; flush privileges;
+</code></pre><h5 id="2-修改配置，实现主从复制"><a href="#2-修改配置，实现主从复制" class="headerlink" title="2. 修改配置，实现主从复制"></a>2. 修改配置，实现主从复制</h5><h6 id="1）修改配置文件"><a href="#1）修改配置文件" class="headerlink" title="1）修改配置文件"></a>1）修改配置文件</h6><p>两个容器都需要修改，但<strong><code>server-id两个容器不能设置相同数字</code></strong></p>
+<pre><code>vi  /etc/my.cnf
+</code></pre><p>添加以下配置</p>
+<pre><code>server-id=1
+port=3306
+log-bin=mysql-bin
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/5.png" alt="/etc/my.cnf文件配置"></p>
+<p>重启mysql</p>
+<pre><code>systemctl restart mysql
+</code></pre><h6 id="2-查询两个容器ip"><a href="#2-查询两个容器ip" class="headerlink" title="2)查询两个容器ip"></a>2)查询两个容器ip</h6><p><img src="/images/mysql实现主从复制（docker环境）-img/6.png" alt="g.png"></p>
+<h6 id="3-主机配置"><a href="#3-主机配置" class="headerlink" title="3) 主机配置"></a>3) 主机配置</h6><p>主从复制过程（在主机上操作）：</p>
+<p>本例子中以容器名为mysql-master作为主机</p>
+<pre><code>docker exec -it mysql-master /bin/bash //进入主机容器
+mysql //登录mysql
+</code></pre><ol>
+<li><p>创建同步复制的用户</p>
+<p>  mysql&gt; create user ‘hdg‘@’172.17.0.%’ identified by ‘root’;</p>
+</li>
+<li><p>给同步复制用户赋权</p>
+<p>  mysql&gt; grant replication slave on <em>.</em> to ‘hdg‘@’172.17.0.%’ identified by ‘root’;</p>
+</li>
+<li><p>开启binlog</p>
+<p>  mysql&gt; flush privileges;</p>
+<p>配置时候注意几个坑：<br>Replication-do-db的坑，如果多个库则使用多行Replication-do-db进行配置<br>Replication-ignore-db的坑，如果忽略多个库则使用多行Replication-ignore-db进行配置</p>
+</li>
+<li><p>重启mysql</p>
+<p>  systemctl restart mysql</p>
+</li>
+</ol>
+<p><img src="/images/mysql实现主从复制（docker环境）-img/7.png" alt="e.png"></p>
+<p>登陆主机mysql<br>这个时候就产生binlog了，离成功不远了！<br><img src="/images/mysql实现主从复制（docker环境）-img/8.png" alt="f.png"></p>
+<h6 id="4-从机配置"><a href="#4-从机配置" class="headerlink" title="4)从机配置"></a>4)从机配置</h6><p>本例子中以容器名为mysql-slave作为主机</p>
+<pre><code>docker exec -it mysql-slave /bin/bash //进入主机容器
+mysql //登录mysql
+</code></pre><p>从机操作<br>主从复制的最关键语句:</p>
+<pre><code>Stop slave；
+Change master to
+     Master_host=&apos;172.17.0.13&apos;,    //主机的IP地址
+     Master_user=&apos;hdg&apos;,
+     Master_password=&apos;root&apos;,
+     Master_log_file=&apos;mysql-bin.000001&apos;,
+     Master_log_pos=120;
+Start slave;
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/9.png" alt="查询主机状态"></p>
+<p>在主机中查看主机状态：</p>
+<pre><code>show master status;
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/10.png" alt="i.png"></p>
+<p>在从机中查看从机状态</p>
+<pre><code>show slave status\G;
+</code></pre><p><img src="/images/mysql实现主从复制（docker环境）-img/11.png" alt="查看从机状态"></p>
+<h5 id="3-检测主从复制"><a href="#3-检测主从复制" class="headerlink" title="3.检测主从复制"></a>3.检测主从复制</h5><p>验证：如果在从机上创建库，进行增删改操作，会同步到从机</p>
+<p>在主机上创建新库hdg,可以看到从机上也自动创建了库hdg<br><img src="/images/mysql实现主从复制（docker环境）-img/12.png" alt="验证主从查询"></p>
+<p>在主机库hdg中添加表hdg,同时添加一条数据，可以看到从机上也自动更新<br><img src="/images/mysql实现主从复制（docker环境）-img/13.png" alt="验证主从复制"></p>
+<h3 id="四、搭建主主复制"><a href="#四、搭建主主复制" class="headerlink" title="四、搭建主主复制"></a>四、搭建主主复制</h3><h5 id="1-在之前的从机上进行主机操作"><a href="#1-在之前的从机上进行主机操作" class="headerlink" title="1.在之前的从机上进行主机操作"></a>1.在之前的从机上进行主机操作</h5><p><img src="/images/mysql实现主从复制（docker环境）-img/14.png" alt="在从机上进行主机操作"></p>
+<p><img src="/images/mysql实现主从复制（docker环境）-img/15.png" alt="查询新主机信息"></p>
+<h5 id="2-在之前的主机上进行从机操作"><a href="#2-在之前的主机上进行从机操作" class="headerlink" title="2.在之前的主机上进行从机操作"></a>2.在之前的主机上进行从机操作</h5><p><img src="/images/mysql实现主从复制（docker环境）-img/16.png" alt="在之前的主机上进行从机操作"></p>
+<h5 id="3-检测如主从检测"><a href="#3-检测如主从检测" class="headerlink" title="3.检测如主从检测"></a>3.检测如主从检测</h5><h3 id="五、-排错"><a href="#五、-排错" class="headerlink" title="五、 排错"></a>五、 排错</h3><p>   可能有些小伙伴没有成功。这里写个检查错误的方法：</p>
+<p>在主库，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ed434a1db697 mysql]# netstat -natp</span><br></pre></td></tr></table></figure>
+<p><img src="/images/mysql实现主从复制（docker环境）-img/17.png" alt="p.png"></p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1"  data-activates="main-menu" title="menu"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer light-blue accent-4 darken-1">
+    
+    <div class="container">
+        <div class="row">
+            
+            <div class="social-group col m3 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">
+                        <i class="fa fa-2x fa-book"></i>
+                    </a>
+                
+            </div>
+            
+
+            
+            <div class="col m9 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="http://www.jianshu.com/users/b16dec48b1fe/latest_articles" target="_blank">我的简书</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaj" target="_blank">我的Github</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2016 example.com, All rights reserved.
+            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-search').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
